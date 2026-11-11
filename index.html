@@ -1732,6 +1732,34 @@ function parseKamiLocal(code){
 }
 
 function redeemKami(code){
+  // 本地解析：卡密自带天数，无需联网
+  try{
+    var _lk = (typeof parseKamiLocal === "function") ? parseKamiLocal(code) : null;
+    if(_lk){
+      var _d = new Date(); _d.setDate(_d.getDate() + _lk.days);
+      var _exp = _d.getFullYear()+"-"+String(_d.getMonth()+1).padStart(2,"0")+"-"+String(_d.getDate()).padStart(2,"0");
+      if(isVip() && ME.vip && ME.vip.expire){
+        var _cur = new Date(ME.vip.expire.replace(/-/g,"/"));
+        if(_cur > _d) _exp = ME.vip.expire;
+      }
+      ME.vip = { type:_lk.type, expire:_exp, kami:code };
+      ME.orders = ME.orders || [];
+      ME.orders.unshift({ id:"R"+Date.now().toString().slice(-8), plan:_lk.type, price:0,
+                          pay:"卡密", date:new Date().toISOString().slice(0,10), kami:code });
+      var _u = DB.users();
+      _u[ME.name] = Object.assign({}, _u[ME.name], { vip: ME.vip, orders: ME.orders });
+      DB.save(_u);
+      refreshVip(); render(); syncHomeVip();
+      if(typeof cloudSave === "function") cloudSave();
+      if(typeof reportEvent === "function") reportEvent("redeem", {kami:code});
+      openSheet("<h3>兑换成功</h3><div class='st'>会员已开通</div>" +
+        "<div class='kamires'><div class='kl'>卡密</div><div class='kv'>" + esc(code) + "</div>" +
+        "<div class='kl'>" + esc(_lk.type) + " · 到期 " + _exp + "</div></div>" +
+        "<button class='big' onclick='closeSheet();goto(\"home\")'>开始下载游戏</button>");
+      return;
+    }
+  }catch(e){}
+
   var base = apiBase();
   var done = function(expire, type, offline){
     var exp = expire || (function(){
@@ -2087,7 +2115,7 @@ function aboutSheet(){
 function isMobileDev(){ return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent); }
 window.addEventListener("load",()=>{
   document.documentElement.classList.add(isMobileDev()?"is-mobile":"is-pc");
-  pickBg(); buildPetals(); randomizeBands(); loadSysInfo(); buildPetals(); randomizeBands();
+  pickBg(); buildPetals(); randomizeBands();  buildPetals(); randomizeBands();
   const s=DB.session();
   if(s && DB.users()[s]) boot(s);
   else { $("authView").style.display="flex"; }
