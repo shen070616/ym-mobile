@@ -1700,12 +1700,61 @@ function kamiSheet(){
     "<div class='note' style='text-align:center'>卡密绑定当前设备，换设备需重新购买</div>");
   setTimeout(function(){ var el=document.getElementById("kamiInput"); if(el) el.focus(); }, 300);
 }
+
+/* ---------- 卡密兑换（独立流程，不依赖订单） ---------- */
+function redeemKami(code){
+  var base = apiBase();
+  var done = function(expire, type, offline){
+    var exp = expire || (function(){
+      var d = new Date(); d.setDate(d.getDate() + 30);
+      return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+    })();
+    var on = isVip() && ME.vip && ME.vip.expire ? new Date(ME.vip.expire.replace(/-/g,"/")) : null;
+    var expDate = new Date(exp.replace(/-/g,"/"));
+    if(on && on > expDate) expDate = on;   // 续费取较晚者
+    var finalExp = expDate.getFullYear()+"-"+String(expDate.getMonth()+1).padStart(2,"0")+"-"+String(expDate.getDate()).padStart(2,"0");
+    ME.vip = { type: type || "会员", expire: finalExp, kami: code };
+    ME.orders = ME.orders || [];
+    ME.orders.unshift({ id: "R"+Date.now().toString().slice(-8), plan: type||"会员", price: 0,
+                        pay: "卡密", date: new Date().toISOString().slice(0,10), kami: code });
+    var users = DB.users();
+    users[ME.name] = Object.assign({}, users[ME.name], { vip: ME.vip, orders: ME.orders });
+    DB.save(users);
+    refreshVip(); render(); syncHomeVip();
+    if(typeof cloudSave === "function") cloudSave();
+    if(typeof reportEvent === "function") reportEvent("redeem", {kami: code});
+    openSheet("<h3>兑换成功</h3><div class='st'>会员已开通</div>" +
+      "<div class='kamires'><div class='kl'>卡密</div><div class='kv'>" + esc(code) + "</div>" +
+      "<div class='kl'>" + esc(type||"会员") + " · 到期 " + finalExp + "</div></div>" +
+      (offline ? "<div class='note' style='text-align:center;color:#ffd98a'>离线兑换（按 30 天计），如有疑问联系客服</div>" : "") +
+      "<button class='big' onclick='closeSheet();goto(\"home\")'>开始下载游戏</button>");
+  };
+
+  if(!base){ done(null, "会员", true); return; }
+  var ctl = window.AbortController ? new AbortController() : null;
+  var timer = setTimeout(function(){ if(ctl) ctl.abort(); }, 15000);
+  fetch(base + "/activate", {method:"POST", headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({kami: code, device: (typeof SYS!=="undefined"?SYS.device:"")}),
+    signal: ctl?ctl.signal:undefined})
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      clearTimeout(timer);
+      if(d && d.ok){ done(d.expire, d.type || "会员", false); }
+      else { toast((d && d.msg) || "卡密无效", true); }
+    })
+    .catch(function(){
+      clearTimeout(timer);
+      done(null, "会员", true);   // 网络不通时按 30 天离线开通
+    });
+}
+
 function doRedeem(){
   var el = document.getElementById("kamiInput");
   var v = (el ? el.value : "").trim().toUpperCase();
   if(!v){ toast("请输入卡密"); return; }
   closeSheet();
-  activate(v);
+  redeemKami(v);
+
 }
 
 function startPay(){
