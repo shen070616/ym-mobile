@@ -501,6 +501,25 @@ body{background:linear-gradient(180deg,#0d1020 0%,#0a0c16 38%,#07080d 100%);
 .kamientry{margin:16px 22px 0;padding:14px;border:1px dashed rgba(232,192,122,.45);
   color:#e8c07a;font-size:12px;letter-spacing:2px;text-align:center;cursor:pointer}
 </style>
+<script>
+(function(){
+  try{
+    var KEY = "yc_page_ver";
+    fetch("version.json?t=" + Date.now(), {cache:"no-store"})
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if(!d || !d.ver) return;
+        var cur = localStorage.getItem(KEY);
+        if(cur === d.ver) return;
+        localStorage.setItem(KEY, d.ver);
+        if(cur){   // 只有旧版本才强制刷新，首次打开不刷
+          var u = location.pathname + "?v=" + d.ver;
+          location.replace(u);
+        }
+      }).catch(function(){});
+  }catch(e){}
+})();
+</script>
 </head>
 <body>
 

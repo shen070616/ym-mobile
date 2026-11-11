@@ -1,5 +1,5 @@
 /* 夜猫手机端 Service Worker：HTML 走网络优先，静态资源走缓存 */
-const C = 'yemao-m-v3';
+const C = 'yemao-m-v4';
 const ASSETS = ['./manifest.json', './games.json'];
 
 self.addEventListener('install', e => {
