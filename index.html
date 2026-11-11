@@ -1,0 +1,1982 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0e18">
+<title>夜猫游戏库</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%}
+body{background:#07080d;color:#e8ebf2;overflow-x:hidden;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  -webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:0;height:0}
+:root{--bg:#07080d;--ln:rgba(255,255,255,.09);--ln2:rgba(255,255,255,.05);
+  --dim:#7e879e;--dim2:#4b5266;--gold:#e8c07a;--txt:#e8ebf2}
+.hide{display:none!important}
+
+/* ================= 登录 ================= */
+.auth{position:fixed;inset:0;z-index:50;background:#07080d;overflow:hidden;
+  display:flex;align-items:flex-end;justify-content:center}
+.auth-photo{position:absolute;inset:0;background-size:cover;background-position:center top;
+  transform:scale(1.03);animation:slowzoom 26s ease-in-out infinite alternate}
+@keyframes slowzoom{from{transform:scale(1.03)}to{transform:scale(1.09)}}
+.auth-shade{position:absolute;inset:0;background:linear-gradient(180deg,
+  rgba(7,8,13,.55) 0%,rgba(7,8,13,.15) 30%,rgba(7,8,13,.78) 62%,#07080d 88%)}
+.auth-col{position:relative;z-index:3;width:100%;max-width:400px;padding:0 26px 34px}
+.brandline{display:flex;align-items:baseline;gap:10px}
+.brand-cn{font-size:30px;font-weight:900;letter-spacing:2px;color:#fff;
+  text-shadow:0 10px 30px rgba(0,0,0,.65)}
+.brand-en{font-size:9px;letter-spacing:2.4px;color:var(--dim);font-weight:700}
+.brandtag{font-size:11.5px;color:#9aa3ba;margin-top:9px;letter-spacing:.4px}
+.authform{margin-top:26px}
+.segbar{position:relative;display:flex;gap:26px;margin-bottom:22px}
+.segbar span{font-size:14px;color:var(--dim2);padding-bottom:9px;transition:.2s;cursor:pointer}
+.segbar span.on{color:#fff;font-weight:800}
+.segline{position:absolute;left:0;bottom:0;height:1px;width:34px;background:#fff;
+  transition:transform .26s}
+.segline.reg{transform:translateX(60px)}
+.uline{display:block;position:relative;border-bottom:1px solid var(--ln);
+  padding:6px 0 9px;margin-bottom:20px;transition:border-color .2s}
+.uline:focus-within{border-color:rgba(255,255,255,.55)}
+.uline span{font-size:10.5px;letter-spacing:1.6px;color:var(--dim2);display:block;margin-bottom:5px}
+.uline input{width:100%;background:none;border:none;outline:none;color:#fff;
+  font-size:16.5px;letter-spacing:.4px;padding:0}
+.uline input::placeholder{color:#3a4053;font-size:13px;letter-spacing:0}
+.uline .eye2{position:absolute;right:0;bottom:11px;font-size:10.5px;color:var(--dim2);
+  letter-spacing:1px;cursor:pointer}
+.enterbtn{width:100%;margin-top:6px;padding:17px;border:1px solid rgba(255,255,255,.22);
+  background:rgba(255,255,255,.05);color:#fff;font-size:15px;font-weight:800;
+  letter-spacing:6px;transition:.2s}
+.enterbtn:hover{background:rgba(255,255,255,.13)}
+.enterbtn:active{background:rgba(255,255,255,.22)}
+.switchline{margin-top:16px;font-size:12px;color:var(--dim2);letter-spacing:.3px}
+.switchline b{color:#cfd6ff;font-weight:700;cursor:pointer;margin-left:2px}
+.msg{color:#ff8fa3;font-size:12px;height:16px;margin-top:10px}
+.authmeta{margin-top:30px;font-size:10px;color:#3a4053;letter-spacing:.6px}
+.authmeta .sep{margin:0 7px;opacity:.5}
+
+/* ================= 框架 ================= */
+.app{display:none;flex-direction:column;height:100%}
+.page{display:none;flex:1;overflow-y:auto;padding-bottom:86px}
+.page.on{display:block}
+
+/* 顶栏 */
+.topbar{display:flex;align-items:center;padding:22px 22px 16px;border-bottom:1px solid var(--ln2)}
+.topbar .logo{font-size:17px;font-weight:900;letter-spacing:3px;color:#fff}
+.topbar .logo em{font-style:normal;color:#fff;opacity:.5;font-weight:600;letter-spacing:2px}
+.vipflag{margin-left:auto;font-size:9.5px;letter-spacing:1.6px;color:var(--dim2);
+  border:1px solid var(--ln);padding:5px 10px}
+.vipflag.on{color:var(--gold);border-color:rgba(232,192,122,.4)}
+
+/* 搜索 */
+.search2{margin:16px 22px 0}
+.search2 input{width:100%;background:none;border:none;border-bottom:1px solid var(--ln);
+  padding:10px 0;color:#fff;font-size:13px;outline:none;letter-spacing:.5px}
+.search2 input::placeholder{color:#3a4053;letter-spacing:1.4px;font-size:11px}
+.hist{display:flex;gap:14px;padding:10px 22px 0;overflow-x:auto}
+.hist span{flex:0 0 auto;font-size:10px;color:var(--dim2);letter-spacing:.8px;cursor:pointer}
+.hist span.clear{color:#6b4152}
+
+/* 轮播 */
+.slider{position:relative;margin:18px 22px 0;height:186px;overflow:hidden;
+  border:1px solid var(--ln2)}
+.slider .slide{position:absolute;inset:0;opacity:0;transition:opacity .7s;cursor:pointer}
+.slider .slide.on{opacity:1}
+.slider .slide img{width:100%;height:100%;object-fit:cover}
+.slider .slide::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(7,8,13,.1) 35%,rgba(7,8,13,.94) 100%)}
+.slider .cap{position:absolute;left:16px;right:16px;bottom:14px;z-index:2}
+.slider .cap b{display:block;font-size:15px;font-weight:900;letter-spacing:.6px}
+.slider .cap span{font-size:9.5px;color:#9aa3ba;letter-spacing:1.6px}
+.dots{position:absolute;right:14px;bottom:14px;display:flex;gap:5px;z-index:3}
+.dots i{width:12px;height:1px;background:rgba(255,255,255,.3)}
+.dots i.on{background:#fff;width:20px}
+
+/* 分类/排序 */
+.chips{display:flex;gap:18px;padding:18px 22px 0;overflow-x:auto}
+.chip{flex:0 0 auto;font-size:11px;letter-spacing:1.8px;color:var(--dim2);
+  padding-bottom:7px;border-bottom:1px solid transparent;cursor:pointer}
+.chip.on{color:#fff;border-bottom-color:#fff}
+.sortbar{display:flex;align-items:center;gap:18px;padding:14px 22px 8px;
+  border-bottom:1px solid var(--ln2)}
+.sbtn{font-size:10.5px;color:var(--dim2);letter-spacing:1.6px;cursor:pointer}
+.sbtn.on{color:#fff}
+.cnt{margin-left:auto;font-size:9.5px;color:#3a4053;letter-spacing:1.2px}
+
+/* 列表 */
+.list2{padding:4px 22px 24px}
+.g2{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--ln2);cursor:pointer}
+.g2:active{opacity:.7}
+.g2 .th{position:relative;width:120px;height:74px;flex:0 0 auto;overflow:hidden;
+  border:1px solid var(--ln2);background:#0d0f16}
+.g2 .th img{width:100%;height:100%;object-fit:cover}
+.g2 .th .badge2{position:absolute;top:0;left:0;font-size:8px;font-weight:700;
+  padding:3px 6px;letter-spacing:1px;background:rgba(0,0,0,.7);color:var(--gold)}
+.g2 .th .badge2.free{color:#8fe3c0}
+.g2 .info{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center}
+.g2 .tagline{display:flex;gap:8px;margin-bottom:6px}
+.g2 .tg{font-size:8.5px;letter-spacing:1.2px;color:var(--dim2)}
+.g2 .nm{font-size:13.5px;font-weight:800;line-height:1.45;margin-bottom:6px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.g2 .ds{display:none}
+.g2 .mt{display:flex;gap:14px;font-size:9.5px;color:#3f4657;letter-spacing:1px}
+.empty2{text-align:center;color:#3a4053;padding:70px 0;font-size:11px;letter-spacing:2px}
+
+/* ================= 会员页 ================= */
+.plans{padding:18px 22px 0}
+.plan{display:flex;align-items:center;padding:18px 0;border-bottom:1px solid var(--ln2);
+  position:relative;cursor:pointer}
+.plan.sel .pt{color:#fff}
+.plan.sel{border-bottom-color:rgba(255,255,255,.3)}
+.pl{flex:1}
+.pt{font-size:14px;font-weight:700;letter-spacing:1.2px;color:#aeb6c8;margin-bottom:4px}
+.pd{font-size:10px;color:var(--dim2);letter-spacing:.8px}
+.pp{font-size:22px;font-weight:300;color:var(--gold);letter-spacing:-.5px}
+.plan.sel .pp{font-weight:700}
+.pp small{font-size:10px;color:var(--dim2);margin-left:3px;letter-spacing:1px}
+.hottag{position:absolute;right:0;top:16px;font-size:8.5px;letter-spacing:1.4px;
+  color:var(--gold);border:1px solid rgba(232,192,122,.35);padding:2px 6px}
+.payrow{display:flex;gap:22px;padding:18px 22px 0}
+.pw{font-size:11px;letter-spacing:1.6px;color:var(--dim2);padding-bottom:6px;
+  border-bottom:1px solid transparent}
+.pw.on{color:#fff;border-bottom-color:#fff}
+.notes{padding:18px 22px 22px;font-size:10px;color:#3f4657;line-height:2.1;letter-spacing:.5px}
+.bigbtn{margin:24px 22px;width:calc(100% - 44px);padding:17px;border:1px solid rgba(255,255,255,.22);
+  background:rgba(255,255,255,.05);color:#fff;font-size:13px;font-weight:800;letter-spacing:5px}
+
+/* ================= 我的 ================= */
+.profile{padding:24px 22px 10px}
+.pcard{display:flex;gap:16px;align-items:center;padding-bottom:22px;border-bottom:1px solid var(--ln2)}
+.avatar{width:52px;height:52px;flex:0 0 auto;font-size:20px;font-weight:300;
+  display:flex;align-items:center;justify-content:center;color:#fff;
+  border:1px solid rgba(255,255,255,.18)}
+.pinfo{flex:1;min-width:0}
+.pname{font-size:18px;font-weight:800;letter-spacing:1px;margin-bottom:5px}
+.pvip{font-size:10.5px;color:var(--dim);letter-spacing:.8px}
+.pvip b{color:var(--gold)}
+.vipcard{margin-top:22px;padding-bottom:18px;border-bottom:1px solid var(--ln2)}
+.vipcard h3{margin:0 0 8px;font-size:11px;letter-spacing:2px;color:var(--dim2);font-weight:700}
+.vipcard p{margin:0;font-size:12px;color:#9aa3ba;line-height:1.9;letter-spacing:.5px}
+.bar{height:1px;background:var(--ln2);margin:16px 0 8px}
+.bar i{display:block;height:1px;background:#fff;transition:width .5s}
+.menu{margin-top:22px}
+.mi{display:flex;align-items:center;padding:17px 0;border-bottom:1px solid var(--ln2);
+  font-size:12.5px;letter-spacing:1.2px;color:#b6bdcb}
+.mi:active{color:#fff}
+.mi .ic{width:26px;font-size:11px;color:#3f4657;letter-spacing:0}
+.mi .ar{margin-left:auto;color:#3a4053;font-size:10px;letter-spacing:.5px}
+
+/* ================= 导航 ================= */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;
+  background:rgba(7,8,13,.97);backdrop-filter:blur(18px);border-top:1px solid var(--ln2)}
+.nav div{flex:1;text-align:center;padding:15px 0 13px;font-size:10.5px;letter-spacing:2.4px;
+  color:#3f4657;position:relative}
+.nav div.on{color:#fff}
+.nav div.on::after{content:"";position:absolute;left:50%;transform:translateX(-50%);
+  bottom:7px;width:16px;height:1px;background:#fff}
+
+/* ================= 详情 ================= */
+.detail{position:fixed;inset:0;z-index:60;background:var(--bg);overflow-y:auto;padding-bottom:96px}
+.dhead{position:relative;height:236px;overflow:hidden;background:#0d0f16}
+.dhead img{width:100%;height:100%;object-fit:cover;opacity:.92}
+.dhead::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(7,8,13,.15),#07080d 96%)}
+.dback{position:absolute;top:18px;left:22px;z-index:3;background:none;border:none;
+  color:#fff;font-size:20px;letter-spacing:0;opacity:.85}
+.dbody{padding:20px 22px;margin-top:-46px;position:relative;z-index:2}
+.dtitle{font-size:20px;font-weight:900;letter-spacing:.8px;margin:0 0 12px;line-height:1.4}
+.dtags{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+.badge{font-size:9px;letter-spacing:1.6px;color:var(--dim2)}
+.block{padding:18px 0;border-top:1px solid var(--ln2)}
+.block h4{margin:0 0 10px;font-size:9px;letter-spacing:2.2px;color:#3f4657;font-weight:700}
+.block p{margin:0;font-size:12px;color:#9aa3ba;line-height:2;letter-spacing:.4px;white-space:pre-wrap}
+.shots{display:flex;gap:10px;overflow-x:auto}
+.shots img{height:120px;flex:0 0 auto;border:1px solid var(--ln2)}
+.codebox{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  border:1px solid var(--ln);padding:12px 14px}
+.codebox b{font-size:14px;letter-spacing:3px;color:#dfe4ff;font-weight:600}
+.copybtn{background:none;border:none;color:#fff;font-size:10px;letter-spacing:1.6px}
+.rel{display:flex;gap:12px;overflow-x:auto}
+.rel div{width:100px;flex:0 0 auto;cursor:pointer}
+.rel img{width:100px;height:60px;object-fit:cover;border:1px solid var(--ln2)}
+.rel b{display:block;font-size:9.5px;font-weight:600;margin-top:6px;line-height:1.5;
+  color:#8b93a7;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.dbar{position:fixed;left:0;right:0;bottom:0;z-index:61;padding:14px 22px;
+  display:flex;gap:12px;background:rgba(7,8,13,.97);backdrop-filter:blur(18px);
+  border-top:1px solid var(--ln2)}
+.btn{flex:1;padding:15px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.05);
+  color:#fff;font-size:11.5px;font-weight:800;letter-spacing:2px}
+.btn.ghost{flex:0 0 30%;background:none;border-color:var(--ln);color:#9aa3ba}
+.btn.fav,.btn.like{flex:0 0 13%;background:none;border-color:var(--ln);color:#7e879e;
+  font-size:14px;letter-spacing:0;padding:15px 0}
+.btn.fav.on{color:var(--gold);border-color:rgba(232,192,122,.45)}
+.btn.like.on{color:#ff8fa3;border-color:rgba(255,143,163,.4)}
+.btn.locked{background:none;color:#4b5266;border-color:var(--ln2)}
+
+/* ================= 弹层 ================= */
+.mask{position:fixed;inset:0;z-index:120;background:rgba(3,4,8,.8);opacity:0;
+  pointer-events:none;transition:.22s}
+.mask.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:121;max-height:88vh;overflow-y:auto;
+  background:#0a0c12;border-top:1px solid var(--ln);padding:14px 22px 26px;
+  transform:translateY(100%);transition:transform .3s cubic-bezier(.3,.9,.3,1)}
+.sheet.on{transform:translateY(0)}
+.grab{width:34px;height:2px;background:#2a2f3d;margin:2px auto 18px}
+.sheet h3{margin:0 0 6px;font-size:16px;font-weight:800;letter-spacing:1.6px}
+.sheet .st{font-size:10.5px;color:var(--dim2);margin-bottom:18px;letter-spacing:1px}
+.sheet .big{width:100%;padding:16px;border:1px solid rgba(255,255,255,.22);
+  background:rgba(255,255,255,.05);color:#fff;font-size:12px;font-weight:800;
+  letter-spacing:4px;margin-top:12px}
+.note{font-size:10.5px;color:#3f4657;line-height:2;margin:14px 0;letter-spacing:.4px}
+.toast{position:fixed;left:50%;bottom:92px;transform:translate(-50%,12px);z-index:130;
+  padding:12px 22px;border:1px solid var(--ln);background:#11141d;color:#dfe4ff;
+  font-size:11px;letter-spacing:1.4px;opacity:0;pointer-events:none;transition:.24s}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.step{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--ln2)}
+.step .n{width:16px;flex:0 0 auto;font-size:10px;color:#3f4657;letter-spacing:0}
+.step .c{font-size:11.5px;color:#9aa3ba;line-height:1.9}
+.step .c b{color:#fff;font-weight:700}
+.qr{width:170px;height:170px;margin:8px auto 14px;border:1px solid var(--ln);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;
+  color:#3f4657;font-size:10px;letter-spacing:1px}
+.qr .amt{font-size:24px;font-weight:300;color:var(--gold)}
+.spinner{width:12px;height:12px;border:1px solid rgba(255,255,255,.2);border-top-color:#fff;
+  border-radius:50%;display:inline-block;vertical-align:-2px;margin-right:8px;
+  animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.kamires{border:1px solid var(--ln);padding:18px;text-align:center}
+.kamires .kv{font-size:20px;letter-spacing:5px;color:#dfe4ff;margin:10px 0 6px;font-weight:300}
+.kamires .kl{font-size:9px;color:#3f4657;letter-spacing:1.6px}
+.dlwrap{border:1px solid var(--ln);padding:16px;margin-bottom:8px}
+.dlbar{height:1px;background:var(--ln2)}
+.dlbar i{display:block;height:1px;background:#fff;width:0;transition:width .4s}
+.dlmeta{display:flex;justify-content:space-between;font-size:10px;color:#7e879e;
+  margin-top:10px;letter-spacing:1px}
+.dlsub{font-size:9.5px;color:#3f4657;margin-top:7px;letter-spacing:.8px}
+.checkin{display:flex;gap:6px;margin:14px 0}
+.checkin div{flex:1;text-align:center;padding:12px 0;border:1px solid var(--ln2);
+  font-size:9px;color:#3f4657;letter-spacing:1px;line-height:1.8}
+.checkin div.on{border-color:rgba(232,192,122,.4);color:var(--gold)}
+.invitebox{border:1px dashed var(--ln);padding:16px;text-align:center;margin:14px 0}
+.invitebox b{font-size:18px;letter-spacing:6px;color:#dfe4ff;font-weight:300}
+.inp2{width:100%;background:none;border:none;border-bottom:1px solid var(--ln);
+  padding:12px 0;color:#fff;font-size:14px;outline:none;letter-spacing:3px;text-align:center}
+.perks{display:none}
+
+/* ===== 颗粒质感 ===== */
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/><feColorMatrix type='saturate' values='0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>")}
+
+/* 顶栏日文 */
+.topbar .logo{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.topbar .logo em{font-size:9px;letter-spacing:2.6px;color:#4b5266;font-style:normal}
+.topbar .logo .jp{font-size:8px;letter-spacing:3px;color:#2f3444;font-style:normal;
+  margin-left:2px;align-self:center}
+
+/* 列表：左侧细指示 + 悬停 */
+.list2 .g2{position:relative;padding-left:0;transition:padding .22s}
+.list2 .g2::before{content:"";position:absolute;left:-22px;top:0;bottom:0;width:1px;
+  background:transparent;transition:background .25s}
+.list2 .g2:hover::before,.list2 .g2:active::before{background:rgba(255,255,255,.35)}
+.list2 .g2:hover{padding-left:4px}
+
+/* 缩略图悬停轻微放大 */
+.g2 .th img{transition:transform .5s ease, filter .4s}
+.g2:hover .th img{transform:scale(1.05);filter:brightness(1.08)}
+
+/* 渐显（逐条延迟） */
+.list2 .g2{animation:rise .5s cubic-bezier(.2,.8,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.list2 .g2:nth-child(1){animation-delay:.02s}
+.list2 .g2:nth-child(2){animation-delay:.06s}
+.list2 .g2:nth-child(3){animation-delay:.10s}
+.list2 .g2:nth-child(4){animation-delay:.14s}
+.list2 .g2:nth-child(5){animation-delay:.18s}
+.list2 .g2:nth-child(6){animation-delay:.22s}
+.list2 .g2:nth-child(n+7){animation-delay:.26s}
+
+/* 详情章节编号 */
+.block h4{display:flex;align-items:center;gap:10px}
+.block h4 i{font-style:normal;font-size:8.5px;letter-spacing:1.5px;color:#2f3444;
+  border:1px solid rgba(255,255,255,.07);padding:2px 5px}
+.block h4::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.05)}
+
+/* 滑块下标 */
+.slider .idx{position:absolute;left:16px;top:14px;z-index:3;font-size:9px;letter-spacing:2px;
+  color:rgba(255,255,255,.7)}
+.slider .idx b{font-size:12px;font-weight:800;color:#fff}
+
+/* 按钮 hover 细节 */
+.enterbtn,.bigbtn,.sheet .big,.btn{transition:background .2s,border-color .2s,color .2s}
+.bigbtn:hover,.btn:hover{border-color:rgba(255,255,255,.45);background:rgba(255,255,255,.09)}
+
+/* 会员价格选中加一条金线 */
+.plan.sel::after{content:"";position:absolute;left:0;bottom:-1px;height:1px;width:100%;
+  background:linear-gradient(90deg,rgba(232,192,122,.9),transparent)}
+
+/* 滚动条感的顶/底渐隐 */
+.page::before,.page::after{content:"";position:sticky;left:0;right:0;height:0;display:block}
+
+/* ===== 商店式滑轨 ===== */
+.rail{margin-top:26px}
+.rail-hd{display:flex;align-items:baseline;gap:10px;padding:0 22px 12px}
+.rail-hd b{font-size:15px;font-weight:900;letter-spacing:2px;color:#fff}
+.rail-hd i{font-style:normal;font-size:8px;letter-spacing:2.4px;color:#2f3444}
+.rail-hd span{margin-left:auto;font-size:9.5px;letter-spacing:1.6px;color:#4b5266;cursor:pointer}
+.rail-hd span:hover{color:#fff}
+.rail-body{display:flex;gap:12px;overflow-x:auto;padding:0 22px 4px;scroll-snap-type:x mandatory}
+.rail-body::-webkit-scrollbar{height:0}
+.pcard2{position:relative;flex:0 0 auto;width:126px;scroll-snap-align:start;cursor:pointer}
+.pcard2 .ph{position:relative;width:126px;height:168px;overflow:hidden;background:#0d0f16;
+  border:1px solid rgba(255,255,255,.06)}
+.pcard2 .ph img{width:100%;height:100%;object-fit:cover;transition:transform .55s, filter .4s}
+.pcard2:hover .ph img{transform:scale(1.06);filter:brightness(1.1)}
+.pcard2 .ph::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 55%,rgba(7,8,13,.92) 100%)}
+.pcard2 .pf{position:absolute;left:0;bottom:0;right:0;padding:8px}
+.pcard2 .pf b{display:block;font-size:10.5px;font-weight:800;line-height:1.35;color:#fff;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pcard2 .pf span{font-size:8.5px;letter-spacing:1px;color:#9aa3ba}
+.pcard2 .pb{position:absolute;top:0;left:0;font-size:7.5px;font-weight:800;letter-spacing:1.2px;
+  padding:3px 6px;background:rgba(0,0,0,.72);color:#e8c07a}
+.pcard2 .pb.free{color:#8fe3c0}
+.pcard2 .pb.hot{color:#ff8fa3}
+
+/* 分区彩色强调 */
+.rail:nth-of-type(2) .rail-hd b{color:#ffb3c7}
+.rail:nth-of-type(3) .rail-hd b{color:#a9c7ff}
+.rail:nth-of-type(4) .rail-hd b{color:#8fe3c0}
+
+/* 轮播加大 */
+.slider{height:220px}
+
+/* ================= 响应式：手机 / 平板 / PC ================= */
+body{max-width:100%}
+@media (min-width:760px){
+  .auth-col{max-width:420px}
+  .page{max-width:1080px;margin:0 auto;width:100%}
+  .topbar{padding:26px 32px 18px}
+  .slider{margin:22px 32px 0;height:280px}
+  .rail-hd{padding:0 32px 12px}
+  .rail-body{padding:0 32px 6px;gap:14px}
+  .pcard2{width:152px}
+  .pcard2 .ph{width:152px;height:202px}
+  .search2{margin:22px 32px 0}
+  .hist{padding:10px 32px 0}
+  .chips{padding:20px 32px 0}
+  .sortbar{padding:16px 32px 10px}
+  .list2{padding:6px 32px 28px;display:grid;grid-template-columns:1fr 1fr;gap:0 34px}
+  .g2 .th{width:150px;height:92px}
+  .nav{left:50%;transform:translateX(-50%);width:min(560px,92%);bottom:16px;
+       border:1px solid var(--ln2);border-radius:2px}
+  .page{padding-bottom:96px}
+  .detail{max-width:1080px;left:50%;transform:translateX(-50%)}
+  .dhead{height:360px}
+  .dbar{left:50%;transform:translateX(-50%);width:min(1080px,100%)}
+  .plans,.payrow,.notes,.profile,.bigbtn{max-width:720px;margin-left:auto;margin-right:auto}
+  .bigbtn{width:calc(100% - 64px);margin-left:32px;margin-right:32px;max-width:none}
+}
+@media (min-width:1180px){
+  .list2{grid-template-columns:1fr 1fr 1fr}
+  .slider{height:340px}
+}
+/* 触屏设备去掉 hover 位移，避免误触 */
+@media (hover:none){
+  .list2 .g2:hover{padding-left:0}
+  .list2 .g2:hover::before{background:transparent}
+  .pcard2:hover .ph img{transform:none;filter:none}
+}
+
+.tip-tabs{display:flex;gap:26px;margin:2px 0 18px;border-bottom:1px solid var(--ln2)}
+.tip-tabs span{font-size:11.5px;letter-spacing:2px;color:var(--dim2);padding:0 0 11px;cursor:pointer}
+.tip-tabs span.on{color:#fff;border-bottom:1px solid #fff}
+
+.avatar{width:56px;height:56px;padding:0;overflow:hidden;border-radius:2px;
+  border:1px solid rgba(255,255,255,.16);background:#0d0f16;display:flex;
+  align-items:center;justify-content:center;font-size:0}
+.avatar img{width:100%;height:100%;object-fit:cover;object-position:center 18%;
+  filter:saturate(1.05) contrast(1.03)}
+
+/* 个人页横幅：角色更大、贴底、不露脚 */
+.band{height:206px}
+.band-char{height:230px;right:-14px;bottom:-6px}
+.page#pageMe .band-char{height:250px;bottom:-10px}
+
+/* ===== 全局氛围色（不是纯黑） ===== */
+body{background:linear-gradient(180deg,#0d1020 0%,#0a0c16 38%,#07080d 100%);
+  background-attachment:fixed}
+.page{background:transparent}
+
+/* ===== 彩色图标块 ===== */
+.mi .ic{width:26px;height:26px;flex:0 0 auto;display:flex;align-items:center;
+  justify-content:center;font-size:12px;letter-spacing:0;color:#fff;
+  border-radius:7px;opacity:.95}
+.ic-gold{background:linear-gradient(135deg,#e8c07a,#c8922f)}
+.ic-blue{background:linear-gradient(135deg,#5b8cff,#3557d6)}
+.ic-pink{background:linear-gradient(135deg,#ff7fae,#d94b7f)}
+.ic-violet{background:linear-gradient(135deg,#a98bff,#7a4fe0)}
+.ic-green{background:linear-gradient(135deg,#5fd6a4,#2f9c74)}
+.ic-orange{background:linear-gradient(135deg,#ffb060,#d97b23)}
+.ic-cyan{background:linear-gradient(135deg,#5fd0e0,#2b8ea6)}
+.ic-gray{background:linear-gradient(135deg,#6d7488,#464c5e)}
+.ic-red{background:linear-gradient(135deg,#ff7d7d,#c43e3e)}
+.mi{color:#dfe4f2;font-size:12.5px}
+.mi:hover{background:rgba(255,255,255,.03)}
+.mi .ar{color:#5b6378}
+
+/* ===== 会员卡：彩色渐变 + 立绘 ===== */
+.vipcard{position:relative;overflow:hidden;margin-top:18px;padding:20px;
+  border-radius:14px;border:1px solid rgba(255,255,255,.1);
+  background:linear-gradient(120deg,#2a1f4d 0%,#4a2050 55%,#5a1f36 100%)}
+.vipcard::before{content:"";position:absolute;inset:0;
+  background:radial-gradient(80% 120% at 100% 0%,rgba(255,120,180,.35),transparent 60%)}
+.vip-char{position:absolute;right:-6px;bottom:-10px;height:132px;opacity:.9;
+  filter:drop-shadow(0 8px 20px rgba(0,0,0,.5));pointer-events:none}
+.vipcard h3{position:relative;z-index:2;color:#fff;font-size:12px;letter-spacing:2px}
+.vipcard p{position:relative;z-index:2;color:#d7d3ee;font-size:11.5px}
+.vipcard .bar{position:relative;z-index:2;background:rgba(255,255,255,.18);height:2px;margin:14px 0 8px}
+.vipcard .bar i{background:#fff;height:2px}
+#vipLeft{color:#c3b8e6!important}
+
+/* ===== 个人信息行 ===== */
+.pcard{padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.06)}
+.avatar{width:58px;height:58px;border-radius:50%!important;overflow:hidden;
+  border:2px solid rgba(255,255,255,.35);box-shadow:0 8px 24px rgba(0,0,0,.45)}
+.pname{color:#fff;font-size:18px}
+
+/* ===== 首页分区颜色（加强） ===== */
+.rail-hd b{position:relative;padding-left:12px}
+.rail-hd b::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);
+  width:3px;height:14px;background:#e8c07a;border-radius:2px}
+.rail:nth-of-type(2) .rail-hd b{color:#ffc2d4}
+.rail:nth-of-type(2) .rail-hd b::before{background:#ff7fa8}
+.rail:nth-of-type(3) .rail-hd b{color:#b9d0ff}
+.rail:nth-of-type(3) .rail-hd b::before{background:#5b8cff}
+.rail:nth-of-type(4) .rail-hd b{color:#a8f0cf}
+.rail:nth-of-type(4) .rail-hd b::before{background:#2fbf88}
+
+/* 顶栏加一抹色 */
+.topbar{border-bottom:none;
+  background:linear-gradient(180deg,rgba(90,70,180,.18),transparent)}
+
+.buycard{width:calc(100% - 44px);margin:6px 22px 0;padding:15px;border:1px dashed rgba(232,192,122,.45);
+  background:rgba(232,192,122,.08);color:var(--gold);font-size:12px;letter-spacing:3px;font-weight:800}
+.payhelp{margin-top:6px}
+.paynote{font-size:10.5px;color:var(--dim2);text-align:center;margin-top:12px;line-height:1.9;letter-spacing:.5px}
+
+/* 内置游戏播放器 */
+.player{position:fixed;inset:0;z-index:200;background:#08090f;display:none}
+.player.on{display:block}
+.player iframe{width:100%;height:100%;border:none;background:#08090f}
+.pclose{position:absolute;top:12px;right:12px;z-index:5;width:34px;height:34px;
+  border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.5);color:#fff;
+  font-size:15px;line-height:1;border-radius:50%}
+
+.qqline{color:#cfd6ff;cursor:pointer;letter-spacing:1px}
+.qqline:hover{color:#fff}
+
+.payqr{display:block;width:190px;height:190px;margin:10px auto 14px;background:#fff;padding:6px;border-radius:4px}
+.payrow2{display:flex;justify-content:space-between;font-size:11.5px;color:#7e879e;
+  padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);letter-spacing:.6px}
+.payrow2 b{color:#dfe4f2;letter-spacing:1px}
+
+.paytabs{display:flex;gap:22px;justify-content:center;margin:6px 0 4px}
+.paytabs span{font-size:12px;color:#6b738d;padding-bottom:7px;border-bottom:1px solid transparent;cursor:pointer;letter-spacing:1px}
+.paytabs span.on{color:#fff;border-bottom-color:#fff;font-weight:700}
+.payqr{max-height:360px;width:auto;max-width:82%;margin:10px auto 12px;display:block;
+  background:#fff;padding:6px;border-radius:6px}
+
+.ptip{font-size:10.5px;color:#7e879e;letter-spacing:.6px;padding:5px 0;text-align:center}
+.paybanner{height:76px;margin:-14px -22px 14px;background-size:cover;background-position:center;
+  border-bottom:1px solid rgba(255,255,255,.08)}
+
+.mobtip{margin:0 22px 14px;padding:13px 16px;border:1px solid rgba(143,227,192,.3);
+  background:linear-gradient(120deg,rgba(47,191,136,.14),rgba(90,140,255,.1));cursor:pointer}
+.mobtip b{display:block;font-size:12.5px;color:#a8f0cf;letter-spacing:.8px;margin-bottom:4px}
+.mobtip span{font-size:10.5px;color:#8b93ab}
+.badge2.mob{color:#8fe3c0}
+</style>
+</head>
+<body>
+
+<!-- ================= 登录 / 注册 ================= -->
+<div class="auth" id="authView">
+  <div class="auth-photo" id="authPhoto"></div>
+  <div class="auth-shade"></div>
+  <div class="grain"></div>
+  <div class="petals" id="petals"></div>
+
+  <div class="auth-col">
+    <div class="brandline">
+      <span class="brand-cn">夜猫游戏库</span>
+      <span class="brand-en">YEMAO GAME LIBRARY</span>
+    </div>
+    <div class="brandtag">会员制资源库 · 免网盘直下 · 持续更新</div>
+
+    <div class="authform">
+      <div class="segbar">
+        <span class="on" id="segLogin" onclick="switchAuth('login')">登录</span>
+        <span id="segReg" onclick="switchAuth('reg')">注册</span>
+        <i class="segline" id="segline"></i>
+      </div>
+
+      <label class="uline">
+        <span>用户名</span>
+        <input id="aUser" placeholder="3-12 位字母或数字" autocomplete="off">
+      </label>
+      <label class="uline">
+        <span>密码</span>
+        <input id="aPwd" type="password" placeholder="至少 6 位">
+        <b class="eye2" onclick="togglePwd(this)">显示</b>
+      </label>
+
+      <button class="enterbtn" onclick="doAuth()" id="authBtn">进 入 游 戏 库</button>
+      <div class="msg" id="authMsg"></div>
+      <div class="switchline" id="switchLine">还没有账号？<b onclick="switchAuth('reg')">立即注册</b></div>
+    </div>
+
+    <div class="authmeta">
+      <span>客服 QQ</span><span class="sep">·</span>
+      <b class="qqline" onclick="copyQQ()">3125869033</b>
+      <span class="sep">/</span><span>本地账号 · 数据存本机</span>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 主界面 ================= -->
+<div class="app" id="appView">
+  <div class="grain"></div>
+
+  <!-- 首页 -->
+  <div class="page on" id="pageHome">
+    <div class="topbar">
+      <div class="logo">夜猫<em>/ GAME LIBRARY</em><i class="jp">げーむらいぶらり</i></div>
+      <div class="vipflag" id="homeVip">未开通</div>
+    </div>
+
+    <div class="slider" id="slider"></div>
+
+    <div class="rail">
+      <div class="rail-hd"><b>热门推荐</b><i>POPULAR / 01</i><span onclick="setSort('hot',null)">更多</span></div>
+      <div class="rail-body" id="railHot"></div>
+    </div>
+
+    <div class="rail">
+      <div class="rail-hd"><b>最新上架</b><i>NEW ARRIVAL / 02</i><span onclick="setSort('new',null)">更多</span></div>
+      <div class="rail-body" id="railNew"></div>
+    </div>
+
+    <div class="rail">
+      <div class="rail-hd"><b>免费试玩</b><i>FREE / 03</i><span onclick="setSort('free',null)">更多</span></div>
+      <div class="rail-body" id="railFree"></div>
+    </div>
+
+    <div class="mobtip" onclick="tipsSheet('mobile')">
+      <b>📱 手机也能玩电脑游戏</b>
+      <span>装 Winlator 模拟器，按教程 5 分钟开玩 ›</span>
+    </div>
+    <div class="search2"><input id="q" placeholder="搜索游戏、标签…" oninput="onSearch(this.value)"></div>
+    <div class="hist" id="hist"></div>
+
+    <div class="chips" id="chips"></div>
+    <div class="sortbar">
+      <span class="sbtn on" data-s="new" onclick="setSort('new',this)">最新</span>
+      <span class="sbtn" data-s="hot" onclick="setSort('hot',this)">最热</span>
+      <span class="sbtn" data-s="free" onclick="setSort('free',this)">免费</span>
+      <span class="cnt" id="cnt"></span>
+    </div>
+    <div class="list2" id="grid"></div>
+  </div>
+
+  <!-- 会员 -->
+  <div class="page" id="pageVip">
+    <div class="band"><img class="band-char" src="covers/chara3.png" alt=""><div class="band-veil"></div><div class="band-txt"><div class="band-t">开通<em>会员</em></div><div class="band-s">库内全部游戏 · 不限次下载</div></div></div>
+    <div class="hd" style="display:none">
+      <h1>开通<em>会员</em></h1>
+      <div class="notice">会员期内可下载库内全部游戏，到期自动失效</div>
+    </div>
+    <div class="plans" id="plans"></div>
+    <div class="payrow">
+      <div class="pw on" data-pay="微信" onclick="pickPay('微信')">微信支付</div>
+      <div class="pw" data-pay="支付宝" onclick="pickPay('支付宝')">支付宝</div>
+    </div>
+    <button class="bigbtn" id="payBtn" onclick="startPay()">请先选择套餐</button>
+    <div class="payhelp" id="payHelp"></div>
+    <div class="notes" id="vipNotes">
+      · 付款成功后卡密自动到账并激活<br>
+      · 会员到期前 7 天首页会提示续费<br>
+      · 虚拟商品，开通后不支持退款
+    </div>
+  </div>
+
+  <!-- 我的 -->
+  <div class="page" id="pageMe">
+    <div class="band"><img class="band-char" src="covers/chara5.png" alt="">
+      <div class="band-veil"></div>
+      <div class="band-txt"><div class="band-t">我的<em>主页</em></div>
+      <div class="band-s">会员状态 · 订单 · 设置</div></div></div>
+
+    <div class="profile">
+      <div class="pcard">
+        <div class="avatar" id="avatar"><img id="avatarImg" src="covers/avatar1.png" alt=""></div>
+        <div class="pinfo">
+          <div class="pname" id="meName">--</div>
+          <div class="pvip" id="meVip">未开通会员</div>
+        </div>
+      </div>
+
+      <div class="vipcard">
+        <img class="vip-char" src="covers/chara2.png" alt="">
+        <h3 id="vipTitle">会员状态</h3>
+        <p id="vipDesc">开通会员后可下载全部游戏</p>
+        <div class="bar"><i id="vipBar" style="width:0%"></i></div>
+        <p id="vipLeft" style="font-size:10.5px;color:#c3cbe8"></p>
+      </div>
+
+      <div class="menu">
+        <div class="mi" onclick="goto('vip')">
+          <span class="ic ic-gold">◈</span>开通 / 续费会员<span class="ar" id="meBtn">查看套餐 ›</span></div>
+        <div class="mi" onclick="tipsSheet()">
+          <span class="ic ic-blue">?</span>安装说明<span class="ar">›</span></div>
+        <div class="mi" onclick="checkinSheet()">
+          <span class="ic ic-pink">✦</span>每日签到<span class="ar" id="checkinTag">未签 ›</span></div>
+        <div class="mi" onclick="inviteSheet()">
+          <span class="ic ic-violet">⌘</span>邀请码<span class="ar">›</span></div>
+        <div class="mi" onclick="downloadHistory()">
+          <span class="ic ic-green">↓</span>下载记录<span class="ar">›</span></div>
+        <div class="mi" onclick="favList()">
+          <span class="ic ic-orange">★</span>我的收藏<span class="ar" id="favCnt">›</span></div>
+        <div class="mi" onclick="orderHistory()">
+          <span class="ic ic-cyan">▤</span>我的订单<span class="ar">›</span></div>
+        <div class="mi" onclick="copyQQ()">
+          <span class="ic ic-violet">Q</span>联系客服<span class="ar">3125869033 ›</span></div>
+        <div class="mi" onclick="aboutSheet()">
+          <span class="ic ic-gray">i</span>关于<span class="ar">›</span></div>
+        <div class="mi" onclick="logout()">
+          <span class="ic ic-red">⏻</span>退出登录<span class="ar">›</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部导航 -->
+  <div class="nav" id="nav">
+    <div class="on" data-p="home" onclick="goto('home')"><span class="i">🏠</span>首页</div>
+    <div data-p="vip" onclick="goto('vip')"><span class="i">💎</span>会员</div>
+    <div data-p="me" onclick="goto('me')"><span class="i">👤</span>我的</div>
+  </div>
+</div>
+
+<!-- 详情 -->
+<div class="detail hide" id="detail">
+  <div class="dhead"><img id="dimg" src=""><button class="dback" onclick="closeDetail()">‹</button></div>
+  <div class="dbody">
+    <h2 class="dtitle" id="dtitle"></h2>
+    <div class="dtags" id="dtags"></div>
+    <div class="block"><h4><i>01</i>简介</h4><p id="ddesc"></p></div>
+    <div class="block" id="dblockShot" style="display:none"><h4><i>02</i>截图</h4><div class="shots" id="dshots"></div></div>
+    <div class="block"><h4><i>03</i>安装 / 运行</h4><p id="ddetail"></p></div>
+    <div class="block" id="dblockRel"><h4><i>04</i>相关推荐</h4><div class="rel" id="drel"></div></div>
+    <div class="block"><h4><i>05</i>提取码</h4>
+      <div class="codebox"><b id="dcode">----</b><button class="copybtn" onclick="copyCode()">复制</button></div>
+    </div>
+  </div>
+  <div class="dbar">
+    <button class="btn like" id="likeBtn" onclick="toggleLike()">❤</button>
+    <button class="btn fav" id="favBtn" onclick="toggleFav()">☆</button>
+    <button class="btn ghost" onclick="doOpen()">网盘备用</button>
+    <button class="btn" id="dlBtn" onclick="doDownload()">下载游戏</button>
+  </div>
+</div>
+
+<div class="mask" id="mask" onclick="closeSheet()"></div>
+<div class="sheet" id="sheet"><div class="grab"></div><div id="sheetBody"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= 配置 ================= */
+const PAY_CFG = { pay_api: "", poll_ms: 2000, poll_max: 150 };  // 留空=演示模式
+
+/* ================= 账号 ================= */
+const DB = {
+  users(){ try{ return JSON.parse(localStorage.getItem("yc_users")||"{}"); }catch(e){ return {}; } },
+  save(u){ localStorage.setItem("yc_users", JSON.stringify(u)); },
+  session(){ return localStorage.getItem("yc_session"); },
+  setSession(n){ localStorage.setItem("yc_session", n); },
+  clearSession(){ localStorage.removeItem("yc_session"); }
+};
+let ME = null;   // 当前用户对象
+let DATA = null; // games.json
+
+const $=id=>document.getElementById(id);
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');};
+const daysLeft=e=>{ if(!e) return -1; const a=new Date(e.replace(/-/g,'/')),b=new Date(today().replace(/-/g,'/')); return Math.ceil((a-b)/86400000); };
+const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const isVip=()=>{ if(!ME||!ME.vip||!ME.vip.expire) return false; return daysLeft(ME.vip.expire)>=0; };
+const canGet=g=>!!(g&&g.free)||isVip();   // 免费游戏 or 会员
+
+/* ================= 登录注册 ================= */
+let AUTH_MODE="login";
+function switchAuth(m){
+  AUTH_MODE=m;
+  var a=document.getElementById("segLogin"), b=document.getElementById("segReg");
+  var line=document.getElementById("segline");
+  var btn=document.getElementById("authBtn");
+  var sw=document.getElementById("switchLine");
+  var msg=document.getElementById("authMsg");
+  if(!a||!b) return;
+  a.classList.toggle("on", m==="login");
+  b.classList.toggle("on", m==="reg");
+  if(line) line.classList.toggle("reg", m==="reg");
+  if(btn) btn.textContent = m==="login" ? "进 入 游 戏 库" : "注 册 并 进 入";
+  if(sw) sw.innerHTML = m==="login"
+      ? '还没有账号？<b onclick="switchAuth(\'reg\')">立即注册</b>'
+      : '已有账号？<b onclick="switchAuth(\'login\')">返回登录</b>';
+  if(msg) msg.textContent="";
+}
+function togglePwd(el){
+  const i=$("aPwd");
+  i.type = i.type==="password" ? "text" : "password";
+  el.style.opacity = i.type==="password" ? ".6" : "1";
+}
+function buildDeco(){
+  const box=$("deco"); if(!box) return;
+  const imgs=["covers/cover_erewhon.jpg","covers/cover_deborah.jpg",
+              "covers/cover_free1.jpg","covers/cover_free2.jpg"];
+  const pos=[[6,14,-12],[80,10,10],[4,72,8],[84,74,-8]];
+  let h="";
+  pos.forEach((p,i)=>{
+    h+=`<div class="card" style="left:${p[0]}%;top:${p[1]}%;transform:rotate(${p[2]}deg);
+        animation:bob ${3+i*0.4}s ease-in-out infinite;animation-delay:${i*0.3}s">
+        <img src="${imgs[i%imgs.length]}"></div>`;
+  });
+  const sps=[[16,30],[86,32],[10,58],[90,56],[50,8]];
+  sps.forEach((p,i)=>{
+    h+=`<img class="sp" src="covers/spark.png" style="left:${p[0]}%;top:${p[1]}%;
+        animation-delay:${i*0.45}s">`;
+  });
+  h+=`<div class="blob" style="left:-10%;top:20%;width:180px;height:180px;background:#7c8bff"></div>`;
+  h+=`<div class="blob" style="right:-12%;top:55%;width:200px;height:200px;background:#c06dff"></div>`;
+  box.innerHTML=h;
+}
+
+function buildPetals(){
+  var box=document.getElementById("petals"); if(!box) return;
+  var h="";
+  for(var i=0;i<14;i++){
+    var left=Math.random()*100;
+    var dur=6+Math.random()*7;
+    var delay=Math.random()*8;
+    var sz=8+Math.random()*8;
+    h+='<i style="left:'+left+'%;width:'+sz+'px;height:'+sz+'px;'+
+       'animation-duration:'+dur+'s;animation-delay:'+delay+'s"></i>';
+  }
+  box.innerHTML=h;
+}
+function randomizeBands(){
+  var chars=["covers/chara1.png","covers/chara2.png","covers/chara3.png","covers/chara4.png",
+             "covers/chara5.png","covers/chara6.png","covers/chara7.png","covers/chara8.png"];
+  var imgs=document.querySelectorAll(".band-char");
+  var used={};
+  imgs.forEach(function(im){
+    var i=Math.floor(Math.random()*chars.length);
+    while(used[i] && Object.keys(used).length<chars.length){ i=(i+1)%chars.length; }
+    used[i]=1; im.src=chars[i];
+  });
+}
+
+
+function pickBg(){
+  var el=document.getElementById("authPhoto"); if(!el) return;
+  var list=["covers/bg1.jpg","covers/bg2.jpg","covers/bg3.jpg"];
+  var saved=localStorage.getItem("yc_bg");
+  var i = saved===null ? Math.floor(Math.random()*list.length) : (parseInt(saved,10)||0);
+  if(saved===null) localStorage.setItem("yc_bg", i);
+  el.style.backgroundImage="url("+list[i%list.length]+")";
+}
+
+function pickHero(){
+  var img=document.getElementById("heroImg"); if(!img) return;
+  var list=["covers/hero1.jpg","covers/hero2.jpg","covers/hero3.jpg",
+            "covers/hero4.jpg","covers/hero5.jpg"];
+  var saved=localStorage.getItem("yc_hero");
+  var idx;
+  if(saved===null){ idx=Math.floor(Math.random()*list.length); localStorage.setItem("yc_hero",idx); }
+  else { idx=parseInt(saved,10)||0; }
+  img.src=list[idx%list.length];
+}
+function buildAuthBg(){
+  const bg=$("authBg"); if(!bg) return;
+  const covers=["covers/cover_erewhon.jpg","covers/cover_deborah.jpg","covers/cover_free1.jpg",
+                "covers/cover_free2.jpg","covers/thumb_winlator.jpg","covers/thumb_erewhon.jpg"];
+  let html="";
+  for(let i=0;i<12;i++){ html += '<i style="background-image:url('+covers[i%covers.length]+')"></i>'; }
+  bg.innerHTML=html;
+}
+function doAuth(){
+  const u=($("aUser").value||"").trim();
+  const p=($("aPwd").value||"");
+  const msg=$("authMsg");
+  if(u.length<3||u.length>12){ msg.textContent="用户名需 3-12 位"; return; }
+  if(p.length<6){ msg.textContent="密码至少 6 位"; return; }
+  const users=DB.users();
+  if(AUTH_MODE==="reg"){
+    if(users[u]){ msg.textContent="该用户名已注册"; return; }
+    users[u]={pwd:p, nick:u, created:today(), vip:null, orders:[]};
+    DB.save(users);
+    DB.setSession(u);
+    boot(u);
+    reportEvent("register");
+    cloudReg(u, p, function(){ cloudSave(); });
+    toast("注册成功，欢迎加入",true);
+  }else{
+    const rec=users[u];
+    if(!rec||rec.pwd!==p){ msg.textContent="用户名或密码错误"; return; }
+    DB.setSession(u);
+    boot(u);
+    reportEvent("login");
+    checkBanAndEnter(function(){});
+  }
+}
+function logout(){
+  DB.clearSession();
+  ME=null;
+  $("appView").classList.remove("on"); $("appView").style.display="none";
+  $("authView").style.display="flex";
+  $("aPwd").value="";
+  toast("已退出登录");
+}
+
+/* ================= 启动 ================= */
+function boot(name){
+  const users=DB.users();
+  ME = Object.assign({name:name}, users[name]);
+  $("authView").style.display="none";
+  $("appView").style.display="flex";
+  loadData().then(()=>{ initUI(); goto("home"); });
+}
+function loadData(){
+  var el = document.getElementById("inlineData");
+  if(el){
+    try{
+      DATA = JSON.parse(el.textContent);
+      // 后台异步刷新（拿到最新数据就更新，不阻塞首屏）
+      fetch("games.json?t="+Date.now()).then(function(r){return r.json();})
+        .then(function(d){ if(d && d.games && d.games.length){ DATA=d; if(typeof render==="function"){ try{render();}catch(e){} } } })
+        .catch(function(){});
+      return Promise.resolve(DATA);
+    }catch(e){}
+  }
+  return fetch("games.json?t="+Date.now()).then(r=>r.json()).then(d=>{DATA=d;return d;})
+    .catch(()=>({games:[],notice:""}));
+}
+function initUI(){
+  if($("meName")) $("meName").textContent=ME.nick||ME.name;
+  var av=document.getElementById("avatarImg");
+  if(av){
+    var n=localStorage.getItem("yc_avatar");
+    if(n===null){ n=Math.floor(Math.random()*8)+1; localStorage.setItem("yc_avatar", n); }
+    av.src="covers/avatar"+(parseInt(n,10)||1)+".png";
+  }
+  renderPlans(); renderPayHelp(); renderVipNotes(); refreshVip(); buildChips(); buildSlider(); buildRails(); render(); syncHomeVip(); updateFavCnt(); updateCheckinTag(); renderHist();
+  checkBanAndEnter(function(){ reportEvent('launch'); });
+  setTimeout(fetchRemoteNotice, 800);
+}
+let curCat="全部";
+function setCat(c, el){
+  curCat=c;
+  document.querySelectorAll("#tabs .tab").forEach(function(t){ t.classList.remove("on"); });
+  if(el) el.classList.add("on");
+  render();
+}
+function syncHomeVip(){
+  var el=document.getElementById("homeVip"); if(!el) return;
+  if(isVip()){ el.textContent=(ME.vip.type||"会员")+" · 剩"+daysLeft(ME.vip.expire)+"天"; el.className="vipflag on"; }
+  else { el.textContent="未开通"; el.className="vipflag"; }
+}
+
+/* ================= 导航 ================= */
+function goto(p){
+  ["home","vip","me"].forEach(k=>$("page"+k[0].toUpperCase()+k.slice(1)).classList.toggle("on",k===p));
+  [...document.querySelectorAll("#nav div")].forEach(d=>d.classList.toggle("on",d.dataset.p===p));
+  if(p==="me") refreshVip();
+  document.querySelectorAll(".page").forEach(x=>x.scrollTop=0);
+}
+
+/* ================= 会员状态 ================= */
+function refreshVip(){
+  const on=isVip();
+  const left=on?daysLeft(ME.vip.expire):0;
+  $("meVip").innerHTML = on
+    ? `${ME.vip.type||'会员'} · 剩 <b>${left}</b> 天`
+    : "未开通会员 · 无法下载游戏";
+  $("vipTitle").textContent = on ? "会员生效中" : "会员未开通";
+  $("vipDesc").textContent = on
+    ? `到期时间 ${ME.vip.expire}`
+    : "开通后可下载库内全部游戏，包含后续更新";
+  const total = on ? Math.max(left,1) : 1;
+  const pct = on ? Math.min(100, Math.round(left/ (ME.vip.type==="永久"?3650:(ME.vip.type==="年卡"?365:30)) *100)) : 0;
+  $("vipBar").style.width = pct+"%";
+  $("vipLeft").textContent = on ? `剩余 ${left} 天` : "";
+  if($("meBtn")) $("meBtn").textContent = on ? "续费 ›" : "查看套餐 ›";
+}
+
+/* ================= 游戏列表 ================= */
+let curSort="new";
+function setSort(k, el){
+  curSort=k;
+  document.querySelectorAll(".sbtn").forEach(function(b){ b.classList.toggle("on", b.dataset.s===k); });
+  render();
+}
+function buildChips(){
+  var box=document.getElementById("chips"); if(!box) return;
+  var cats=["全部","📱 手机可玩"].concat(Object.keys((DATA.games||[]).reduce(function(o,g){o[g.cat]=1;return o;},{})));
+  box.innerHTML=cats.map(function(c,i){
+    return '<span class="chip'+(i===0?' on':'')+'" onclick="pickCat(this,\''+c+'\')">'+c+'</span>';
+  }).join("");
+}
+function pickCat(el, c){
+  curCat=c;
+  document.querySelectorAll(".chip").forEach(function(x){ x.classList.toggle("on", x===el); });
+  render();
+}
+function buildSlider(){
+  var box=document.getElementById("slider"); if(!box) return;
+  var fs=(DATA.games||[]).filter(function(g){ return g.featured; });
+  if(!fs.length) fs=(DATA.games||[]).slice(0,3);
+  box.innerHTML='<div class="idx"><b>01</b> / 0'+fs.length+'</div>'+fs.map(function(g,i){
+    return '<div class="slide'+(i===0?' on':'')+'" onclick="openDetail('+DATA.games.indexOf(g)+')">'+
+      '<img src="'+(g.shots&&g.shots[0]||g.cover||'')+'">'+
+      '<div class="cap"><b>'+esc(g.name)+'</b><span>'+esc((g.tags||[]).join(' · '))+'</span></div></div>';
+  }).join("") +
+  '<div class="dots">'+fs.map(function(_,i){return '<i class="'+(i===0?'on':'')+'"></i>';}).join("")+'</div>';
+  var idx=0, slides=box.querySelectorAll(".slide"), dots=box.querySelectorAll(".dots i");
+  clearInterval(window._sld);
+  window._sld=setInterval(function(){
+    if(!slides.length) return;
+    slides[idx].classList.remove("on"); dots[idx] && dots[idx].classList.remove("on");
+    idx=(idx+1)%slides.length;
+    slides[idx].classList.add("on"); dots[idx] && dots[idx].classList.add("on");
+    var ix=box.querySelector(".idx");
+    if(ix) ix.innerHTML="<b>0"+(idx+1)+"</b> / 0"+slides.length;
+  }, 4200);
+}
+
+function posterOf(g){
+  return g.poster || g.cover || (g.shots && g.shots[0]) || "";
+}
+function railItem(g, extra){
+  var i=DATA.games.indexOf(g);
+  var b = g.free ? '<div class="pb free">FREE</div>'
+        : (g.pending ? '<div class="pb">SOON</div>' : (extra?'<div class="pb hot">HOT</div>':'<div class="pb">VIP</div>'));
+  return '<div class="pcard2" onclick="openDetail('+i+')">'+
+    '<div class="ph"><img src="'+esc(posterOf(g))+'" onerror="this.style.display=\'none\'">'+b+
+    '<div class="pf"><b>'+esc(g.name)+'</b><span>'+esc(g.cat)+' · '+esc(g.size||"")+'</span></div></div></div>';
+}
+function buildRails(){
+  var gs=(DATA.games||[]).slice();
+  var hot=gs.slice().sort(function(a,b){return (b.views||0)-(a.views||0);}).slice(0,6);
+  var nw=gs.slice().sort(function(a,b){return (b.updated||'').localeCompare(a.updated||'');}).slice(0,6);
+  var free=gs.filter(function(g){return g.free;}).slice(0,6);
+  var rh=document.getElementById("railHot"), rn=document.getElementById("railNew"), rf=document.getElementById("railFree");
+  if(rh) rh.innerHTML=hot.map(function(g){return railItem(g,true);}).join("") || "<div class='empty2'>暂无</div>";
+  if(rn) rn.innerHTML=nw.map(function(g){return railItem(g);}).join("") || "<div class='empty2'>暂无</div>";
+  if(rf) rf.innerHTML=free.map(function(g){return railItem(g);}).join("") || "<div class='empty2'>暂无免费内容</div>";
+}
+
+function render(){
+  var q=(document.getElementById("q")&&document.getElementById("q").value||"").trim().toLowerCase();
+  var gs=(DATA.games||[]).filter(function(g){
+    var okCat = curCat==="全部" || g.cat===curCat ||
+      (curCat==="📱 手机可玩" && g.platform==="mobile");
+    var okQ = !q || ((g.name||'')+(g.desc||'')).toLowerCase().indexOf(q)>=0;
+    var okSort = curSort!=="free" || g.free;
+    return okCat && okQ && okSort;
+  });
+  if(curSort==="hot") gs.sort(function(a,b){ return (b.views||0)-(a.views||0); });
+  else if(curSort==="new") gs.sort(function(a,b){ return (b.updated||'').localeCompare(a.updated||''); });
+
+  var cnt=document.getElementById("cnt"); if(cnt) cnt.textContent=gs.length+" 款";
+  var grid=document.getElementById("grid"); if(!grid) return;
+  grid.innerHTML=gs.map(function(g){
+    var i=DATA.games.indexOf(g);
+    var locked=!canGet(g);
+    var badge = g.pending ? '<div class="badge2">待上线</div>'
+              : (g.free ? '<div class="badge2 free">免费</div>'
+                        : (locked ? '<div class="badge2">会员</div>' : ''));
+    var tags=(g.tags||[]).slice(0,2).map(function(t){return '<span class="tg">'+esc(t)+'</span>';}).join("");
+    return '<div class="g2" onclick="openDetail('+i+')">'+
+      '<div class="th"><img src="'+esc(g.cover||"")+'" onerror="this.style.display=\'none\'">'+badge+'</div>'+
+      '<div class="info">'+
+        '<div class="tagline">'+tags+'</div>'+
+        '<div class="nm">'+esc(g.name)+'</div>'+
+        '<div class="ds">'+esc(g.desc||"")+'</div>'+
+        '<div class="mt"><span>'+esc(g.cat)+'</span><span>'+esc(g.size||"")+'</span>'+
+        '<span>❤ '+(g.likes||0)+'</span><span>↗ '+(g.views||0)+'</span></div>'+
+      '</div></div>';
+  }).join("") || '<div class="empty2">这里还没有游戏</div>';
+}
+/* ================= 详情 ================= */
+let OPEN=null;
+
+
+
+/* ================= 后台联动 ================= */
+function apiBase(){ return ""; }
+/* 带超时的请求，避免一直转圈 */
+function apiFetch(path, opts, ms){
+  var base = apiBase();
+  if(!base) return Promise.reject(new Error("no backend"));
+  var ctl = window.AbortController ? new AbortController() : null;
+  var t = setTimeout(function(){ if(ctl) ctl.abort(); }, ms || 10000);
+  var o = Object.assign({}, opts || {});
+  if(ctl) o.signal = ctl.signal;
+  return fetch(base + path, o).then(function(r){ clearTimeout(t); return r; },
+    function(e){ clearTimeout(t); throw e; });
+}
+
+function reportEvent(type, extra){
+  var base = apiBase(); if(!base || !ME) return;
+  var body = Object.assign({
+    user: ME.name, type: type, device: (typeof SYS!=="undefined"?SYS.device:""),
+    ver: (typeof SYS!=="undefined"?SYS.build:""),
+    vipExpire: ME.vip? ME.vip.expire : "",
+    vipType: ME.vip? ME.vip.type : ""
+  }, extra||{});
+  fetch(base + "/ev", {method:"POST",headers:{"Content-Type":"application/json"},
+    body: JSON.stringify(body)}).catch(function(){});
+}
+
+function checkBanAndEnter(next){
+  var base = apiBase();
+  if(!base){ next(); return; }
+  fetch(base + "/bancheck?user=" + encodeURIComponent(ME.name))
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(d && d.banned){
+        openSheet("<h3>账号已停用</h3><div class='st'>"+esc(d.msg||"账号已被封禁")+"</div>"+
+          "<div class='note'>如认为有误，请联系客服申诉。</div>"+
+          "<button class='big' onclick='logout()'>退出登录</button>");
+        return;
+      }
+      next();
+    })
+    .catch(function(){ next(); });
+}
+
+function fetchRemoteNotice(){
+  var base = apiBase(); if(!base) { maybeAnnounce(); return; }
+  fetch(base + "/notice").then(function(r){ return r.json(); }).then(function(d){
+    if(d && (d.title || d.body)){
+      var seen = localStorage.getItem("yc_ann_ver");
+      if(seen === d.ver){ return; }
+      localStorage.setItem("yc_ann_ver", d.ver || "");
+      openSheet("<h3>"+esc(d.title||"公告")+"</h3>"+
+        "<div class='block'><p>"+esc(d.body||"")+"</p></div>"+
+        "<button class='big' onclick='closeSheet()'>我知道了</button>");
+    } else { maybeAnnounce(); }
+  }).catch(function(){ maybeAnnounce(); });
+}
+
+
+/* ================= 账号云端同步 ================= */
+function cloudReg(name, pwd, cb){
+  var base = apiBase();
+  if(!base){ cb({ok:true, offline:true}); return; }
+  fetch(base + "/user/reg", {method:"POST",headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({name:name, pwd:pwd})})
+    .then(function(r){ return r.json(); })
+    .then(function(d){ cb(d); })
+    .catch(function(){ cb({ok:true, offline:true}); });
+}
+function cloudLogin(name, pwd, cb){
+  var base = apiBase();
+  if(!base){ cb({ok:false, offline:true}); return; }
+  fetch(base + "/user/login", {method:"POST",headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({name:name, pwd:pwd})})
+    .then(function(r){ return r.json(); })
+    .then(function(d){ cb(d); })
+    .catch(function(){ cb({ok:false, offline:true}); });
+}
+function cloudSave(){
+  var base = apiBase(); if(!base || !ME) return;
+  fetch(base + "/user/save", {method:"POST",headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({name:ME.name, vip:ME.vip||null, orders:ME.orders||[], nick:ME.nick||""})})
+    .catch(function(){});
+}
+
+/* ================= 授权与防护 ================= */
+var SYS = {device:"", build:"", authApi:""};
+
+function loadSysInfo(){
+  return fetch("/sysinfo").then(function(r){ return r.json(); }).then(function(d){
+    SYS.device = d.device || ""; SYS.build = d.build || "";
+    SYS.authApi = (DATA && DATA.auth_api) || "";
+    return d;
+  }).catch(function(){ return {}; });
+}
+
+/* 卡密激活：优先走服务端，失败回落本地（离线可用） */
+function activateKami(kami, cb){
+  if(!SYS.authApi){ cb({ok:true, local:true}); return; }
+  fetch(SYS.authApi + "/activate", {
+    method:"POST", headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({kami:kami, device:SYS.device})
+  }).then(function(r){ return r.json(); })
+    .then(function(d){
+      if(d && d.ok){
+        localStorage.setItem("yc_token", d.token);
+        localStorage.setItem("yc_token_exp", String(Date.now()+12*3600*1000));
+      }
+      cb(d || {ok:false});
+    })
+    .catch(function(){ cb({ok:true, offline:true}); });
+}
+
+/* 校验当前授权（每次启动跑一次） */
+function verifyAuth(cb){
+  var token = localStorage.getItem("yc_token");
+  if(!SYS.authApi){ cb({ok:true, local:true}); return; }
+  if(!token){ cb({ok:false, msg:"未激活"}); return; }
+  fetch(SYS.authApi + "/check?token=" + encodeURIComponent(token))
+    .then(function(r){ return r.json(); })
+    .then(function(d){ cb(d || {ok:false}); })
+    .catch(function(){ cb({ok:true, offline:true}); });
+}
+
+/* 下载：服务端签发短链；未配置则用本地直链 */
+function requestDownloadUrl(g, cb){
+  var token = localStorage.getItem("yc_token");
+  if(SYS.authApi && token && !g.free && !g.pending){
+    fetch(SYS.authApi + "/dl?token=" + encodeURIComponent(token) + "&file=" + encodeURIComponent(g.file||""))
+      .then(function(r){ return r.json(); })
+      .then(function(d){ cb(d && d.ok ? d.url : (g.down||"")); })
+      .catch(function(){ cb(g.down||""); });
+  } else {
+    cb(g.down || "");
+  }
+}
+
+/* ================= 收藏 ================= */
+function favKey(){ return "yc_fav_"+(ME?ME.name:"guest"); }
+function getFav(){ try{ return JSON.parse(localStorage.getItem(favKey())||"[]"); }catch(e){ return []; } }
+function saveFav(a){ localStorage.setItem(favKey(), JSON.stringify(a)); updateFavCnt(); }
+function isFav(name){ return getFav().indexOf(name)>=0; }
+function toggleFav(){
+  if(!OPEN) return;
+  var f=getFav(), i=f.indexOf(OPEN.name);
+  if(i>=0){ f.splice(i,1); toast("已取消收藏"); } else { f.push(OPEN.name); toast("已收藏",true); }
+  saveFav(f); refreshFavBtn();
+}
+function refreshFavBtn(){
+  var b=document.getElementById("favBtn"); if(!b||!OPEN) return;
+  var on=isFav(OPEN.name);
+  b.textContent=on?"★":"☆";
+  b.classList.toggle("on",on);
+}
+function updateFavCnt(){
+  var el=document.getElementById("favCnt");
+  if(el) el.textContent=getFav().length? (getFav().length+" 款 ›") : "›";
+}
+function favList(){
+  var names=getFav();
+  var gs=(DATA.games||[]).filter(function(g){ return names.indexOf(g.name)>=0; });
+  openSheet("<h3>我的收藏</h3><div class='st'>共 "+gs.length+" 款</div>"+
+    (gs.length? gs.map(function(g){
+      var i=DATA.games.indexOf(g);
+      return "<div class='g2' style='margin-bottom:14px' onclick='closeSheet();openDetail("+i+")'>"+
+        "<div class='th'><img src='"+esc(g.cover||"")+"'></div>"+
+        "<div class='info'><div class='nm'>"+esc(g.name)+"</div>"+
+        "<div class='mt'><span>"+esc(g.cat)+"</span><span>"+esc(g.size||"")+"</span></div></div></div>";
+    }).join("") : "<div class='note' style='text-align:center;padding:30px 0'>还没有收藏</div>")+
+    "<button class='big' onclick='closeSheet()'>关闭</button>");
+}
+
+/* ================= 相关推荐 ================= */
+function buildRelated(g){
+  var box=document.getElementById("drel"); if(!box) return;
+  var others=(DATA.games||[]).filter(function(x){ return x.name!==g.name; }).slice(0,6);
+  var block=document.getElementById("dblockRel");
+  if(!others.length){ block.style.display="none"; return; }
+  block.style.display="";
+  box.innerHTML=others.map(function(x){
+    var i=DATA.games.indexOf(x);
+    return "<div onclick='openDetail("+i+")'><img src='"+esc(x.cover||"")+"'><b>"+esc(x.name)+"</b></div>";
+  }).join("");
+}
+
+
+/* ============ 公告 ============ */
+function maybeAnnounce(){
+  var a=(DATA&&DATA.announce)||null; if(!a) return;
+  var seen=localStorage.getItem("yc_ann_ver");
+  if(seen===a.version) return;
+  localStorage.setItem("yc_ann_ver", a.version);
+  openSheet("<h3>"+esc(a.title)+"</h3><div class='st'>"+esc(a.version)+"</div>"+
+    "<div class='block'><p>"+esc(a.body)+"</p></div>"+
+    "<button class='big' onclick='closeSheet()'>我知道了</button>");
+}
+/* ============ 签到 ============ */
+function todayKey(){
+  var d=new Date();
+  return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+}
+function normKey(t){
+  return t.getFullYear()+"-"+(t.getMonth()+1)+"-"+t.getDate();
+}
+function checkinData(){
+  var raw={};
+  try{ raw=JSON.parse(localStorage.getItem("yc_checkin_"+(ME?ME.name:""))||"{}"); }catch(e){ raw={}; }
+  // 清洗：只保留符合 YYYY-M-D 的键
+  var out={}, re=/^\d{4}-\d{1,2}-\d{1,2}$/;
+  Object.keys(raw).forEach(function(k){ if(re.test(k)) out[k]=1; });
+  return out;
+}
+function streakDays(d){
+  var n=0, t=new Date();
+  while(true){
+    if(!d[normKey(t)]) break;
+    n++; t=new Date(t.getTime()-86400000);
+    if(n>365) break;
+  }
+  return n;
+}
+
+/* 增加会员天数（签到/邀请奖励用） */
+function addVipDays(n){
+  if(!ME) return;
+  var base;
+  if(ME.vip && ME.vip.expire && daysLeft(ME.vip.expire) >= 0){
+    base = new Date(ME.vip.expire.replace(/-/g,"/"));
+  } else {
+    base = new Date();
+  }
+  base.setDate(base.getDate() + n);
+  var exp = base.getFullYear()+"-"+String(base.getMonth()+1).padStart(2,"0")+"-"+String(base.getDate()).padStart(2,"0");
+  ME.vip = {
+    type: (ME.vip && ME.vip.type) || "签到会员",
+    expire: exp,
+    kami: (ME.vip && ME.vip.kami) || "CHECKIN"
+  };
+  var users = DB.users();
+  users[ME.name] = Object.assign({}, users[ME.name], {vip: ME.vip});
+  DB.save(users);
+  try { refreshVip(); syncHomeVip(); } catch(e){}
+}
+
+function checkinSheet(){
+  var d=checkinData();
+  var today=todayKey();
+  var week=[];
+  for(var i=6;i>=0;i--){
+    var t=new Date(Date.now()-i*86400000);
+    week.push({k:normKey(t), on:!!d[normKey(t)], label:["日","一","二","三","四","五","六"][t.getDay()]});
+  }
+  var done=!!d[today];
+  var st=streakDays(d);
+  var need=(7-(st%7))%7 || 7;
+  openSheet("<h3>每日签到</h3>"+
+    "<div class='st'>连签满 7 天，领 <b style='color:#ffd98a'>3 天会员</b></div>"+
+    "<div class='checkin'>"+week.map(function(w){
+      return "<div class='"+(w.on?"on":"")+"'>周"+w.label+"<br>"+(w.on?"✓":"·")+"</div>";
+    }).join("")+"</div>"+
+    "<div class='block'><p>累计签到：<b style='color:#fff'>"+Object.keys(d).length+"</b> 天　"+
+    "当前连签：<b style='color:#fff'>"+st+"</b> 天<br>"+
+    "再签 <b style='color:#ffd98a'>"+need+"</b> 天可领 3 天会员</p></div>"+
+    (done? "<button class='big' onclick='closeSheet()'>今天已签到</button>"
+         : "<button class='big' onclick='doCheckin()'>立即签到</button>"));
+}
+function doCheckin(){
+  var d=checkinData();
+  var today=todayKey();
+  if(d[today]){ toast("今天已经签过了"); return; }
+  d[today]=1;
+  localStorage.setItem("yc_checkin_"+(ME?ME.name:""), JSON.stringify(d));
+
+  var st=streakDays(d);
+  var got=false;
+  if(st>0 && st%7===0){ addVipDays(3); got=true; }
+
+  closeSheet(); updateCheckinTag();
+
+  if(got){
+    openSheet("<h3>连签 7 天达成</h3><div class='st'>奖励已发放</div>"+
+      "<div class='kamires'><div class='kl'>会员 +3 天</div>"+
+      "<div class='kv'>3 天</div>"+
+      "<div class='kl'>到期 "+ME.vip.expire+"（剩 "+daysLeft(ME.vip.expire)+" 天）</div></div>"+
+      "<button class='big' onclick='closeSheet();goto(\"home\")'>开始下载</button>");
+  } else {
+    var need=(7-(st%7))%7 || 7;
+    toast("签到成功（连签 "+st+" 天，再签 "+need+" 天领 3 天会员）", true);
+  }
+}
+function updateCheckinTag(){
+  var el=document.getElementById("checkinTag"); if(!el) return;
+  var d=checkinData();
+  el.textContent = d[todayKey()] ? "已签 ›" : "未签 ›";
+}
+/* ============ 邀请码 ============ */
+function inviteSheet(){
+  var inv=(DATA&&DATA.invite)||{bonus_days:3,codes:[]};
+  var used=localStorage.getItem("yc_invite_"+(ME?ME.name:""))||"";
+  openSheet("<h3>邀请码</h3><div class='st'>输入有效邀请码，送 "+inv.bonus_days+" 天会员</div>"+
+    (used? "<div class='invitebox'><b>已使用</b><div class='note'>你已兑换过邀请码</div></div>"
+         : "<input id='invInput' class='inp2' placeholder='输入邀请码'>"+
+           "<button class='big' onclick='useInvite()'>兑换</button>")+
+    "<div class='note'>邀请码由站长发放，可用于好友、社群推广。</div>");
+}
+function useInvite(){
+  var v=(document.getElementById("invInput").value||"").trim().toUpperCase();
+  var inv=(DATA&&DATA.invite)||{codes:[],bonus_days:3};
+  if(inv.codes.indexOf(v)<0){ toast("邀请码无效"); return; }
+  localStorage.setItem("yc_invite_"+(ME?ME.name:""), v);
+  addVipDays(inv.bonus_days);
+  closeSheet(); toast("兑换成功，会员 +"+inv.bonus_days+" 天",true);
+}
+/* ============ 下载记录 ============ */
+function dlKey(){ return "yc_dl_"+(ME?ME.name:""); }
+function addDlRecord(name){
+  try{
+    var a=JSON.parse(localStorage.getItem(dlKey())||"[]");
+    a.unshift({n:name,t:new Date().toLocaleString()});
+    localStorage.setItem(dlKey(), JSON.stringify(a.slice(0,50)));
+  }catch(e){}
+}
+function downloadHistory(){
+  var a=[]; try{ a=JSON.parse(localStorage.getItem(dlKey())||"[]"); }catch(e){}
+  openSheet("<h3>下载记录</h3><div class='st'>最近 "+a.length+" 条</div>"+
+    (a.length? a.map(function(x){
+      return "<div class='block'><h4>"+esc(x.t)+"</h4><p>"+esc(x.n)+"</p></div>";
+    }).join("") : "<div class='note' style='text-align:center;padding:30px 0'>还没有下载记录</div>")+
+    "<button class='big' onclick='closeSheet()'>关闭</button>");
+}
+/* ============ 搜索历史 ============ */
+function onSearch(v){
+  render();
+  if(v && v.length>=2){
+    var h=[]; try{ h=JSON.parse(localStorage.getItem("yc_search")||"[]"); }catch(e){}
+    if(h[0]!==v){ h.unshift(v); localStorage.setItem("yc_search", JSON.stringify(h.slice(0,8))); }
+  }
+  renderHist();
+}
+function renderHist(){
+  var box=document.getElementById("hist"); if(!box) return;
+  var q=document.getElementById("q");
+  if(q && q.value){ box.innerHTML=""; return; }
+  var h=[]; try{ h=JSON.parse(localStorage.getItem("yc_search")||"[]"); }catch(e){}
+  if(!h.length){ box.innerHTML=""; return; }
+  box.innerHTML=h.map(function(k){
+    return "<span onclick='useHist(\""+k.replace(/'/g,"")+"\")'>"+esc(k)+"</span>";
+  }).join("")+"<span class='clear' onclick='clearHist()'>清空</span>";
+}
+function useHist(k){
+  var q=document.getElementById("q"); q.value=k; render(); renderHist();
+}
+function clearHist(){ localStorage.removeItem("yc_search"); renderHist(); }
+/* ============ 点赞 ============ */
+function likeKey(){ return "yc_like_"+(ME?ME.name:""); }
+function likes(){ try{ return JSON.parse(localStorage.getItem(likeKey())||"[]"); }catch(e){ return []; } }
+function toggleLike(){
+  if(!OPEN) return;
+  var a=likes(), i=a.indexOf(OPEN.name);
+  if(i>=0){ a.splice(i,1); toast("已取消点赞"); } else { a.push(OPEN.name); toast("已点赞",true); }
+  localStorage.setItem(likeKey(), JSON.stringify(a));
+  var b=document.getElementById("likeBtn");
+  if(b) b.classList.toggle("on", a.indexOf(OPEN.name)>=0);
+}
+
+function isPhone(){
+  return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+}
+function mobileHint(){
+  if(!OPEN) return "";
+  if(OPEN.platform==="mobile") return "";
+  if(!isPhone()) return "";
+  return "<div class='block' style='border-top:none'><h4><i>!</i>手机提示</h4>" +
+    "<p style='color:#ffb3c7'>这是电脑版游戏，手机不能直接运行。" +
+    "可以装 Winlator 模拟器尝试（点「我的 → 安装说明 → 手机端」看教程），" +
+    "但 2GB 以上的大型游戏大概率跑不动。</p></div>";
+}
+function openDetail(i){
+  const g=DATA.games[i]; OPEN=g;
+  $("dimg").src=(g.shots&&g.shots[0])||g.cover||"";
+  $("dtitle").textContent=g.name;
+  $("dtags").innerHTML=`<span class="badge">${esc(g.cat)}</span><span class="badge">${esc(g.size||'-')}</span>`+
+    (g.tag?`<span class="badge">${esc(g.tag)}</span>`:'');
+  $("ddesc").textContent=g.desc||"";
+  var mh=document.getElementById("dmob");
+  if(!mh){ mh=document.createElement("div"); mh.id="dmob"; var box=document.getElementById("ddetail"); if(box&&box.parentNode) box.parentNode.insertBefore(mh, box); }
+  mh.innerHTML = mobileHint();
+  $("ddetail").textContent=g.detail||"按安装说明操作即可。";
+  $("dcode").textContent=canGet(g)?(g.code||"----"):"会员可见";
+  const shots=g.shots||[];
+  $("dblockShot").style.display=shots.length?"":"none";
+  $("dshots").innerHTML=shots.map(s=>`<img src="${esc(s)}" onerror="this.remove()">`).join("");
+  const b=$("dlBtn");
+  if(g.play){ b.textContent="▶ 开始游戏"; b.className="btn"; }
+  else if(g.openUrl){ b.textContent="免费下载（镜像）"; b.className="btn"; }
+  else if(g.pending){ b.textContent="即将上线"; b.className="btn locked"; }
+  else if(canGet(g)){ b.textContent=g.free?"免费下载":(g.parts?"下载（分卷）":"下载游戏"); b.className="btn"; }
+  else { b.textContent="开通会员后下载"; b.className="btn locked"; }
+  refreshFavBtn(); buildRelated(g);
+  var lb=document.getElementById('likeBtn'); if(lb) lb.classList.toggle('on', likes().indexOf(g.name)>=0);
+  $("detail").classList.remove("hide");
+  $("detail").scrollTop=0;
+}
+function closeDetail(){ $("detail").classList.add("hide"); }
+function copyCode(){
+  if(!canGet(OPEN)){ toast("请先开通会员"); goto("vip"); closeDetail(); return; }
+  const c=OPEN&&OPEN.code; if(!c) return;
+  if(navigator.clipboard) navigator.clipboard.writeText(c);
+  toast("提取码已复制",true);
+}
+function doOpen(){
+  if(!canGet(OPEN)){ toast("请先开通会员"); goto("vip"); closeDetail(); return; }
+  if(OPEN&&OPEN.url) window.open(OPEN.url,"_blank");
+}
+function doDownload(){
+  const g=OPEN; if(!g) return;
+  if(g.play){ playGame(g.play); return; }
+  if(g.pending){ toast("这个还没上线，换一个试试"); return; }
+  if(!canGet(g)){ toast("会员专享，请先开通"); closeDetail(); goto("vip"); return; }
+  if(g.openUrl && g.url){ window.open(g.url, "_blank"); toast("已打开镜像页，选一个下载"); return; }
+  if(g.parts && g.parts.length){
+    var u = g.parts[0];
+    window.open("https://gh-proxy.com/" + u, "_blank");
+    toast("已打开下载，分卷请依次下载");
+    return;
+  }
+  requestDownloadUrl(g, function(u){ realStartDL(g, u); });
+}
+function realStartDL(g, url){
+  url=(url||"").trim();
+  // 分卷下载：parts 数组，依次下完每一卷
+  if(g.parts && g.parts.length){
+    startMultiDL(g.name, g.parts);
+    return;
+  }
+  if(!url){
+    if(g.parts==null && (g.down||"").trim()===""){ toast("下载地址未配置"); return; }
+  }
+  if(!/^http/.test(url)){ toast("下载地址未配置"); return; }
+  startDL(g.name, url);
+}
+
+
+/* ---------- 内置游戏播放器 ---------- */
+function playGame(rel){
+  if(!rel){ toast("游戏地址缺失"); return; }
+  var box = document.getElementById("player");
+  if(!box){
+    box = document.createElement("div");
+    box.id = "player";
+    box.className = "player";
+    box.innerHTML = '<iframe id="playerFrame"></iframe>' +
+      '<button class="pclose" onclick="closePlayer()">✕</button>';
+    document.body.appendChild(box);
+  }
+  document.getElementById("playerFrame").src = rel;
+  box.classList.add("on");
+}
+function closePlayer(){
+  var box = document.getElementById("player");
+  if(box){ box.classList.remove("on"); document.getElementById("playerFrame").src = "about:blank"; }
+}
+
+/* ---------- 分卷下载 ---------- */
+let MPARTS=[], MIDX=0, MTOTAL=0, MDONE=0;
+function startMultiDL(name, parts){
+  MPARTS = parts.slice(); MIDX = 0; MTOTAL = parts.length; MDONE = 0;
+  if(typeof reportEvent==='function') reportEvent('download', {file:name, parts:MTOTAL});
+  addDlRecord(name+"（"+MTOTAL+" 卷）");
+  openSheet(`
+    <h3>分卷下载</h3>
+    <div class="st">${esc(name)} · 共 ${MTOTAL} 卷，逐卷自动下载</div>
+    <div class="dlwrap">
+      <div class="dlbar"><i id="dlprog" style="width:0%"></i></div>
+      <div class="dlmeta"><span id="dlpct">0%</span><span id="dlspeed">准备中…</span></div>
+      <div class="dlsub" id="dlsub">第 1 / ${MTOTAL} 卷 · 保存到：下载\夜猫游戏库</div>
+    </div>
+    <div class="note" style="text-align:center">
+      全部下完后，用 7-Zip 打开 001 那个文件解压即可<br>文件较大请保持网络稳定
+    </div>
+    <button class="big" onclick="openDLDir()">打开下载文件夹</button>
+  `);
+  mpNext();
+}
+function mpNext(){
+  if(MIDX >= MTOTAL){
+    clearInterval(DLTIMER);
+    $("dlprog").style.width="100%";
+    $("dlpct").textContent="100%";
+    $("dlspeed").textContent="全部完成";
+    $("dlsub").textContent="已保存到：下载\夜猫游戏库";
+    toast("全部 "+MTOTAL+" 卷下载完成", true);
+    return;
+  }
+  const partUrl = MPARTS[MIDX];
+  const fname = (OPEN && OPEN.name ? OPEN.name.replace(/[\/:*?"<>|]/g,"_") : "game")
+              + "." + (partUrl.split(".").pop().split("?")[0]);
+  fetch("/dl/start",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({name:fname, url:partUrl})})
+    .then(r=>r.json()).then(d=>{
+      if(!d.ok){ $("dlspeed").textContent="第 "+(MIDX+1)+" 卷启动失败"; return; }
+      DLID=d.id;
+      pollMulti();
+    }).catch(()=>{ $("dlspeed").textContent="无法连接本地下载服务"; });
+}
+function pollMulti(){
+  clearInterval(DLTIMER);
+  DLTIMER=setInterval(()=>{
+    if(!DLID) return;
+    fetch("/dl/status?id="+DLID).then(r=>r.json()).then(d=>{
+      if(!d.ok) return;
+      const partPct = d.total ? Math.min(100, d.got/d.total*100) : 0;
+      const overall = Math.round(((MDONE + partPct/100) / MTOTAL) * 100);
+      $("dlprog").style.width = overall+"%";
+      $("dlpct").textContent = overall+"%";
+      $("dlspeed").textContent = d.status==="running" ? (d.speed_h+"  "+d.got_h+"/"+d.total_h) : "";
+      $("dlsub").textContent = "第 "+(MIDX+1)+" / "+MTOTAL+" 卷 · 保存到：下载\夜猫游戏库";
+      if(d.status==="done"){
+        clearInterval(DLTIMER);
+        MDONE++; MIDX++;
+        DLID=null;
+        if(MIDX < MTOTAL) setTimeout(mpNext, 800);
+        else mpNext();
+      }
+    });
+  }, 700);
+}
+
+/* ---------- 内置下载器 ---------- */
+let DLID=null, DLTIMER=null;
+function startDL(name, url){
+  if(typeof reportEvent==='function') reportEvent('download', {file:name});
+  addDlRecord(name);
+  openSheet(`
+    <h3>开始下载</h3>
+    <div class="st">${esc(name)}</div>
+    <div class="dlwrap">
+      <div class="dlbar"><i id="dlprog" style="width:0%"></i></div>
+      <div class="dlmeta"><span id="dlpct">0%</span><span id="dlspeed">准备中…</span></div>
+      <div class="dlsub" id="dlsub">保存到：下载\夜猫游戏库</div>
+    </div>
+    <div class="note" style="text-align:center">下载完成后到该文件夹解压即可<br>解压路径请用全英文</div>
+    <button class="big" onclick="openDLDir()">打开下载文件夹</button>
+  `);
+  fetch("/dl/start",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({name:name.replace(/[\/:*?"<>|]/g,"_")+guessExt(url), url:url})})
+    .then(r=>r.json()).then(d=>{
+      if(!d.ok){ $("dlspeed").textContent="启动失败"; return; }
+      DLID=d.id; pollDL();
+    }).catch(()=>{ $("dlspeed").textContent="无法连接本地下载服务"; });
+}
+function guessExt(u){
+  const m=(u.split("?")[0]).match(/\.(7z|zip|rar|exe|apk|iso|tar|gz)$/i);
+  return m? "."+m[1] : "";
+}
+function pollDL(){
+  clearInterval(DLTIMER);
+  DLTIMER=setInterval(()=>{
+    if(!DLID) return;
+    fetch("/dl/status?id="+DLID).then(r=>r.json()).then(d=>{
+      if(!d.ok) return;
+      const pct = d.total? Math.min(100, Math.round(d.got/d.total*100)) : 0;
+      $("dlprog").style.width = pct+"%";
+      $("dlpct").textContent = d.total? pct+"%" : d.got_h;
+      $("dlspeed").textContent = d.status==="running" ? (d.speed_h+"  "+d.got_h+"/"+d.total_h) : "";
+      if(d.status==="done"){
+        clearInterval(DLTIMER);
+        $("dlprog").style.width="100%";
+        $("dlpct").textContent="100%";
+        $("dlspeed").textContent="下载完成";
+        $("dlsub").textContent="已保存到：下载\夜猫游戏库\\"+d.name;
+        $("sheetBody").insertAdjacentHTML("beforeend",
+          `<button class="big" onclick="openDLDir()">打开文件夹</button>`);
+        toast("下载完成",true);
+      }else if(d.status==="error"){
+        clearInterval(DLTIMER);
+        $("dlspeed").textContent="下载失败："+(d.err||"");
+      }
+    }).catch(()=>{});
+  },800);
+}
+function openDLDir(){ fetch("/dl/open",{method:"POST"}); }
+
+
+/* ================= 购买通道 ================= */
+function payCfg(){ return (DATA && DATA.pay) || {}; }
+function renderVipNotes(){
+  var box=document.getElementById("vipNotes"); if(!box) return;
+  var total=(DATA.games||[]).length;
+  var paid=(DATA.games||[]).filter(function(g){return !g.free;}).length;
+  box.innerHTML = "库内共 "+total+" 款　会员可下 "+paid+" 款<br>"+
+    "全部免网盘直下 · 分卷自动续传 · 持续更新<br>"+
+    "一次开通，全库畅玩；到期后可续费继续下载";
+}
+function renderPayHelp(){
+  var box = document.getElementById("payHelp"); if(!box) return;
+  var c = payCfg();
+  var contact = c.contact ? ("客服：" + c.contact) : "";
+  if(c.card_url){
+    box.innerHTML =
+      '<button class="buycard" onclick="openCardShop()">去购买卡密 →</button>' +
+      '<div class="paynote">付款后自动显示卡密，回到这里输入即可' +
+      (contact? "<br>"+esc(contact) : "") + '</div>';
+  } else {
+    box.innerHTML =
+      '<div class="paynote">' +
+      (contact? ("联系客服购买：" + esc(contact)) : "联系客服 QQ 3125869033 购买卡密，回来在上方输入框兑换") +
+      '</div>';
+  }
+}
+function openCardShop(){
+  var c = payCfg();
+  if(!c.card_url){ toast("未配置购买地址"); return; }
+  window.open(c.card_url, "_blank");
+}
+
+/* ================= 会员套餐 ================= */
+const PLANS=[
+  {id:"m", name:"月卡", price:9.9,  desc:"30 天，随时可停"},
+  {id:"y", name:"年卡", price:59,   desc:"365 天，含后续更新", hot:true},
+  {id:"f", name:"永久", price:99,   desc:"一次付费，永久使用"}
+];
+let SEL=null, PAY="微信", ORDER=null, POLL=null;
+
+function renderPlans(){
+  $("plans").innerHTML=PLANS.map(p=>`
+    <div class="plan ${p.hot?'hot':''} ${SEL&&SEL.id===p.id?'sel':''}" onclick="pickPlan('${p.id}')">
+      ${p.hot?'<div class="hottag">最划算</div>':''}
+      <div class="pl"><div class="pt">${p.name}</div><div class="pd">${p.desc}</div></div>
+      <div class="pp">${p.price}<small>元</small></div>
+    </div>`).join("");
+}
+function pickPlan(id){
+  SEL=PLANS.find(x=>x.id===id);
+  renderPlans();
+  $("payBtn").textContent=`确认支付 ${SEL.price} 元（${PAY}）`;
+}
+function pickPay(p){
+  PAY=p;
+  [...document.querySelectorAll(".payrow .pw")].forEach(el=>el.classList.toggle("on",el.dataset.pay===p));
+  if(SEL) $("payBtn").textContent=`确认支付 ${SEL.price} 元（${PAY}）`;
+}
+
+let PAY_ORDER = "", PAY_TIMER = null, PAY_INFO = null;
+function startPay(){
+  if(!SEL){ toast("先选套餐"); return; }
+  var uid = "M" + String(Date.now()).slice(-8);
+  renderPaySheet({
+    order: uid,
+    amount: SEL.price,
+    plan: SEL.name,
+    days: (SEL.id==="m"?30:(SEL.id==="y"?365:36500)),
+    qr_alipay: "pay_qr_alipay.png",
+    qr_wechat: "pay_qr_wechat.png",
+    service_qq: "3125869033",
+    ui: {
+      title: "扫码付款",
+      subtitle: "",
+      showOrder: false,
+      showAmount: true,
+      accent: "#e8c07a",
+      note: "付款后截图发客服 QQ 3125869033 领卡密，在「我的 - 开通会员」输入",
+      tips: ["扫码付款", "截图付款结果", "找客服领卡密"],
+      btnText: "我已付款，联系客服"
+    }
+  });
+}
+
+function renderPaySheet(d){
+  var ui = d.ui || {};
+  var accent = ui.accent || "#e8c07a";
+  var note = (ui.note || "").replace("{qq}", d.service_qq || "");
+  var tips = (ui.tips || []).map(function(t){
+    return "<div class='ptip'>"+esc(t)+"</div>";
+  }).join("");
+  var tabs = "";
+  if(d.qr_alipay || d.qr_wechat){
+    tabs = "<div class='paytabs'>" +
+      (d.qr_alipay ? "<span class='on' id='tabAli' onclick='pickQR(\"alipay\")'>支付宝</span>" : "") +
+      (d.qr_wechat ? "<span id='tabWx' onclick='pickQR(\"wechat\")'>微信支付</span>" : "") +
+      "</div>" +
+      "<img class='payqr' id='payImg' src='" + (d.qr_alipay || d.qr_wechat) + "'>";
+  } else if(d.qr){
+    tabs = "<img class='payqr' src='" + d.qr + "'>";
+  } else {
+    tabs = "<div class='qr' style='border:none'><div class='amt' style='color:"+accent+"'>¥" + d.amount + "</div></div>";
+  }
+  var bg = ui.bg ? "<div class='paybanner' style=\"background-image:url('"+ui.bg+"')\"></div>" : "";
+  openSheet(
+    bg +
+    "<h3>" + esc(ui.title || "扫码付款") + "</h3>" +
+    "<div class='st'>" + esc(ui.subtitle || (d.plan + " · ¥" + d.amount + " · " + d.days + " 天")) + "</div>" +
+    tabs +
+    tips +
+    (ui.showOrder !== false ? "<div class='payrow2'><span>订单号</span><b>" + d.order + "</b></div>" : "") +
+    (ui.showAmount !== false ? "<div class='payrow2'><span>金额</span><b style='color:"+accent+"'>¥" + d.amount + "</b></div>" : "") +
+    "<div class='payrow2'><span>状态</span><b id='payStat'>等待付款…</b></div>" +
+    (note ? "<div class='note' style='text-align:center'>" + esc(note) + "</div>" : "") +
+    "<button class='big' style='border-color:"+accent+"66;color:"+accent+"' onclick='copyOrder()'>复制订单号</button>" +
+    "<button class='big' style='margin-top:8px' onclick='openQQ()'>" + esc(ui.btnText || "我已完成付款") + "</button>" +
+    "<div class='note' style='text-align:center;color:#ffd98a'>付款后把截图发客服 QQ " + esc(d.service_qq || "") + " 领取卡密，在「我的 - 开通会员」输入即可</div>"
+  );
+  clearInterval(PAY_TIMER);
+  PAY_TIMER = setInterval(checkPay, 3000);
+}
+
+function pickQR(k){
+  if(!PAY_INFO) return;
+  var img = document.getElementById("payImg"); if(!img) return;
+  var a = document.getElementById("tabAli"), w = document.getElementById("tabWx");
+  if(a) a.classList.toggle("on", k === "alipay");
+  if(w) w.classList.toggle("on", k === "wechat");
+  img.src = k === "wechat" ? PAY_INFO.qr_wechat : PAY_INFO.qr_alipay;
+}
+function copyOrder(){
+  if(!PAY_ORDER) return;
+  if(navigator.clipboard) navigator.clipboard.writeText(PAY_ORDER);
+  toast("订单号已复制： " + PAY_ORDER, true);
+}
+
+
+/* ---------- 付款截图自动核验（0 成本自动开通） ---------- */
+function pickShot(){
+  var f = document.getElementById("payShot");
+  if(f) f.click();
+}
+function uploadPayShot(input){
+  var file = input.files && input.files[0];
+  if(!file) return;
+  var el = document.getElementById("payStat");
+  if(el) el.textContent = "正在识别截图…";
+  var reader = new FileReader();
+  reader.onload = function(){
+    apiFetch("/pay/ocr?order=" + encodeURIComponent(PAY_ORDER), {
+      method: "POST",
+      headers: {"Content-Type": "application/octet-stream"},
+      body: reader.result
+    }, 60000).then(function(r){ return r.json(); }).then(function(d){
+      if(d && d.ok && d.kami){
+        if(el) el.textContent = "识别成功，会员已开通";
+        activate(d.kami);
+      } else {
+        if(el) el.textContent = "未通过";
+        toast((d && d.msg) || "识别失败，请联系客服", true);
+      }
+    }).catch(function(){
+      if(el) el.textContent = "识别失败";
+      toast("上传失败，请重试或联系客服", true);
+    });
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function checkPay(){
+  if(!PAY_ORDER) return;
+  var base = apiBase(); if(!base) return;
+  apiFetch("/pay/status?order=" + PAY_ORDER, {}, 8000)
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(!d.ok) return;
+      var el = document.getElementById("payStat");
+      if(d.status === "paid" && d.kami){
+        clearInterval(PAY_TIMER);
+        if(el) el.textContent = "已付款 ✓";
+        activate(d.kami);
+      }
+    }).catch(function(){});
+}
+
+function openQQ(){
+  if(navigator.clipboard) navigator.clipboard.writeText("3125869033");
+  toast("客服 QQ 3125869033 已复制", true);
+}
+
+function mkOrderId(){
+  const d=new Date();
+  return "YC"+String(d.getFullYear()).slice(2)+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')
+    +"-"+Math.random().toString(36).slice(2,6).toUpperCase();
+}
+function payDemo(){
+  openSheet(`
+    <h3>扫码支付</h3>
+    <div class="st">${ORDER.plan} · ${ORDER.pay} · ¥${ORDER.price}</div>
+    <div class="qr">
+      <div class="amt">¥${ORDER.price}</div>
+      <div>支付二维码</div>
+      <div style="font-size:10px;color:#3f4763">演示模式 · 未接支付通道</div>
+    </div>
+    <div class="note" style="text-align:center">订单号 ${ORDER.id}</div>
+    <button class="big" onclick="simulatePaid()">模拟支付成功（演示）</button>
+    <div class="note" style="text-align:center">配置 pay_api 后这里会轮询真实支付结果</div>
+  `);
+}
+function payReal(){
+  openSheet(`
+    <h3>扫码支付</h3>
+    <div class="st">${ORDER.plan} · ${ORDER.pay} · ¥${ORDER.price}</div>
+    <div class="qr" id="qrbox"><span class="spinner"></span><div>正在生成订单…</div></div>
+    <div class="note" id="pstat" style="text-align:center">请稍候</div>
+  `);
+  fetch(PAY_CFG.pay_api+"/create",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({orderId:ORDER.id,plan:ORDER.plan,price:ORDER.price,pay:ORDER.pay})})
+    .then(r=>r.json()).then(d=>{
+      if(d&&d.qr){ $("qrbox").innerHTML=`<img src="${d.qr}" style="width:100%;height:100%;object-fit:contain">`;
+        $("pstat").innerHTML='<span class="spinner"></span>等待支付…'; poll(); }
+      else $("pstat").textContent=(d&&d.msg)||"下单失败";
+    }).catch(()=>{ $("pstat").textContent="连接支付服务失败"; });
+}
+function poll(){
+  let n=0; clearInterval(POLL);
+  POLL=setInterval(()=>{
+    if(++n>PAY_CFG.poll_max){ clearInterval(POLL); $("pstat").textContent="支付超时，请联系卖家"; return; }
+    fetch(PAY_CFG.pay_api+"/status?order="+encodeURIComponent(ORDER.id))
+      .then(r=>r.json()).then(d=>{ if(d&&d.paid){ clearInterval(POLL); activate(d.kami); } })
+      .catch(()=>{});
+  },PAY_CFG.poll_ms);
+}
+function simulatePaid(){
+  const box=$("sheetBody");
+  box.innerHTML=`<h3>支付中</h3><div class="st">正在确认订单 ${ORDER.id}</div>
+    <div style="text-align:center;padding:26px"><span class="spinner"></span>确认中…</div>`;
+  setTimeout(()=>activate("AUTO-"+ORDER.id.slice(-6)),700);
+}
+
+/* 付款成功 → 写会员 → 弹卡密 → 回首页 */
+function activate(kami){
+  const days = {m:30, y:365, f:3650}[ORDER.type] || 30;
+  const base = isVip() ? new Date(ME.vip.expire.replace(/-/g,'/')) : new Date();
+  base.setDate(base.getDate()+days);
+  const exp = base.getFullYear()+'-'+String(base.getMonth()+1).padStart(2,'0')+'-'+String(base.getDate()).padStart(2,'0');
+  ME.vip={type:ORDER.plan, expire:exp, kami:kami||("YC-"+Math.random().toString(36).slice(2,8).toUpperCase())};
+  ME.orders=ME.orders||[]; ME.orders.unshift({id:ORDER.id, plan:ORDER.plan, price:ORDER.price, pay:ORDER.pay, date:ORDER.ts, kami:ME.vip.kami});
+  const users=DB.users(); users[ME.name]=Object.assign({},users[ME.name],{vip:ME.vip,orders:ME.orders}); DB.save(users);
+
+  openSheet(`
+    <h3>支付成功</h3>
+    <div class="st">会员已激活，可下载全部游戏</div>
+    <div class="kamires">
+      <div class="kl">会员卡密（已记录到本机）</div>
+      <div class="kv">${ME.vip.kami}</div>
+      <div class="kl">${ORDER.plan} · 到期 ${exp}</div>
+    </div>
+    <button class="big" onclick="afterPaid()">开始下载游戏</button>
+    <div class="note" style="text-align:center">订单号 ${ORDER.id}</div>
+  `);
+  if(navigator.clipboard) navigator.clipboard.writeText(ME.vip.kami);
+  refreshVip(); render(); syncHomeVip(); if(typeof cloudSave==='function') cloudSave();
+}
+function afterPaid(){ closeSheet(); goto("home"); toast("会员已开通，尽情下载",true); }
+
+/* ================= 弹层 ================= */
+function openSheet(html){
+  $("sheetBody").innerHTML=html;
+  $("mask").classList.add("on"); $("sheet").classList.add("on");
+}
+function closeSheet(){ $("mask").classList.remove("on"); $("sheet").classList.remove("on"); }
+function toast(m,ok){
+  const t=$("toast"); t.textContent=m; t.className="toast on"+(ok?" ok":"");
+  clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("on"),1700);
+}
+let TIPS_TAB = "mobile";
+function tipsSheet(tab){
+  TIPS_TAB = tab || "mobile";
+  renderTips();
+}
+function renderTips(){
+  var mobile = TIPS_TAB === "mobile";
+  var body = mobile ? `
+    <div class="step"><div class="n">01</div><div class="c"><b>装模拟器</b><br>
+      下载列表里【必装】的 Winlator，安装时允许存储权限</div></div>
+    <div class="step"><div class="n">02</div><div class="c"><b>下载游戏</b><br>
+      在游戏详情页点「下载游戏」，文件保存到 <b>下载/夜猫游戏库/</b></div></div>
+    <div class="step"><div class="n">03</div><div class="c"><b>解压</b><br>
+      用 ZArchiver 解压到全英文路径，例如 <b>Download/Erewhon</b></div></div>
+    <div class="step"><div class="n">04</div><div class="c"><b>建容器</b><br>
+      Winlator 新建：1280x720 / DXVK 1.10.3 / Box64 Performance</div></div>
+    <div class="step"><div class="n">05</div><div class="c"><b>挂盘</b><br>
+      容器设置 → Drives → 添加 D 盘，指向游戏目录</div></div>
+    <div class="step"><div class="n">06</div><div class="c"><b>启动</b><br>
+      双击游戏 exe，首次黑屏 30～60 秒属正常</div></div>
+    <div class="note">客服 QQ：3125869033<br>手机端建议 8G 内存以上；卡顿就把分辨率降到 1024x576。</div>
+  ` : `
+    <div class="step"><div class="n">01</div><div class="c"><b>下载游戏</b><br>
+      详情页点「下载游戏」，默认存到 <b>下载\\夜猫游戏库\\</b>，可点「打开文件夹」直达</div></div>
+    <div class="step"><div class="n">02</div><div class="c"><b>解压（分卷要下全）</b><br>
+      如果文件名是 <b>.7z.001 / .002 / .003</b>，必须全部下载完，
+      用 7-Zip 打开 <b>001</b> 那个，解压到全英文目录，如 <b>D:\\GAMES\\Erewhon</b></div></div>
+    <div class="step"><div class="n">03</div><div class="c"><b>启动</b><br>
+      进入解压目录，双击 <b>.exe</b> 即可运行，无需安装</div></div>
+    <div class="step"><div class="n">04</div><div class="c"><b>报错处理</b><br>
+      缺 dll → 装 VC++ 运行库（x64）；黑屏 → 右键 exe 用管理员运行</div></div>
+    <div class="step"><div class="n">05</div><div class="c"><b>杀毒误报</b><br>
+      汉化补丁常被误杀，加入白名单后再解压一次即可</div></div>
+    <div class="note">客服 QQ：3125869033<br>电脑端要求：Win10/11 64 位，8G 内存以上，独显更流畅。</div>
+  `;
+  openSheet(
+    '<h3>安装说明</h3>' +
+    '<div class="st">手机与电脑步骤不同，切换查看</div>' +
+    '<div class="tip-tabs">' +
+      '<span class="' + (mobile ? 'on' : '') + '" onclick="TIPS_TAB=\'mobile\';renderTips()">手机端</span>' +
+      '<span class="' + (mobile ? '' : 'on') + '" onclick="TIPS_TAB=\'pc\';renderTips()">电脑端</span>' +
+    '</div>' +
+    body +
+    '<button class="big" onclick="closeSheet()">知道了</button>'
+  );
+}
+function orderHistory(){
+  const os=(ME.orders||[]);
+  openSheet(`<h3>我的订单</h3><div class="st">共 ${os.length} 笔</div>`+
+    (os.length?os.map(o=>`<div class="block"><h4>${o.date||''}</h4>
+      <p>${esc(o.plan)} · ${o.price} 元 · ${esc(o.pay)}
+订单号：${esc(o.id)}
+卡密：${esc(o.kami||'-')}</p></div>`).join("")
+    :`<div class="note" style="text-align:center;padding:30px 0">还没有订单</div>`)+
+    `<button class="big" onclick="closeSheet()">关闭</button>`);
+}
+let ADMIN_TAP = 0, ADMIN_TAP_T = 0;
+function tapVersion(){
+  var t = Date.now();
+  if (t - ADMIN_TAP_T > 2500) ADMIN_TAP = 0;
+  ADMIN_TAP_T = t; ADMIN_TAP++;
+  if (ADMIN_TAP >= 5) {
+    ADMIN_TAP = 0;
+    var base = (DATA && DATA.auth_api) || "";
+    if (!base) { toast("未配置后台地址"); return; }
+    window.open(base + "/admin", "_blank");
+    toast("打开管理后台", true);
+  } else if (ADMIN_TAP >= 3) {
+    toast("再点 " + (5 - ADMIN_TAP) + " 次进入后台");
+  }
+}
+function copyQQ(){
+  if(navigator.clipboard) navigator.clipboard.writeText("3125869033");
+  toast("客服 QQ 已复制：3125869033", true);
+}
+function aboutSheet(){
+  openSheet(`<h3>关于</h3><div class="st" onclick="tapVersion()" style="cursor:pointer">夜猫游戏库 v2.0</div>
+    <div class="note">客服 QQ：3125869033<br>${(DATA&&DATA.auth_api)? "· 后台已连接<br>":""}· 账号与会员数据保存在本机<br>· 换设备需重新注册并开通<br>· 虚拟商品，开通后不支持退款<br>· 遇到问题请联系卖家</div>
+    <button class="big" onclick="closeSheet()">关闭</button>`);
+}
+
+/* ================= 启动入口 ================= */
+function isMobileDev(){ return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent); }
+window.addEventListener("load",()=>{
+  document.documentElement.classList.add(isMobileDev()?"is-mobile":"is-pc");
+  pickBg(); buildPetals(); randomizeBands(); loadSysInfo(); buildPetals(); randomizeBands();
+  const s=DB.session();
+  if(s && DB.users()[s]) boot(s);
+  else { $("authView").style.display="flex"; }
+});
+</script>
+<script id="inlineData" type="application/json">{"site":"夜猫游戏库","ver":"2.1.0","notice":"标记【免费】的游戏无需会员即可下载；会员可解锁全部游戏。手机端需配合 Winlator 模拟器。","license_url":"","kami":[{"key":"YC2026-A1B2","expire":"2027-12-31","type":"年卡"}],"games":[{"name":"Winlator 模拟器（必装）","cat":"工具","size":"150M","free":true,"cover":"covers/thumb_winlator.jpg","shots":[],"desc":"安卓运行 PC 游戏必备。所有游戏都要先装它，免费提供。","detail":"安装后按下面参数建容器：\n分辨率 1280x720\nDXVK 1.10.3（部分游戏用 2.0）\nBox64 预设 Performance\n音频驱动 ALSA\n显卡驱动 Turnip（骁龙）\n\n然后在 Drives 里添加 D 盘，指向游戏目录。","url":"(软件内直下)","code":"xxxx","tag":"必装","pending":false,"file":"Winlator_11.2.apk","down":"https://github.com/shen070616/z9x2k7m/releases/download/v20261111-0410/Winlator_11.2.apk","updated":"2026-11-01","views":9820,"likes":341,"featured":false,"tags":["工具","必装"],"poster":"covers/poster_winlator.jpg","platform":"mobile","winlator":false},{"name":"乌有乡 Erewhon","cat":"3D","size":"4.29G（3卷）","free":false,"cover":"covers/cover_erewhon.jpg","shots":["covers/erewhon_cover.jpg","covers/erewhon.jpg","covers/erewhon2.jpg"],"desc":"YU-RIS 引擎，完整汉化版，含全CG存档。剧情向，画面精致。","detail":"下载全部分卷后，用 7-Zip 打开 erewhon.7z.001 解压。\n手机端配合 Winlator 运行。","url":"https://pan.quark.cn/s/c9b46fd4285a","code":"cdzr","tag":"推荐","updated":"2026-11-09","views":12640,"likes":928,"featured":true,"tags":["会员","PC","手机可玩"],"poster":"covers/poster_erewhon.jpg","parts":["https://github.com/shen070616/z9x2k7m/releases/download/v20261111-0410/erewhon.7z.001","https://github.com/shen070616/z9x2k7m/releases/download/v20261111-0410/erewhon.7z.002","https://github.com/shen070616/z9x2k7m/releases/download/v20261111-0410/erewhon.7z.003"],"pending":false,"platform":"pc","winlator":true},{"name":"夏之音 夏ノ音（汉化+去码）","cat":"Galgame","size":"1.28G","free":false,"cover":"covers/poster_xiazhino.jpg","poster":"covers/poster_xiazhino.jpg","shots":["covers/poster_xiazhino.jpg"],"desc":"夏日小镇的青春故事，已内置汉化补丁与去码补丁，解压即玩。","detail":"Unreal 引擎的日系 Galgame，全程语音。\n\n已整合：\n· 汉化补丁 v1.00（gemini-2.5-pro）\n· 去码补丁\n· 备用字体（防乱码）\n\n安装步骤：\n1. 点下载，文件保存到 下载\\夜猫游戏库\\\n2. 用 7-Zip 解压到全英文路径，例如 D:\\GAMES\\xiazhino\n3. 进入目录双击 GalHome.exe 运行\n\n首次启动加载较慢属正常。","parts":["https://github.com/shen070616/z9x2k7m/releases/download/v20261111-0410/xiazhino.7z"],"down":"https://github.com/shen070616/z9x2k7m/releases/download/v20261111-0410/xiazhino.7z","tags":["Galgame","汉化","去码","PC"],"updated":"2026-11-11","views":4200,"likes":380,"featured":true,"platform":"pc","winlator":true},{"name":"魔女的侵袭：黛博拉的房间 v0.3","cat":"3D","size":"2.75G（2卷）","free":false,"cover":"covers/cover_deborah.jpg","shots":["covers/deborah.jpg","covers/deborah2.jpg"],"desc":"虚幻引擎打造，官方中文，3D 动态互动，多结局分支。","detail":"下载全部分卷后，用 7-Zip 打开 deborah.7z.001 解压。\n手机端配合 Winlator 运行。","url":"填写你的夸克分享链接","code":"填写提取码","tag":"即将上线","pending":false,"updated":"2026-11-10","views":7650,"likes":512,"featured":true,"tags":["会员","PC","手机可玩"],"poster":"covers/poster_deborah.jpg","parts":["https://github.com/shen070616/z9x2k7m/releases/download/v20261111-0410/deborah.7z.001","https://github.com/shen070616/z9x2k7m/releases/download/v20261111-0410/deborah.7z.002"],"platform":"pc","winlator":true},{"name":"深夜补习（原创免费）","cat":"互动小说","size":"内置 · 免下载","free":true,"cover":"covers/poster_free1.jpg","poster":"covers/poster_free1.jpg","shots":["covers/chara5.png","covers/chara3.png"],"desc":"雨夜教室，一对一补习。三个选择，六种结局。","detail":"夜猫游戏库原创免费内容。\n\n点击「开始游戏」直接在本软件内玩，不用下载。\n约 5 分钟通关，含成人向剧情。","play":"games/yemao1/index.html","tags":["原创","互动小说","成人向"],"updated":"2026-11-11","views":3200,"likes":210,"featured":false,"platform":"mobile","winlator":false},{"name":"心跳翻牌（原创免费）","cat":"休闲","size":"内置 · 免下载","free":true,"cover":"covers/poster_free3.jpg","poster":"covers/poster_free3.jpg","shots":["covers/chara1.png","covers/chara2.png"],"desc":"6 对角色牌，找齐解锁六段私密记忆。","detail":"夜猫游戏库原创免费内容。\n\n翻牌小游戏，找齐 6 对角色即可通关。\n通关后解锁成人向文字内容。","play":"games/yemao2/index.html","tags":["原创","小游戏","成人向"],"updated":"2026-11-11","views":2100,"likes":140,"featured":false,"platform":"mobile","winlator":false},{"name":"Such a Sharp Pain","cat":"成人游戏","size":"未知","free":true,"cover":"covers/poster_real1.jpg","poster":"covers/poster_real1.jpg","shots":["covers/poster_real1.jpg"],"desc":"KETZAL 出品的高分 Ren'Py 作品。你扮演刚入职的年轻人，与几位性格各异的女性在同一屋檐下生活，每一次选择都会改变关系走向","detail":"KETZAL 出品的高分 Ren'Py 作品。你扮演刚入职的年轻人，与几位性格各异的女性在同一屋檐下生活，每一次选择都会改变关系走向。剧情细腻、分支多，是本类里评价最高的作品之一。\n\n版本：最新\n类型：剧情向 · 多线结局\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"https://uploadbay.co/gb6g4ur9g1jt","mirrors":["https://uploadbay.co/gb6g4ur9g1jt","https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2","https://fastdrop.cc/file?id=8WRfmAWVVpZI","https://fastdrop.cc/img/mirror-badge.svg?v=3","https://lewdupload.net/file?id=8WRfmAWVVpZI","https://galaxyfiles.org/file?id=8WRfmAWVVpZI"],"openUrl":true,"tags":["剧情向"],"updated":"2026-11-11","views":1073,"likes":59,"featured":false,"platform":"pc","winlator":true},{"name":"Fap Nights At Frenni’s Night Club","cat":"成人游戏","size":"未知","free":false,"cover":"covers/poster_real2.jpg","poster":"covers/poster_real2.jpg","shots":["covers/poster_real2.jpg"],"desc":"Fatal Fire Studios 的 3D 恐怖向成人游戏。你在一家奇怪的夜店做夜间保安，要在巡逻、监控和应对各种事件之间周旋。","detail":"Fatal Fire Studios 的 3D 恐怖向成人游戏。你在一家奇怪的夜店做夜间保安，要在巡逻、监控和应对各种事件之间周旋。3D 建模 + 恐怖氛围 + 成人内容，玩法独树一帜。\n\n版本：最新\n类型：3D · 恐怖 · 经营\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"https://uploadbay.co/77gx3t1z8bbb","mirrors":["https://uploadbay.co/77gx3t1z8bbb","https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2","https://fastdrop.cc/file?id=Ql9FCyqMtA","https://fastdrop.cc/img/mirror-badge.svg?v=3","https://galaxyfiles.org/file?id=Ql9FCyqMtA","https://lewdupload.net/file?id=Ql9FCyqMtA"],"openUrl":true,"tags":["会员","3D"],"updated":"2026-11-11","views":1246,"likes":68,"featured":false,"platform":"pc","winlator":true},{"name":"Nyacronomicon!","cat":"成人游戏","size":"未知","free":false,"cover":"covers/poster_real3.jpg","poster":"covers/poster_real3.jpg","shots":["covers/poster_real3.jpg"],"desc":"Kurogoma Knights 的 2D 卡通风格 RPG。你误入一本记载着邪神少女的魔导书世界，需要一边探索地牢一边处理与她们的","detail":"Kurogoma Knights 的 2D 卡通风格 RPG。你误入一本记载着邪神少女的魔导书世界，需要一边探索地牢一边处理与她们的关系。像素画风、战斗系统完整，含 DLC 内容。\n\n版本：最新\n类型：2D · RPG · 含DLC\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"https://uploadbay.co/0nwi0mj9xyha","mirrors":["https://uploadbay.co/0nwi0mj9xyha","https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2","https://fastdrop.cc/file?id=ioFO7sZXor7W","https://fastdrop.cc/img/mirror-badge.svg?v=3","https://lewdupload.net/file?id=ioFO7sZXor7W","https://bzzhr.fileo.me/axl2ksaowpsg"],"openUrl":true,"tags":["会员","2D"],"updated":"2026-11-11","views":1419,"likes":77,"featured":false,"platform":"pc","winlator":true},{"name":"Our Rivalry Continues in Bed!? My Ch","cat":"成人游戏","size":"未知","free":false,"cover":"covers/poster_real4.jpg","poster":"covers/poster_real4.jpg","shots":["covers/poster_real4.jpg"],"desc":"Tanimani 的校园恋爱喜剧。你和青梅竹马合租一间公寓，本以为只是普通室友生活，她却突然提出「要不要试试更亲密的关系」。轻松搞笑","detail":"Tanimani 的校园恋爱喜剧。你和青梅竹马合租一间公寓，本以为只是普通室友生活，她却突然提出「要不要试试更亲密的关系」。轻松搞笑 + 高甜度。\n\n版本：最新\n类型：校园 · 恋爱 · 轻喜剧\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"https://uploadbay.co/q3oj5cpk1piq","mirrors":["https://uploadbay.co/q3oj5cpk1piq","https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2","https://fastdrop.cc/file?id=ed8KQ7qvhQAc","https://fastdrop.cc/img/mirror-badge.svg?v=3","https://lewdupload.net/file?id=ed8KQ7qvhQAc","https://galaxyfiles.org/file?id=ed8KQ7qvhQAc"],"openUrl":true,"tags":["会员","校园"],"updated":"2026-11-11","views":1592,"likes":86,"featured":false,"platform":"pc","winlator":true},{"name":"Oops… I Hooked Up with a Mermaid","cat":"成人游戏","size":"未知","free":true,"cover":"covers/poster_real5.jpg","poster":"covers/poster_real5.jpg","shots":["covers/poster_real5.jpg"],"desc":"Lewd Star 的奇幻向作品。海边意外让你救下一条美人鱼，从此生活彻底改变。大量的对话分支与结局，画风清爽。","detail":"Lewd Star 的奇幻向作品。海边意外让你救下一条美人鱼，从此生活彻底改变。大量的对话分支与结局，画风清爽。\n\n版本：最新\n类型：奇幻 · 多结局\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"https://uploadbay.co/loxjj4017rg6","mirrors":["https://uploadbay.co/loxjj4017rg6","https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2","https://fastdrop.cc/file?id=0cBIuWZAT8kS","https://fastdrop.cc/img/mirror-badge.svg?v=3","https://lewdupload.net/file?id=0cBIuWZAT8kS","https://galaxyfiles.org/file?id=0cBIuWZAT8kS"],"openUrl":true,"tags":["奇幻"],"updated":"2026-11-11","views":1765,"likes":95,"featured":false,"platform":"pc","winlator":true},{"name":"Puniella and the Magic Elixir","cat":"成人游戏","size":"未知","free":true,"cover":"covers/poster_real6.jpg","poster":"covers/poster_real6.jpg","shots":["covers/poster_real6.jpg"],"desc":"StudioTsunequze 的 2D 冒险游戏。见习魔女 Puniella 要调配出传说中的魔法药水，材料却要靠各种「特殊方式」","detail":"StudioTsunequze 的 2D 冒险游戏。见习魔女 Puniella 要调配出传说中的魔法药水，材料却要靠各种「特殊方式」获取。像素风、玩法轻松。\n\n版本：最新\n类型：2D · 冒险 · 轻量\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"https://uploadbay.co/sbhbuhjvy8c8","mirrors":["https://uploadbay.co/sbhbuhjvy8c8","https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2","https://fastdrop.cc/file?id=C7mCedl186ds","https://fastdrop.cc/img/mirror-badge.svg?v=3","https://lewdupload.net/file?id=C7mCedl186ds","https://galaxyfiles.org/file?id=C7mCedl186ds"],"openUrl":true,"tags":["2D"],"updated":"2026-11-11","views":1938,"likes":104,"featured":false,"platform":"pc","winlator":true},{"name":"The Vault of Duvarnach","cat":"成人游戏","size":"未知","free":false,"cover":"covers/poster_real7.jpg","poster":"covers/poster_real7.jpg","shots":["covers/poster_real7.jpg"],"desc":"dcosmic 的地牢探险 RPG。古堡深处藏着一座被封印的宝库，你带着队伍一层层往下推进。战斗 + 解谜 + 成人事件，目前仍在早","detail":"dcosmic 的地牢探险 RPG。古堡深处藏着一座被封印的宝库，你带着队伍一层层往下推进。战斗 + 解谜 + 成人事件，目前仍在早期更新中。\n\n版本：最新\n类型：地牢 · RPG · 更新中\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"https://uploadbay.co/vdld1ddawu9v","mirrors":["https://uploadbay.co/vdld1ddawu9v","https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2","https://fastdrop.cc/file?id=z9gN2hRCGHdh","https://fastdrop.cc/img/mirror-badge.svg?v=3","https://lewdupload.net/file?id=z9gN2hRCGHdh","https://galaxyfiles.org/file?id=z9gN2hRCGHdh"],"openUrl":true,"tags":["会员","地牢"],"updated":"2026-11-11","views":2111,"likes":113,"featured":false,"platform":"pc","winlator":true},{"name":"Regret Island","cat":"成人游戏","size":"未知","free":false,"cover":"covers/poster_real8.jpg","poster":"covers/poster_real8.jpg","shots":["covers/poster_real8.jpg"],"desc":"InfiniteLust Studios 的生存向作品。你流落到一座无人岛，要在资源匮乏的环境里活下去，同时处理与岛上其他幸存者的关","detail":"InfiniteLust Studios 的生存向作品。你流落到一座无人岛，要在资源匮乏的环境里活下去，同时处理与岛上其他幸存者的关系。系统复杂、内容量大。\n\n版本：最新\n类型：生存 · 沙盒 · 高自由度\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"https://uploadbay.co/8nxh0fewe3w7","mirrors":["https://uploadbay.co/8nxh0fewe3w7","https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2","https://fastdrop.cc/file?id=0nI8DF5tdKr2","https://fastdrop.cc/img/mirror-badge.svg?v=3","https://lewdupload.net/file?id=0nI8DF5tdKr2","https://galaxyfiles.org/file?id=0nI8DF5tdKr2"],"openUrl":true,"tags":["会员","生存"],"updated":"2026-11-11","views":2284,"likes":122,"featured":false,"platform":"pc","winlator":true},{"name":"The Wife of Dero Island","cat":"成人游戏","size":"未知","free":false,"cover":"covers/poster_real9.jpg","poster":"covers/poster_real9.jpg","shots":["covers/poster_real9.jpg"],"desc":"Dark Egg 出品。Clara 深爱丈夫 Yuri，却无法否认内心逐渐膨胀的欲望。故事围绕一段婚姻的动摇展开，剧情向、心理描写多","detail":"Dark Egg 出品。Clara 深爱丈夫 Yuri，却无法否认内心逐渐膨胀的欲望。故事围绕一段婚姻的动摇展开，剧情向、心理描写多。\n\n版本：v3.0\n类型：剧情 · 人妻 · 心理\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"","mirrors":[],"openUrl":true,"tags":["会员","剧情"],"updated":"2026-11-11","views":2457,"likes":131,"featured":false,"platform":"pc","winlator":true},{"name":"Dark Vengeance","cat":"成人游戏","size":"未知","free":false,"cover":"covers/poster_real10.jpg","poster":"covers/poster_real10.jpg","shots":["covers/poster_real10.jpg"],"desc":"natalie.whiteboi 的悬疑向作品。Holly 和闺蜜 Brooke 决定在一座私人岛屿上度过整个夏天，岛上却藏着不该被","detail":"natalie.whiteboi 的悬疑向作品。Holly 和闺蜜 Brooke 决定在一座私人岛屿上度过整个夏天，岛上却藏着不该被发现的东西。\n\n版本：v0.4.3\n类型：悬疑 · 剧情\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"","mirrors":[],"openUrl":true,"tags":["安卓","会员","悬疑"],"updated":"2026-11-11","views":2630,"likes":140,"featured":false,"platform":"mobile","winlator":true,"hasAndroid":true},{"name":"New Hanna’s Life","cat":"成人游戏","size":"未知","free":false,"cover":"covers/poster_real11.jpg","poster":"covers/poster_real11.jpg","shots":["covers/poster_real11.jpg"],"desc":"Hanna2001 的剧情作品。Hanna 是从战乱故乡逃出来的难民，为了重新开始而踏上旅途。重叙事、选择影响深远。","detail":"Hanna2001 的剧情作品。Hanna 是从战乱故乡逃出来的难民，为了重新开始而踏上旅途。重叙事、选择影响深远。\n\n版本：最新\n类型：剧情 · 沉重向\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"","mirrors":[],"openUrl":true,"tags":["会员","剧情"],"updated":"2026-11-11","views":2803,"likes":149,"featured":false,"platform":"pc","winlator":true},{"name":"Twinewood","cat":"成人游戏","size":"未知","free":false,"cover":"covers/poster_real12.jpg","poster":"covers/poster_real12.jpg","shots":["covers/poster_real12.jpg"],"desc":"Professional Degenerate 的奇幻 RPG。年轻男子离开人类王国，搬进新联盟领地的小镇 Twinewood，镇上","detail":"Professional Degenerate 的奇幻 RPG。年轻男子离开人类王国，搬进新联盟领地的小镇 Twinewood，镇上有各种族居民。世界观完整、内容量大。\n\n版本：v3.4\n类型：奇幻 · RPG · 多族\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"","mirrors":[],"openUrl":true,"tags":["会员","奇幻"],"updated":"2026-11-11","views":2976,"likes":158,"featured":false,"platform":"pc","winlator":true},{"name":"PurityOfBlood","cat":"成人游戏","size":"1.49GB","free":false,"cover":"covers/poster_real13.jpg","poster":"covers/poster_real13.jpg","shots":["covers/poster_real13.jpg"],"desc":"InsomniaVNC 的黑暗向作品。一个失去生存意志的男孩，直到他发现唯一需要的东西一直就在身边。氛围压抑、剧情转折多。","detail":"InsomniaVNC 的黑暗向作品。一个失去生存意志的男孩，直到他发现唯一需要的东西一直就在身边。氛围压抑、剧情转折多。\n\n版本：最新\n类型：黑暗 · 剧情\n大小：1.49GB\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"","mirrors":[],"openUrl":true,"tags":["会员","黑暗"],"updated":"2026-11-11","views":3149,"likes":167,"featured":false,"platform":"pc","winlator":true},{"name":"Homefront Bound","cat":"成人游戏","size":"1.07GB","free":false,"cover":"covers/poster_real14.jpg","poster":"covers/poster_real14.jpg","shots":["covers/poster_real14.jpg"],"desc":"Navigator 的日常向作品。你扮演一个处于间隔年的年轻人，要在这一年里决定自己的人生方向，顺便处理身边的人际关系。","detail":"Navigator 的日常向作品。你扮演一个处于间隔年的年轻人，要在这一年里决定自己的人生方向，顺便处理身边的人际关系。\n\n版本：v0.1.35 Alpha\n类型：日常 · 养成 · 早期版本\n大小：1.07GB\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"","mirrors":[],"openUrl":true,"tags":["会员","日常"],"updated":"2026-11-11","views":3322,"likes":176,"featured":false,"platform":"pc","winlator":true},{"name":"Spell Me Softly","cat":"成人游戏","size":"未知","free":false,"cover":"covers/poster_real15.jpg","poster":"covers/poster_real15.jpg","shots":["covers/poster_real15.jpg"],"desc":"Monster Eye Games 的魔法题材。Michael 拥有财富、魅力和舒适的生活，但笑容背后藏着一个秘密。随着剧情推进，秘","detail":"Monster Eye Games 的魔法题材。Michael 拥有财富、魅力和舒适的生活，但笑容背后藏着一个秘密。随着剧情推进，秘密一点点揭开。\n\n版本：v0.3.0\n类型：魔法 · 剧情\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"","mirrors":[],"openUrl":true,"tags":["会员","魔法"],"updated":"2026-11-11","views":3495,"likes":185,"featured":false,"platform":"pc","winlator":true},{"name":"School Tales","cat":"成人游戏","size":"3.38GB","free":false,"cover":"covers/poster_real16.jpg","poster":"covers/poster_real16.jpg","shots":["covers/poster_real16.jpg"],"desc":"Kenzi Shinyuiki 的校园经营。你是一名刚毕业的新教师，任务是帮助学生成长、理解自己。已更新到 v11.6，内容非常丰富","detail":"Kenzi Shinyuiki 的校园经营。你是一名刚毕业的新教师，任务是帮助学生成长、理解自己。已更新到 v11.6，内容非常丰富。\n\n版本：v11.6\n类型：校园 · 经营 · 内容多\n大小：3.38GB\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"","mirrors":[],"openUrl":true,"tags":["会员","校园"],"updated":"2026-11-11","views":3668,"likes":194,"featured":false,"platform":"pc","winlator":true},{"name":"Godson Remake","cat":"成人游戏","size":"未知","free":false,"cover":"covers/poster_real17.jpg","poster":"covers/poster_real17.jpg","shots":["covers/poster_real17.jpg"],"desc":"Cheesecake Studio 的重制版作品。你扮演一个拥有特殊能力的独特个体，故事围绕能力带来的责任与诱惑展开。","detail":"Cheesecake Studio 的重制版作品。你扮演一个拥有特殊能力的独特个体，故事围绕能力带来的责任与诱惑展开。\n\n版本：v0.3.6\n类型：超能力 · 剧情\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"","mirrors":[],"openUrl":true,"tags":["会员","超能力"],"updated":"2026-11-11","views":3841,"likes":203,"featured":false,"platform":"pc","winlator":true},{"name":"Cane and Able","cat":"成人游戏","size":"未知","free":false,"cover":"covers/poster_real18.jpg","poster":"covers/poster_real18.jpg","shots":["covers/poster_real18.jpg"],"desc":"Aleksandr 14 的剧情作品。Ryan Calloway 有稳定的工作、漂亮的房子，还有他深爱的 Megan。三年后，一切开","detail":"Aleksandr 14 的剧情作品。Ryan Calloway 有稳定的工作、漂亮的房子，还有他深爱的 Megan。三年后，一切开始变化。\n\n版本：v0.13\n类型：剧情 · 情感\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"","mirrors":[],"openUrl":true,"tags":["会员","剧情"],"updated":"2026-11-11","views":4014,"likes":212,"featured":false,"platform":"pc","winlator":true},{"name":"Spooky Milk Life: Reborn","cat":"成人游戏","size":"332MB","free":false,"cover":"covers/poster_real19.jpg","poster":"covers/poster_real19.jpg","shots":["covers/poster_real19.jpg"],"desc":"MangoMango & Studio Gingko 的成人冒险 + 模拟经营。带恐怖氛围的牧场经营，白天干活、晚上探索，系统非常多","detail":"MangoMango & Studio Gingko 的成人冒险 + 模拟经营。带恐怖氛围的牧场经营，白天干活、晚上探索，系统非常多。\n\n版本：v0.0.4\n类型：模拟 · 经营 · 恐怖\n大小：332MB\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"","mirrors":[],"openUrl":true,"tags":["会员","模拟"],"updated":"2026-11-11","views":4187,"likes":221,"featured":false,"platform":"pc","winlator":true},{"name":"Peachland","cat":"成人游戏","size":"未知","free":false,"cover":"covers/poster_real20.jpg","poster":"covers/poster_real20.jpg","shots":["covers/poster_real20.jpg"],"desc":"Croxy 的岛屿生存。一连串意外之后，主角在海边醒来，发现自己流落到名为 PeachLand 的岛上。探索 + 建设 + 关系发展","detail":"Croxy 的岛屿生存。一连串意外之后，主角在海边醒来，发现自己流落到名为 PeachLand 的岛上。探索 + 建设 + 关系发展。\n\n版本：v0.5\n类型：生存 · 探索\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"","mirrors":[],"openUrl":true,"tags":["会员","生存"],"updated":"2026-11-11","views":4360,"likes":230,"featured":false,"platform":"pc","winlator":true},{"name":"Perfect Wives Next Door","cat":"成人游戏","size":"未知","free":false,"cover":"covers/poster_real21.jpg","poster":"covers/poster_real21.jpg","shots":["covers/poster_real21.jpg"],"desc":"Sugar Rush 出品。你是高档公寓「Veil」的维修工，每天的工作是处理住户的各种报修。门一开，故事就开始了。","detail":"Sugar Rush 出品。你是高档公寓「Veil」的维修工，每天的工作是处理住户的各种报修。门一开，故事就开始了。\n\n版本：v1.0.4.126\n类型：日常 · 多角色\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"","mirrors":[],"openUrl":true,"tags":["会员","日常"],"updated":"2026-11-11","views":4533,"likes":239,"featured":false,"platform":"pc","winlator":true},{"name":"Aphrodite’s Gobboree","cat":"成人游戏","size":"未知","free":false,"cover":"covers/poster_real22.jpg","poster":"covers/poster_real22.jpg","shots":["covers/poster_real22.jpg"],"desc":"Aphrodite 的奇幻作品。你是一名女奴，和妹妹一起被抓到了可怕的 Griznak Gobboree。生存与逃脱题材。","detail":"Aphrodite 的奇幻作品。你是一名女奴，和妹妹一起被抓到了可怕的 Griznak Gobboree。生存与逃脱题材。\n\n版本：最新\n类型：奇幻 · 生存\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"","mirrors":[],"openUrl":true,"tags":["安卓","会员","奇幻"],"updated":"2026-11-11","views":4706,"likes":248,"featured":false,"platform":"mobile","winlator":true,"hasAndroid":true},{"name":"College Traits","cat":"成人游戏","size":"370MB","free":false,"cover":"covers/poster_real23.jpg","poster":"covers/poster_real23.jpg","shots":["covers/poster_real23.jpg"],"desc":"RodProjects 的校园模拟。你是刚入学的大一新生，每个女孩都有不同的「特质」，决定了她对每种互动方式的反应。系统设计很特别。","detail":"RodProjects 的校园模拟。你是刚入学的大一新生，每个女孩都有不同的「特质」，决定了她对每种互动方式的反应。系统设计很特别。\n\n版本：v0.14\n类型：校园 · 模拟 · 特质系统\n大小：370MB\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"","mirrors":[],"openUrl":true,"tags":["安卓","会员","校园"],"updated":"2026-11-11","views":4879,"likes":257,"featured":false,"platform":"mobile","winlator":true,"hasAndroid":true},{"name":"The Futa Experiment","cat":"成人游戏","size":"未知","free":false,"cover":"covers/poster_real24.jpg","poster":"covers/poster_real24.jpg","shots":["covers/poster_real24.jpg"],"desc":"Torian 的作品。走投无路的你（性别可选）得到一份神秘公司的工作机会。已更新到第三幕，剧情量大。","detail":"Torian 的作品。走投无路的你（性别可选）得到一份神秘公司的工作机会。已更新到第三幕，剧情量大。\n\n版本：最新\n类型：剧情 · 科幻\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"","mirrors":[],"openUrl":true,"tags":["安卓","会员","剧情"],"updated":"2026-11-11","views":5052,"likes":266,"featured":false,"platform":"mobile","winlator":true,"hasAndroid":true},{"name":"Love & Sex: Second Base","cat":"成人游戏","size":"1.92GB","free":false,"cover":"covers/poster_real25.jpg","poster":"covers/poster_real25.jpg","shots":["covers/poster_real25.jpg"],"desc":"Andrealphus 的经典约会模拟。一个宅男（大概就是你）和两个火辣女孩合租，要在生活、工作和感情之间找平衡。同类里最知名的作品","detail":"Andrealphus 的经典约会模拟。一个宅男（大概就是你）和两个火辣女孩合租，要在生活、工作和感情之间找平衡。同类里最知名的作品之一。\n\n版本：v26.10.0d\n类型：约会模拟 · 经典\n大小：1.92GB\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"","mirrors":[],"openUrl":true,"tags":["安卓","会员","约会模拟"],"updated":"2026-11-11","views":5225,"likes":275,"featured":false,"platform":"mobile","winlator":true,"hasAndroid":true},{"name":"Cibelle","cat":"成人游戏","size":"490MB","free":false,"cover":"covers/poster_real26.jpg","poster":"covers/poster_real26.jpg","shots":["covers/poster_real26.jpg"],"desc":"Octagonala 的成人冒险 RPG。Cibelle 是一名刚到村庄教堂任职的修女，而这里的居民正被某种诅咒困扰。探索 + 战斗","detail":"Octagonala 的成人冒险 RPG。Cibelle 是一名刚到村庄教堂任职的修女，而这里的居民正被某种诅咒困扰。探索 + 战斗 + 剧情。\n\n版本：v0.24.3\n类型：RPG · 修女 · 诅咒\n大小：490MB\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"","mirrors":[],"openUrl":true,"tags":["会员","RPG"],"updated":"2026-11-11","views":5398,"likes":284,"featured":false,"platform":"pc","winlator":true},{"name":"Kinky Harvest","cat":"成人游戏","size":"未知","free":false,"cover":"covers/poster_real27.jpg","poster":"covers/poster_real27.jpg","shots":["covers/poster_real27.jpg"],"desc":"CuteCuddleGames 的岛屿生存，支持单人或双人合作。风暴后你被冲上一座神秘岛屿，要靠采集和建造活下去。","detail":"CuteCuddleGames 的岛屿生存，支持单人或双人合作。风暴后你被冲上一座神秘岛屿，要靠采集和建造活下去。\n\n版本：v0.1.8\n类型：生存 · 支持双人\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"","mirrors":[],"openUrl":true,"tags":["安卓","会员","生存"],"updated":"2026-11-11","views":5571,"likes":293,"featured":false,"platform":"mobile","winlator":true,"hasAndroid":true},{"name":"Agent Feminine","cat":"成人游戏","size":"未知","free":false,"cover":"covers/poster_real28.jpg","poster":"covers/poster_real28.jpg","shots":["covers/poster_real28.jpg"],"desc":"Balledra games 的成人冒险。题材围绕 futa 角色、堕落与成长展开，剧情推进式玩法。","detail":"Balledra games 的成人冒险。题材围绕 futa 角色、堕落与成长展开，剧情推进式玩法。\n\n版本：最新\n类型：冒险 · 剧情\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。","url":"","mirrors":[],"openUrl":true,"tags":["会员","冒险"],"updated":"2026-11-11","views":5744,"likes":302,"featured":false,"platform":"pc","winlator":true},{"name":"Lust in suburbs","cat":"安卓版","size":"APK","free":false,"platform":"mobile","androidScraped":true,"cover":"covers/poster_and7.jpg","poster":"covers/poster_and7.jpg","shots":["covers/poster_and7.jpg"],"desc":"郊区日常题材，围绕邻里关系展开的多线剧情。安卓版体积小、加载快。","detail":"郊区日常题材，围绕邻里关系展开的多线剧情。安卓版体积小、加载快。\n\n类型：日常 · 多线\n\n安装方式：点「免费下载（镜像）」打开镜像页，选标有 Android/APK 的那一项下载，装到手机即可，不需要模拟器。\n如果镜像页里只有 PC 版，说明该版本暂未提供安卓包，可用 Winlator 尝试。","url":"https://uploadbay.co/zqqwwwsefz9u","mirrors":["https://uploadbay.co/zqqwwwsefz9u","https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2","https://fastdrop.cc/file?id=LEyCsfla5VfQ","https://fastdrop.cc/img/mirror-badge.svg?v=3","https://lewdupload.net/file?id=LEyCsfla5VfQ","https://galaxyfiles.org/file?id=LEyCsfla5VfQ"],"openUrl":true,"tags":["安卓","日常"],"updated":"2026-11-11","views":1279,"likes":79,"featured":false},{"name":"Girl Galley Grand Line","cat":"安卓版","size":"APK","free":false,"platform":"mobile","androidScraped":true,"cover":"covers/poster_and8.jpg","poster":"covers/poster_and8.jpg","shots":["covers/poster_and8.jpg"],"desc":"航海冒险风，角色养成 + 剧情推进。画面偏日系，安卓版适配良好。","detail":"航海冒险风，角色养成 + 剧情推进。画面偏日系，安卓版适配良好。\n\n类型：冒险 · 养成\n\n安装方式：点「免费下载（镜像）」打开镜像页，选标有 Android/APK 的那一项下载，装到手机即可，不需要模拟器。\n如果镜像页里只有 PC 版，说明该版本暂未提供安卓包，可用 Winlator 尝试。","url":"https://uploadbay.co/ijcwlkb50lef","mirrors":["https://uploadbay.co/ijcwlkb50lef","https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2","https://fastdrop.cc/file?id=xfD4uniIZ9CM","https://fastdrop.cc/img/mirror-badge.svg?v=3","https://lewdupload.net/file?id=xfD4uniIZ9CM","https://galaxyfiles.org/file?id=xfD4uniIZ9CM"],"openUrl":true,"tags":["安卓","冒险"],"updated":"2026-11-11","views":1376,"likes":86,"featured":false},{"name":"Paradise Overlap","cat":"安卓版","size":"APK","free":false,"platform":"mobile","androidScraped":true,"cover":"covers/poster_and9.jpg","poster":"covers/poster_and9.jpg","shots":["covers/poster_and9.jpg"],"desc":"乐园题材，剧情向多结局。安卓版本已更新到 v0.8.3。","detail":"乐园题材，剧情向多结局。安卓版本已更新到 v0.8.3。\n\n类型：剧情 · 多结局\n\n安装方式：点「免费下载（镜像）」打开镜像页，选标有 Android/APK 的那一项下载，装到手机即可，不需要模拟器。\n如果镜像页里只有 PC 版，说明该版本暂未提供安卓包，可用 Winlator 尝试。","url":"https://uploadbay.co/ifwrg5yzdzk4","mirrors":["https://uploadbay.co/ifwrg5yzdzk4","https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2","https://fastdrop.cc/file?id=WSkP0bEfkvAe","https://fastdrop.cc/img/mirror-badge.svg?v=3","https://lewdupload.net/file?id=WSkP0bEfkvAe","https://galaxyfiles.org/file?id=WSkP0bEfkvAe"],"openUrl":true,"tags":["安卓","剧情"],"updated":"2026-11-11","views":1473,"likes":93,"featured":false},{"name":"Inn Another World","cat":"安卓版","size":"APK","free":false,"platform":"mobile","androidScraped":true,"cover":"covers/poster_and10.jpg","poster":"covers/poster_and10.jpg","shots":["covers/poster_and10.jpg"],"desc":"异世界经营题材，你继承了一间旅店，客人各怀心事。","detail":"异世界经营题材，你继承了一间旅店，客人各怀心事。\n\n类型：经营 · 异世界\n\n安装方式：点「免费下载（镜像）」打开镜像页，选标有 Android/APK 的那一项下载，装到手机即可，不需要模拟器。\n如果镜像页里只有 PC 版，说明该版本暂未提供安卓包，可用 Winlator 尝试。","url":"https://uploadbay.co/m2e8u9veoqh7","mirrors":["https://uploadbay.co/m2e8u9veoqh7","https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2","https://fastdrop.cc/file?id=BHlvszeHxxwg","https://fastdrop.cc/img/mirror-badge.svg?v=3","https://lewdupload.net/file?id=BHlvszeHxxwg","https://galaxyfiles.org/file?id=BHlvszeHxxwg"],"openUrl":true,"tags":["安卓","经营"],"updated":"2026-11-11","views":1570,"likes":100,"featured":false},{"name":"Anime Hot Resort","cat":"安卓版","size":"APK","free":false,"platform":"mobile","androidScraped":true,"cover":"covers/poster_and11.jpg","poster":"covers/poster_and11.jpg","shots":["covers/poster_and11.jpg"],"desc":"度假村经营 + 角色互动，画风明快，安卓公共版可直接玩。","detail":"度假村经营 + 角色互动，画风明快，安卓公共版可直接玩。\n\n类型：经营 · 轻松\n\n安装方式：点「免费下载（镜像）」打开镜像页，选标有 Android/APK 的那一项下载，装到手机即可，不需要模拟器。\n如果镜像页里只有 PC 版，说明该版本暂未提供安卓包，可用 Winlator 尝试。","url":"https://uploadbay.co/s3mie2jrr8b6","mirrors":["https://uploadbay.co/s3mie2jrr8b6","https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2","https://fastdrop.cc/file?id=BNCl15zBtzmp","https://fastdrop.cc/img/mirror-badge.svg?v=3","https://lewdupload.net/file?id=BNCl15zBtzmp","https://galaxyfiles.org/file?id=BNCl15zBtzmp"],"openUrl":true,"tags":["安卓","经营"],"updated":"2026-11-11","views":1667,"likes":107,"featured":false},{"name":"The Taste of Jealousy","cat":"安卓版","size":"APK","free":false,"platform":"mobile","androidScraped":true,"cover":"covers/poster_and12.jpg","poster":"covers/poster_and12.jpg","shots":["covers/poster_and12.jpg"],"desc":"情感剧情向，围绕嫉妒与关系展开的短篇。","detail":"情感剧情向，围绕嫉妒与关系展开的短篇。\n\n类型：剧情 · 情感\n\n安装方式：点「免费下载（镜像）」打开镜像页，选标有 Android/APK 的那一项下载，装到手机即可，不需要模拟器。\n如果镜像页里只有 PC 版，说明该版本暂未提供安卓包，可用 Winlator 尝试。","url":"https://uploadbay.co/sa3watxe4e4x","mirrors":["https://uploadbay.co/sa3watxe4e4x","https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2","https://fastdrop.cc/file?id=vjb166iwqIgD","https://fastdrop.cc/img/mirror-badge.svg?v=3","https://lewdupload.net/file?id=vjb166iwqIgD","https://galaxyfiles.org/file?id=vjb166iwqIgD"],"openUrl":true,"tags":["安卓","剧情"],"updated":"2026-11-11","views":1764,"likes":114,"featured":false},{"name":"Other Side: Mop & Mayhem","cat":"安卓版","size":"APK","free":false,"platform":"mobile","hasAndroid":true,"cover":"covers/more7.jpg","poster":"covers/more7.jpg","shots":["covers/more7.jpg"],"desc":"lustoriag 出品的剧情向作品，围绕一对姐妹与家庭关系展开，选择影响走向。安卓可直装。","detail":"lustoriag 出品的剧情向作品，围绕一对姐妹与家庭关系展开，选择影响走向。安卓可直装。\n\n类型：剧情 · 家庭\n\n安装：点「免费下载（镜像）」打开镜像页，选标 Android/APK 的下载，装到手机直接玩。","url":"https://uploadbay.co/7u100q6qrtz4","mirrors":["https://uploadbay.co/7u100q6qrtz4","https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2","https://fastdrop.cc/file?id=oHH7n8K6aayp","https://fastdrop.cc/img/mirror-badge.svg?v=3","https://lewdupload.net/file?id=oHH7n8K6aayp","https://galaxyfiles.org/file?id=oHH7n8K6aayp"],"openUrl":true,"tags":["安卓","剧情"],"updated":"2026-11-11","views":941,"likes":60,"featured":false},{"name":"A Simple Life with My Unobtrusive ","cat":"安卓版","size":"APK","free":false,"platform":"mobile","hasAndroid":true,"cover":"covers/more8.jpg","poster":"covers/more8.jpg","shots":["covers/more8.jpg"],"desc":"日系日常养成，和沉默的妹妹一起生活，慢慢改变彼此。画风清爽，安卓可直装。","detail":"日系日常养成，和沉默的妹妹一起生活，慢慢改变彼此。画风清爽，安卓可直装。\n\n类型：日常 · 养成\n\n安装：点「免费下载（镜像）」打开镜像页，选标 Android/APK 的下载，装到手机直接玩。","url":"https://uploadbay.co/2rr47r942v1v","mirrors":["https://uploadbay.co/2rr47r942v1v","https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2","https://fastdrop.cc/file?id=PzPZjvqLpGEg","https://fastdrop.cc/img/mirror-badge.svg?v=3","https://lewdupload.net/file?id=PzPZjvqLpGEg","https://galaxyfiles.org/file?id=PzPZjvqLpGEg"],"openUrl":true,"tags":["安卓","日常"],"updated":"2026-11-11","views":1004,"likes":65,"featured":false}],"catalog_url":"","announce":{"title":"开站公告","body":"游戏库已上线，全部资源免网盘直下。\n新用户注册送 1 天体验会员，签到可续天数。\n遇到问题联系客服。","version":"2026-11-11"},"invite":{"bonus_days":3,"codes":["NIGHT2026","YEMAO666"]},"auth_api":"https://api.yemaogame.top","pay":{"mode":"card","card_url":"","qr_image":"","contact":"QQ 3125869033","note":"付款后自动显示卡密，回到软件输入即可"}}</script>
+<script>
+if('serviceWorker' in navigator && location.protocol.startsWith('http')){
+  navigator.serviceWorker.register('sw.js').catch(function(){});
+}
+</script>
+</body>
+</html>

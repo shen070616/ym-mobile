@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>心跳翻牌</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:#08090f;color:#e9ecf5;overflow:hidden;
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.wrap{height:100%;display:flex;flex-direction:column;padding:18px}
+.hd{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
+.hd b{font-size:17px;font-weight:900;letter-spacing:2px}
+.hd span{font-size:9.5px;color:#4b5266;letter-spacing:2px}
+.sub{font-size:11px;color:#7e879e;margin-bottom:14px;letter-spacing:.6px}
+.grid{flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;align-content:start}
+.card{position:relative;aspect-ratio:3/4;border:1px solid rgba(255,255,255,.1);
+  background:#101320;overflow:hidden;cursor:pointer;transition:transform .18s}
+.card:active{transform:scale(.97)}
+.card img{width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .25s}
+.card.open img{opacity:1}
+.card.open{border-color:rgba(232,192,122,.6)}
+.card.done{opacity:.35;pointer-events:none;border-color:rgba(143,227,192,.5)}
+.card .back{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:18px;color:#2f3444}
+.card.open .back{display:none}
+.bar{display:flex;justify-content:space-between;font-size:10.5px;color:#7e879e;
+  letter-spacing:1.4px;margin-top:14px}
+.btn{width:100%;margin-top:12px;padding:14px;border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.05);color:#fff;font-size:12px;letter-spacing:4px;font-weight:800}
+.result{position:fixed;inset:0;background:rgba(5,6,10,.94);display:none;
+  flex-direction:column;justify-content:center;padding:26px;z-index:9}
+.result.on{display:flex}
+.result h3{margin:0 0 10px;font-size:18px;letter-spacing:2px}
+.result p{font-size:13px;line-height:2.1;color:#c8cfe4;white-space:pre-wrap;margin:0 0 18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hd"><b>心跳翻牌</b><span>MEMORY / 免费</span></div>
+  <div class="sub">找齐 6 对角色牌，翻开她们的心事</div>
+  <div class="grid" id="grid"></div>
+  <div class="bar"><span id="moves">步数 0</span><span id="pairs">配对 0 / 6</span></div>
+</div>
+
+<div class="result" id="result">
+  <h3>全部找到了</h3>
+  <p id="rtext"></p>
+  <button class="btn" onclick="reset()">再来一局</button>
+</div>
+
+<script>
+const CHARS = [
+  "../../covers/chara1.png","../../covers/chara2.png","../../covers/chara3.png",
+  "../../covers/chara4.png","../../covers/chara5.png","../../covers/chara6.png",
+  "../../covers/chara7.png","../../covers/chara8.png"
+];
+
+/* 6 对，用其中 6 张角色图 */
+const POOL = CHARS.slice(0, 6);
+let deck = [], open = [], lock = false, moves = 0, pairs = 0;
+
+const LINES = [
+  "她把手搭在你肩上，声音压低：「别出声……外面还有人。」",
+  "「老师，你心跳好快。」她把耳朵贴上来，笑得很坏。",
+  "窗帘没拉，灯只开了一盏。她的手在你背上慢慢往下滑。",
+  "她把你的手按在自己腰上：「这里，也想被你记住。」",
+  "喘息声被雨声盖住，她咬着你的肩膀，眼睛却在笑。",
+  "「再来一次。」她贴着你耳朵说，「这次不许停。」"
+];
+
+function build(){
+  deck = [];
+  POOL.forEach((src, i)=>{
+    deck.push({id:i, src}); deck.push({id:i, src});
+  });
+  for(let i=deck.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [deck[i],deck[j]] = [deck[j],deck[i]];
+  }
+  const g = document.getElementById("grid");
+  g.innerHTML = "";
+  deck.forEach((c, idx)=>{
+    const d = document.createElement("div");
+    d.className = "card";
+    d.dataset.id = c.id; d.dataset.idx = idx;
+    d.innerHTML = '<div class="back">?</div><img src="'+c.src+'">';
+    d.onclick = ()=>flip(d);
+    g.appendChild(d);
+  });
+  open = []; moves = 0; pairs = 0; lock = false;
+  document.getElementById("moves").textContent = "步数 0";
+  document.getElementById("pairs").textContent = "配对 0 / 6";
+  document.getElementById("result").classList.remove("on");
+}
+
+function flip(el){
+  if(lock || el.classList.contains("open") || el.classList.contains("done")) return;
+  el.classList.add("open");
+  open.push(el);
+  if(open.length === 2){
+    moves++;
+    document.getElementById("moves").textContent = "步数 " + moves;
+    if(open[0].dataset.id === open[1].dataset.id){
+      open.forEach(x=>x.classList.add("done"));
+      pairs++;
+      document.getElementById("pairs").textContent = "配对 " + pairs + " / 6";
+      open = [];
+      if(pairs === 6) setTimeout(win, 500);
+    } else {
+      lock = true;
+      setTimeout(()=>{
+        open.forEach(x=>x.classList.remove("open"));
+        open = []; lock = false;
+      }, 700);
+    }
+  }
+}
+
+function win(){
+  const txt = LINES.join("\n\n");
+  document.getElementById("rtext").textContent =
+    "你用 " + moves + " 步找齐了她们。\n\n" + txt + "\n\n—— 夜猫游戏库原创免费内容 ——";
+  document.getElementById("result").classList.add("on");
+}
+
+function reset(){ build(); }
+build();
+</script>
+</body>
+</html>

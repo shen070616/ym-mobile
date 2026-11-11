@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>深夜补习</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:#08090f;color:#e9ecf5;
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden}
+#app{position:relative;height:100%;display:flex;flex-direction:column}
+.stage{position:relative;flex:1;min-height:0;overflow:hidden;
+  background:radial-gradient(80% 60% at 70% 20%,#2a1d3d,#0b0c14 70%)}
+.stage img{position:absolute;right:-20px;bottom:-10px;height:82%;object-fit:contain;
+  filter:drop-shadow(0 14px 30px rgba(0,0,0,.6));transition:.4s}
+.stage .veil{position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(8,9,15,.2) 40%,rgba(8,9,15,.96) 100%)}
+.stage .who{position:absolute;left:22px;top:22px;font-size:10px;letter-spacing:2.4px;color:#8b93ab}
+.stage .who b{color:#fff;font-size:13px;letter-spacing:1px;display:block;margin-top:4px}
+.dialog{position:relative;padding:20px 22px 26px;background:#0b0e16;
+  border-top:1px solid rgba(255,255,255,.08);min-height:168px}
+.txt{font-size:14px;line-height:2;color:#dfe4f2;letter-spacing:.4px;min-height:84px;white-space:pre-wrap}
+.choices{display:flex;flex-direction:column;gap:9px;margin-top:14px}
+.choice{padding:13px 16px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);
+  color:#e9ecf5;font-size:13px;text-align:left;letter-spacing:.5px;transition:.18s}
+.choice:hover{background:rgba(255,255,255,.11);border-color:rgba(255,255,255,.4)}
+.choice:active{transform:scale(.995)}
+.meta{display:flex;justify-content:space-between;font-size:10px;color:#4b5266;
+  letter-spacing:1.2px;margin-top:12px}
+.restart{margin-top:12px;font-size:11px;color:#7e879e;background:none;border:none;
+  letter-spacing:2px;cursor:pointer}
+.heart{position:fixed;top:12px;right:14px;font-size:10px;color:#ff8fa3;letter-spacing:1px;z-index:5}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="stage">
+    <img id="char" src="../../covers/chara5.png" alt="">
+    <div class="veil"></div>
+    <div class="who" id="who">夜猫原创 · 免费试玩<b>深夜补习</b></div>
+  </div>
+  <div class="dialog">
+    <div class="txt" id="txt"></div>
+    <div class="choices" id="choices"></div>
+    <div class="meta"><span id="chapter">序章</span><span id="hint">点击选项继续</span></div>
+  </div>
+</div>
+
+<script>
+/* ---------------- 剧本 ---------------- */
+const S = {};
+let cur = "start", affinity = 0;
+
+S.start = {
+  chapter: "序章 · 雨夜",
+  text: "晚上十点，教室只剩你们两个人。\n雨点砸在窗上，她抱着一摞卷子站在讲台边，衬衫袖口被雨打湿了一小片。\n\n「老师……这道题我还是不会。」\n她把卷子递过来，眼神却很安静。",
+  choices: [
+    { t: "「过来，坐我旁边讲。」", next: "close", aff: 1 },
+    { t: "「今天不讲了，先回家。」", next: "leave", aff: -1 },
+    { t: "伸手替她擦掉袖口的雨水", next: "touch", aff: 2 }
+  ]
+};
+
+S.close = {
+  chapter: "第一章 · 靠得很近",
+  text: "她拉过椅子坐下，膝盖几乎碰到你。\n笔尖在纸上划了几下，她的头越来越低，发梢扫过你的手背。\n\n「老师，你身上好暖。」\n她抬起头，距离近得能看清睫毛在灯下的影子。",
+  choices: [
+    { t: "抬起她的下巴", next: "kiss", aff: 2 },
+    { t: "假装没听见，继续讲题", next: "cold", aff: -1 }
+  ]
+};
+
+S.touch = {
+  chapter: "第一章 · 指尖",
+  text: "你的手指碰到她袖口下的皮肤，她整个人轻轻一颤。\n\n「……老师。」\n她没有躲，反而把手臂往你这边挪了半寸。\n\n雨声更大了，教室里只有两个人的呼吸。",
+  choices: [
+    { t: "顺着她的手臂往上", next: "kiss", aff: 3 },
+    { t: "收回手，装作什么也没发生", next: "cold", aff: -1 }
+  ]
+};
+
+S.leave = {
+  chapter: "第一章 · 各自回家",
+  text: "她愣了一下，把卷子抱得更紧。\n\n「……好。」\n\n门口的伞声渐远，教室只剩你一个人和满黑板的公式。\n故事在这里就结束了。",
+  choices: [{ t: "重新开始", next: "start", aff: 0, clear: true }]
+};
+
+S.cold = {
+  chapter: "第一章 · 距离",
+  text: "你把话题拉回公式，她垂下眼睛，安静地听完。\n\n「谢谢老师，我懂了。」\n\n她收拾书包离开，走前在门口停了一下，最终什么也没说。",
+  choices: [{ t: "重新开始", next: "start", aff: 0, clear: true }]
+};
+
+S.kiss = {
+  chapter: "第二章 · 越界",
+  text: "她闭上眼，睫毛在抖。\n第一个吻很轻，像在试探；第二个吻之后，她整个人贴了上来，手抓住你的衣领不肯放。\n\n「老师……别停。」\n她声音哑得几乎听不见，腿已经不自觉地跨到了你身上。\n\n裙子被推到腰上，她的手在你背上游走，喘息越来越乱。窗外的雨盖住了一切声音。",
+  choices: [
+    { t: "继续", next: "deep", aff: 2 },
+    { t: "停下，问她确定吗", next: "ask", aff: 1 }
+  ]
+};
+
+S.ask = {
+  chapter: "第二章 · 确认",
+  text: "你扶着她的肩把她推开一点。\n\n「你确定？」\n\n她红着眼眶点头，声音很轻却很清楚：\n\n「我想了很久了，老师。」\n\n她把额头抵在你胸口，「今晚别让我一个人回去。」",
+  choices: [
+    { t: "把她抱起来", next: "deep", aff: 3 },
+    { t: "还是送她回家", next: "cold", aff: -1 }
+  ]
+};
+
+S.deep = {
+  chapter: "终章 · 雨停之前",
+  text: "讲台边、课桌上、最后一排的窗下。\n她咬着嘴唇不敢出声，手指把卷子捏得起了皱。\n\n「老师……不行了、真的不行了……」\n\n雨停的时候，她整个人软在你怀里，头发湿了一片，脸埋在颈边不肯抬起来。\n\n「明天……还补习吗？」",
+  choices: [
+    { t: "「明天也来。」", next: "end_good", aff: 2 },
+    { t: "「以后都别来了。」", next: "end_bad", aff: -2 }
+  ]
+};
+
+S.end_good = {
+  chapter: "结局 · 只属于两个人的补习",
+  text: "她笑了，眼睛亮得像雨后的灯。\n\n「那说好了。」\n\n从那天起，每周四晚上的补习，成了你们之间谁都不说破的秘密。\n\n—— 完 ——\n\n（本作为夜猫游戏库原创免费内容）",
+  choices: [{ t: "再玩一次", next: "start", aff: 0, clear: true }]
+};
+
+S.end_bad = {
+  chapter: "结局 · 关门",
+  text: "她的表情一点点冷下去，把裙子整理好，拿起书包。\n\n「我知道了。」\n\n门被轻轻带上。之后她再没来补过习。\n\n—— 完 ——",
+  choices: [{ t: "再玩一次", next: "start", aff: 0, clear: true }]
+};
+
+/* ---------------- 引擎 ---------------- */
+const charMap = {
+  start: "../../covers/chara5.png",
+  close: "../../covers/chara5.png",
+  touch: "../../covers/chara3.png",
+  leave: "../../covers/chara5.png",
+  cold: "../../covers/chara5.png",
+  kiss: "../../covers/chara3.png",
+  ask: "../../covers/chara7.png",
+  deep: "../../covers/chara3.png",
+  end_good: "../../covers/chara5.png",
+  end_bad: "../../covers/chara7.png"
+};
+
+function show(key){
+  const s = S[key]; if(!s) return;
+  cur = key;
+  if(s.choices && s.choices[0] && s.choices[0].clear) affinity = 0;
+  document.getElementById("chapter").textContent = s.chapter || "";
+  document.getElementById("txt").textContent = s.text;
+  const c = document.getElementById("char");
+  c.src = charMap[key] || "../../covers/chara5.png";
+  c.style.transform = "translateY(6px)";
+  setTimeout(()=>{ c.style.transform = "none"; }, 60);
+  const box = document.getElementById("choices");
+  box.innerHTML = "";
+  (s.choices || []).forEach(ch=>{
+    const b = document.createElement("button");
+    b.className = "choice";
+    b.textContent = ch.t;
+    b.onclick = ()=>{ affinity += (ch.aff||0); show(ch.next); };
+    box.appendChild(b);
+  });
+}
+show("start");
+</script>
+</body>
+</html>

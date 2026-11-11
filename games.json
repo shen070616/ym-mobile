@@ -1,0 +1,1269 @@
+{
+ "site": "夜猫游戏库",
+ "ver": "2.1.0",
+ "notice": "标记【免费】的游戏无需会员即可下载；会员可解锁全部游戏。手机端需配合 Winlator 模拟器。",
+ "license_url": "",
+ "kami": [
+  {
+   "key": "YC2026-A1B2",
+   "expire": "2027-12-31",
+   "type": "年卡"
+  }
+ ],
+ "games": [
+  {
+   "name": "Winlator 模拟器（必装）",
+   "cat": "工具",
+   "size": "150M",
+   "free": true,
+   "cover": "covers/thumb_winlator.jpg",
+   "shots": [],
+   "desc": "安卓运行 PC 游戏必备。所有游戏都要先装它，免费提供。",
+   "detail": "安装后按下面参数建容器：\n分辨率 1280x720\nDXVK 1.10.3（部分游戏用 2.0）\nBox64 预设 Performance\n音频驱动 ALSA\n显卡驱动 Turnip（骁龙）\n\n然后在 Drives 里添加 D 盘，指向游戏目录。",
+   "url": "(软件内直下)",
+   "code": "xxxx",
+   "tag": "必装",
+   "pending": false,
+   "file": "Winlator_11.2.apk",
+   "down": "https://github.com/shen070616/z9x2k7m/releases/download/v20261111-0410/Winlator_11.2.apk",
+   "updated": "2026-11-01",
+   "views": 9820,
+   "likes": 341,
+   "featured": false,
+   "tags": [
+    "工具",
+    "必装"
+   ],
+   "poster": "covers/poster_winlator.jpg",
+   "platform": "mobile",
+   "winlator": false
+  },
+  {
+   "name": "乌有乡 Erewhon",
+   "cat": "3D",
+   "size": "4.29G（3卷）",
+   "free": false,
+   "cover": "covers/cover_erewhon.jpg",
+   "shots": [
+    "covers/erewhon_cover.jpg",
+    "covers/erewhon.jpg",
+    "covers/erewhon2.jpg"
+   ],
+   "desc": "YU-RIS 引擎，完整汉化版，含全CG存档。剧情向，画面精致。",
+   "detail": "下载全部分卷后，用 7-Zip 打开 erewhon.7z.001 解压。\n手机端配合 Winlator 运行。",
+   "url": "https://pan.quark.cn/s/c9b46fd4285a",
+   "code": "cdzr",
+   "tag": "推荐",
+   "updated": "2026-11-09",
+   "views": 12640,
+   "likes": 928,
+   "featured": true,
+   "tags": [
+    "会员",
+    "PC",
+    "手机可玩"
+   ],
+   "poster": "covers/poster_erewhon.jpg",
+   "parts": [
+    "https://github.com/shen070616/z9x2k7m/releases/download/v20261111-0410/erewhon.7z.001",
+    "https://github.com/shen070616/z9x2k7m/releases/download/v20261111-0410/erewhon.7z.002",
+    "https://github.com/shen070616/z9x2k7m/releases/download/v20261111-0410/erewhon.7z.003"
+   ],
+   "pending": false,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "夏之音 夏ノ音（汉化+去码）",
+   "cat": "Galgame",
+   "size": "1.28G",
+   "free": false,
+   "cover": "covers/poster_xiazhino.jpg",
+   "poster": "covers/poster_xiazhino.jpg",
+   "shots": [
+    "covers/poster_xiazhino.jpg"
+   ],
+   "desc": "夏日小镇的青春故事，已内置汉化补丁与去码补丁，解压即玩。",
+   "detail": "Unreal 引擎的日系 Galgame，全程语音。\n\n已整合：\n· 汉化补丁 v1.00（gemini-2.5-pro）\n· 去码补丁\n· 备用字体（防乱码）\n\n安装步骤：\n1. 点下载，文件保存到 下载\\夜猫游戏库\\\n2. 用 7-Zip 解压到全英文路径，例如 D:\\GAMES\\xiazhino\n3. 进入目录双击 GalHome.exe 运行\n\n首次启动加载较慢属正常。",
+   "parts": [
+    "https://github.com/shen070616/z9x2k7m/releases/download/v20261111-0410/xiazhino.7z"
+   ],
+   "down": "https://github.com/shen070616/z9x2k7m/releases/download/v20261111-0410/xiazhino.7z",
+   "tags": [
+    "Galgame",
+    "汉化",
+    "去码",
+    "PC"
+   ],
+   "updated": "2026-11-11",
+   "views": 4200,
+   "likes": 380,
+   "featured": true,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "魔女的侵袭：黛博拉的房间 v0.3",
+   "cat": "3D",
+   "size": "2.75G（2卷）",
+   "free": false,
+   "cover": "covers/cover_deborah.jpg",
+   "shots": [
+    "covers/deborah.jpg",
+    "covers/deborah2.jpg"
+   ],
+   "desc": "虚幻引擎打造，官方中文，3D 动态互动，多结局分支。",
+   "detail": "下载全部分卷后，用 7-Zip 打开 deborah.7z.001 解压。\n手机端配合 Winlator 运行。",
+   "url": "填写你的夸克分享链接",
+   "code": "填写提取码",
+   "tag": "即将上线",
+   "pending": false,
+   "updated": "2026-11-10",
+   "views": 7650,
+   "likes": 512,
+   "featured": true,
+   "tags": [
+    "会员",
+    "PC",
+    "手机可玩"
+   ],
+   "poster": "covers/poster_deborah.jpg",
+   "parts": [
+    "https://github.com/shen070616/z9x2k7m/releases/download/v20261111-0410/deborah.7z.001",
+    "https://github.com/shen070616/z9x2k7m/releases/download/v20261111-0410/deborah.7z.002"
+   ],
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "深夜补习（原创免费）",
+   "cat": "互动小说",
+   "size": "内置 · 免下载",
+   "free": true,
+   "cover": "covers/poster_free1.jpg",
+   "poster": "covers/poster_free1.jpg",
+   "shots": [
+    "covers/chara5.png",
+    "covers/chara3.png"
+   ],
+   "desc": "雨夜教室，一对一补习。三个选择，六种结局。",
+   "detail": "夜猫游戏库原创免费内容。\n\n点击「开始游戏」直接在本软件内玩，不用下载。\n约 5 分钟通关，含成人向剧情。",
+   "play": "games/yemao1/index.html",
+   "tags": [
+    "原创",
+    "互动小说",
+    "成人向"
+   ],
+   "updated": "2026-11-11",
+   "views": 3200,
+   "likes": 210,
+   "featured": false,
+   "platform": "mobile",
+   "winlator": false
+  },
+  {
+   "name": "心跳翻牌（原创免费）",
+   "cat": "休闲",
+   "size": "内置 · 免下载",
+   "free": true,
+   "cover": "covers/poster_free3.jpg",
+   "poster": "covers/poster_free3.jpg",
+   "shots": [
+    "covers/chara1.png",
+    "covers/chara2.png"
+   ],
+   "desc": "6 对角色牌，找齐解锁六段私密记忆。",
+   "detail": "夜猫游戏库原创免费内容。\n\n翻牌小游戏，找齐 6 对角色即可通关。\n通关后解锁成人向文字内容。",
+   "play": "games/yemao2/index.html",
+   "tags": [
+    "原创",
+    "小游戏",
+    "成人向"
+   ],
+   "updated": "2026-11-11",
+   "views": 2100,
+   "likes": 140,
+   "featured": false,
+   "platform": "mobile",
+   "winlator": false
+  },
+  {
+   "name": "Such a Sharp Pain",
+   "cat": "成人游戏",
+   "size": "未知",
+   "free": true,
+   "cover": "covers/poster_real1.jpg",
+   "poster": "covers/poster_real1.jpg",
+   "shots": [
+    "covers/poster_real1.jpg"
+   ],
+   "desc": "KETZAL 出品的高分 Ren'Py 作品。你扮演刚入职的年轻人，与几位性格各异的女性在同一屋檐下生活，每一次选择都会改变关系走向",
+   "detail": "KETZAL 出品的高分 Ren'Py 作品。你扮演刚入职的年轻人，与几位性格各异的女性在同一屋檐下生活，每一次选择都会改变关系走向。剧情细腻、分支多，是本类里评价最高的作品之一。\n\n版本：最新\n类型：剧情向 · 多线结局\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "https://uploadbay.co/gb6g4ur9g1jt",
+   "mirrors": [
+    "https://uploadbay.co/gb6g4ur9g1jt",
+    "https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2",
+    "https://fastdrop.cc/file?id=8WRfmAWVVpZI",
+    "https://fastdrop.cc/img/mirror-badge.svg?v=3",
+    "https://lewdupload.net/file?id=8WRfmAWVVpZI",
+    "https://galaxyfiles.org/file?id=8WRfmAWVVpZI"
+   ],
+   "openUrl": true,
+   "tags": [
+    "剧情向"
+   ],
+   "updated": "2026-11-11",
+   "views": 1073,
+   "likes": 59,
+   "featured": false,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "Fap Nights At Frenni’s Night Club",
+   "cat": "成人游戏",
+   "size": "未知",
+   "free": false,
+   "cover": "covers/poster_real2.jpg",
+   "poster": "covers/poster_real2.jpg",
+   "shots": [
+    "covers/poster_real2.jpg"
+   ],
+   "desc": "Fatal Fire Studios 的 3D 恐怖向成人游戏。你在一家奇怪的夜店做夜间保安，要在巡逻、监控和应对各种事件之间周旋。",
+   "detail": "Fatal Fire Studios 的 3D 恐怖向成人游戏。你在一家奇怪的夜店做夜间保安，要在巡逻、监控和应对各种事件之间周旋。3D 建模 + 恐怖氛围 + 成人内容，玩法独树一帜。\n\n版本：最新\n类型：3D · 恐怖 · 经营\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "https://uploadbay.co/77gx3t1z8bbb",
+   "mirrors": [
+    "https://uploadbay.co/77gx3t1z8bbb",
+    "https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2",
+    "https://fastdrop.cc/file?id=Ql9FCyqMtA",
+    "https://fastdrop.cc/img/mirror-badge.svg?v=3",
+    "https://galaxyfiles.org/file?id=Ql9FCyqMtA",
+    "https://lewdupload.net/file?id=Ql9FCyqMtA"
+   ],
+   "openUrl": true,
+   "tags": [
+    "会员",
+    "3D"
+   ],
+   "updated": "2026-11-11",
+   "views": 1246,
+   "likes": 68,
+   "featured": false,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "Nyacronomicon!",
+   "cat": "成人游戏",
+   "size": "未知",
+   "free": false,
+   "cover": "covers/poster_real3.jpg",
+   "poster": "covers/poster_real3.jpg",
+   "shots": [
+    "covers/poster_real3.jpg"
+   ],
+   "desc": "Kurogoma Knights 的 2D 卡通风格 RPG。你误入一本记载着邪神少女的魔导书世界，需要一边探索地牢一边处理与她们的",
+   "detail": "Kurogoma Knights 的 2D 卡通风格 RPG。你误入一本记载着邪神少女的魔导书世界，需要一边探索地牢一边处理与她们的关系。像素画风、战斗系统完整，含 DLC 内容。\n\n版本：最新\n类型：2D · RPG · 含DLC\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "https://uploadbay.co/0nwi0mj9xyha",
+   "mirrors": [
+    "https://uploadbay.co/0nwi0mj9xyha",
+    "https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2",
+    "https://fastdrop.cc/file?id=ioFO7sZXor7W",
+    "https://fastdrop.cc/img/mirror-badge.svg?v=3",
+    "https://lewdupload.net/file?id=ioFO7sZXor7W",
+    "https://bzzhr.fileo.me/axl2ksaowpsg"
+   ],
+   "openUrl": true,
+   "tags": [
+    "会员",
+    "2D"
+   ],
+   "updated": "2026-11-11",
+   "views": 1419,
+   "likes": 77,
+   "featured": false,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "Our Rivalry Continues in Bed!? My Ch",
+   "cat": "成人游戏",
+   "size": "未知",
+   "free": false,
+   "cover": "covers/poster_real4.jpg",
+   "poster": "covers/poster_real4.jpg",
+   "shots": [
+    "covers/poster_real4.jpg"
+   ],
+   "desc": "Tanimani 的校园恋爱喜剧。你和青梅竹马合租一间公寓，本以为只是普通室友生活，她却突然提出「要不要试试更亲密的关系」。轻松搞笑",
+   "detail": "Tanimani 的校园恋爱喜剧。你和青梅竹马合租一间公寓，本以为只是普通室友生活，她却突然提出「要不要试试更亲密的关系」。轻松搞笑 + 高甜度。\n\n版本：最新\n类型：校园 · 恋爱 · 轻喜剧\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "https://uploadbay.co/q3oj5cpk1piq",
+   "mirrors": [
+    "https://uploadbay.co/q3oj5cpk1piq",
+    "https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2",
+    "https://fastdrop.cc/file?id=ed8KQ7qvhQAc",
+    "https://fastdrop.cc/img/mirror-badge.svg?v=3",
+    "https://lewdupload.net/file?id=ed8KQ7qvhQAc",
+    "https://galaxyfiles.org/file?id=ed8KQ7qvhQAc"
+   ],
+   "openUrl": true,
+   "tags": [
+    "会员",
+    "校园"
+   ],
+   "updated": "2026-11-11",
+   "views": 1592,
+   "likes": 86,
+   "featured": false,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "Oops… I Hooked Up with a Mermaid",
+   "cat": "成人游戏",
+   "size": "未知",
+   "free": true,
+   "cover": "covers/poster_real5.jpg",
+   "poster": "covers/poster_real5.jpg",
+   "shots": [
+    "covers/poster_real5.jpg"
+   ],
+   "desc": "Lewd Star 的奇幻向作品。海边意外让你救下一条美人鱼，从此生活彻底改变。大量的对话分支与结局，画风清爽。",
+   "detail": "Lewd Star 的奇幻向作品。海边意外让你救下一条美人鱼，从此生活彻底改变。大量的对话分支与结局，画风清爽。\n\n版本：最新\n类型：奇幻 · 多结局\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "https://uploadbay.co/loxjj4017rg6",
+   "mirrors": [
+    "https://uploadbay.co/loxjj4017rg6",
+    "https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2",
+    "https://fastdrop.cc/file?id=0cBIuWZAT8kS",
+    "https://fastdrop.cc/img/mirror-badge.svg?v=3",
+    "https://lewdupload.net/file?id=0cBIuWZAT8kS",
+    "https://galaxyfiles.org/file?id=0cBIuWZAT8kS"
+   ],
+   "openUrl": true,
+   "tags": [
+    "奇幻"
+   ],
+   "updated": "2026-11-11",
+   "views": 1765,
+   "likes": 95,
+   "featured": false,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "Puniella and the Magic Elixir",
+   "cat": "成人游戏",
+   "size": "未知",
+   "free": true,
+   "cover": "covers/poster_real6.jpg",
+   "poster": "covers/poster_real6.jpg",
+   "shots": [
+    "covers/poster_real6.jpg"
+   ],
+   "desc": "StudioTsunequze 的 2D 冒险游戏。见习魔女 Puniella 要调配出传说中的魔法药水，材料却要靠各种「特殊方式」",
+   "detail": "StudioTsunequze 的 2D 冒险游戏。见习魔女 Puniella 要调配出传说中的魔法药水，材料却要靠各种「特殊方式」获取。像素风、玩法轻松。\n\n版本：最新\n类型：2D · 冒险 · 轻量\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "https://uploadbay.co/sbhbuhjvy8c8",
+   "mirrors": [
+    "https://uploadbay.co/sbhbuhjvy8c8",
+    "https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2",
+    "https://fastdrop.cc/file?id=C7mCedl186ds",
+    "https://fastdrop.cc/img/mirror-badge.svg?v=3",
+    "https://lewdupload.net/file?id=C7mCedl186ds",
+    "https://galaxyfiles.org/file?id=C7mCedl186ds"
+   ],
+   "openUrl": true,
+   "tags": [
+    "2D"
+   ],
+   "updated": "2026-11-11",
+   "views": 1938,
+   "likes": 104,
+   "featured": false,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "The Vault of Duvarnach",
+   "cat": "成人游戏",
+   "size": "未知",
+   "free": false,
+   "cover": "covers/poster_real7.jpg",
+   "poster": "covers/poster_real7.jpg",
+   "shots": [
+    "covers/poster_real7.jpg"
+   ],
+   "desc": "dcosmic 的地牢探险 RPG。古堡深处藏着一座被封印的宝库，你带着队伍一层层往下推进。战斗 + 解谜 + 成人事件，目前仍在早",
+   "detail": "dcosmic 的地牢探险 RPG。古堡深处藏着一座被封印的宝库，你带着队伍一层层往下推进。战斗 + 解谜 + 成人事件，目前仍在早期更新中。\n\n版本：最新\n类型：地牢 · RPG · 更新中\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "https://uploadbay.co/vdld1ddawu9v",
+   "mirrors": [
+    "https://uploadbay.co/vdld1ddawu9v",
+    "https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2",
+    "https://fastdrop.cc/file?id=z9gN2hRCGHdh",
+    "https://fastdrop.cc/img/mirror-badge.svg?v=3",
+    "https://lewdupload.net/file?id=z9gN2hRCGHdh",
+    "https://galaxyfiles.org/file?id=z9gN2hRCGHdh"
+   ],
+   "openUrl": true,
+   "tags": [
+    "会员",
+    "地牢"
+   ],
+   "updated": "2026-11-11",
+   "views": 2111,
+   "likes": 113,
+   "featured": false,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "Regret Island",
+   "cat": "成人游戏",
+   "size": "未知",
+   "free": false,
+   "cover": "covers/poster_real8.jpg",
+   "poster": "covers/poster_real8.jpg",
+   "shots": [
+    "covers/poster_real8.jpg"
+   ],
+   "desc": "InfiniteLust Studios 的生存向作品。你流落到一座无人岛，要在资源匮乏的环境里活下去，同时处理与岛上其他幸存者的关",
+   "detail": "InfiniteLust Studios 的生存向作品。你流落到一座无人岛，要在资源匮乏的环境里活下去，同时处理与岛上其他幸存者的关系。系统复杂、内容量大。\n\n版本：最新\n类型：生存 · 沙盒 · 高自由度\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "https://uploadbay.co/8nxh0fewe3w7",
+   "mirrors": [
+    "https://uploadbay.co/8nxh0fewe3w7",
+    "https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2",
+    "https://fastdrop.cc/file?id=0nI8DF5tdKr2",
+    "https://fastdrop.cc/img/mirror-badge.svg?v=3",
+    "https://lewdupload.net/file?id=0nI8DF5tdKr2",
+    "https://galaxyfiles.org/file?id=0nI8DF5tdKr2"
+   ],
+   "openUrl": true,
+   "tags": [
+    "会员",
+    "生存"
+   ],
+   "updated": "2026-11-11",
+   "views": 2284,
+   "likes": 122,
+   "featured": false,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "The Wife of Dero Island",
+   "cat": "成人游戏",
+   "size": "未知",
+   "free": false,
+   "cover": "covers/poster_real9.jpg",
+   "poster": "covers/poster_real9.jpg",
+   "shots": [
+    "covers/poster_real9.jpg"
+   ],
+   "desc": "Dark Egg 出品。Clara 深爱丈夫 Yuri，却无法否认内心逐渐膨胀的欲望。故事围绕一段婚姻的动摇展开，剧情向、心理描写多",
+   "detail": "Dark Egg 出品。Clara 深爱丈夫 Yuri，却无法否认内心逐渐膨胀的欲望。故事围绕一段婚姻的动摇展开，剧情向、心理描写多。\n\n版本：v3.0\n类型：剧情 · 人妻 · 心理\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "",
+   "mirrors": [],
+   "openUrl": true,
+   "tags": [
+    "会员",
+    "剧情"
+   ],
+   "updated": "2026-11-11",
+   "views": 2457,
+   "likes": 131,
+   "featured": false,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "Dark Vengeance",
+   "cat": "成人游戏",
+   "size": "未知",
+   "free": false,
+   "cover": "covers/poster_real10.jpg",
+   "poster": "covers/poster_real10.jpg",
+   "shots": [
+    "covers/poster_real10.jpg"
+   ],
+   "desc": "natalie.whiteboi 的悬疑向作品。Holly 和闺蜜 Brooke 决定在一座私人岛屿上度过整个夏天，岛上却藏着不该被",
+   "detail": "natalie.whiteboi 的悬疑向作品。Holly 和闺蜜 Brooke 决定在一座私人岛屿上度过整个夏天，岛上却藏着不该被发现的东西。\n\n版本：v0.4.3\n类型：悬疑 · 剧情\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "",
+   "mirrors": [],
+   "openUrl": true,
+   "tags": [
+    "安卓",
+    "会员",
+    "悬疑"
+   ],
+   "updated": "2026-11-11",
+   "views": 2630,
+   "likes": 140,
+   "featured": false,
+   "platform": "mobile",
+   "winlator": true,
+   "hasAndroid": true
+  },
+  {
+   "name": "New Hanna’s Life",
+   "cat": "成人游戏",
+   "size": "未知",
+   "free": false,
+   "cover": "covers/poster_real11.jpg",
+   "poster": "covers/poster_real11.jpg",
+   "shots": [
+    "covers/poster_real11.jpg"
+   ],
+   "desc": "Hanna2001 的剧情作品。Hanna 是从战乱故乡逃出来的难民，为了重新开始而踏上旅途。重叙事、选择影响深远。",
+   "detail": "Hanna2001 的剧情作品。Hanna 是从战乱故乡逃出来的难民，为了重新开始而踏上旅途。重叙事、选择影响深远。\n\n版本：最新\n类型：剧情 · 沉重向\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "",
+   "mirrors": [],
+   "openUrl": true,
+   "tags": [
+    "会员",
+    "剧情"
+   ],
+   "updated": "2026-11-11",
+   "views": 2803,
+   "likes": 149,
+   "featured": false,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "Twinewood",
+   "cat": "成人游戏",
+   "size": "未知",
+   "free": false,
+   "cover": "covers/poster_real12.jpg",
+   "poster": "covers/poster_real12.jpg",
+   "shots": [
+    "covers/poster_real12.jpg"
+   ],
+   "desc": "Professional Degenerate 的奇幻 RPG。年轻男子离开人类王国，搬进新联盟领地的小镇 Twinewood，镇上",
+   "detail": "Professional Degenerate 的奇幻 RPG。年轻男子离开人类王国，搬进新联盟领地的小镇 Twinewood，镇上有各种族居民。世界观完整、内容量大。\n\n版本：v3.4\n类型：奇幻 · RPG · 多族\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "",
+   "mirrors": [],
+   "openUrl": true,
+   "tags": [
+    "会员",
+    "奇幻"
+   ],
+   "updated": "2026-11-11",
+   "views": 2976,
+   "likes": 158,
+   "featured": false,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "PurityOfBlood",
+   "cat": "成人游戏",
+   "size": "1.49GB",
+   "free": false,
+   "cover": "covers/poster_real13.jpg",
+   "poster": "covers/poster_real13.jpg",
+   "shots": [
+    "covers/poster_real13.jpg"
+   ],
+   "desc": "InsomniaVNC 的黑暗向作品。一个失去生存意志的男孩，直到他发现唯一需要的东西一直就在身边。氛围压抑、剧情转折多。",
+   "detail": "InsomniaVNC 的黑暗向作品。一个失去生存意志的男孩，直到他发现唯一需要的东西一直就在身边。氛围压抑、剧情转折多。\n\n版本：最新\n类型：黑暗 · 剧情\n大小：1.49GB\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "",
+   "mirrors": [],
+   "openUrl": true,
+   "tags": [
+    "会员",
+    "黑暗"
+   ],
+   "updated": "2026-11-11",
+   "views": 3149,
+   "likes": 167,
+   "featured": false,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "Homefront Bound",
+   "cat": "成人游戏",
+   "size": "1.07GB",
+   "free": false,
+   "cover": "covers/poster_real14.jpg",
+   "poster": "covers/poster_real14.jpg",
+   "shots": [
+    "covers/poster_real14.jpg"
+   ],
+   "desc": "Navigator 的日常向作品。你扮演一个处于间隔年的年轻人，要在这一年里决定自己的人生方向，顺便处理身边的人际关系。",
+   "detail": "Navigator 的日常向作品。你扮演一个处于间隔年的年轻人，要在这一年里决定自己的人生方向，顺便处理身边的人际关系。\n\n版本：v0.1.35 Alpha\n类型：日常 · 养成 · 早期版本\n大小：1.07GB\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "",
+   "mirrors": [],
+   "openUrl": true,
+   "tags": [
+    "会员",
+    "日常"
+   ],
+   "updated": "2026-11-11",
+   "views": 3322,
+   "likes": 176,
+   "featured": false,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "Spell Me Softly",
+   "cat": "成人游戏",
+   "size": "未知",
+   "free": false,
+   "cover": "covers/poster_real15.jpg",
+   "poster": "covers/poster_real15.jpg",
+   "shots": [
+    "covers/poster_real15.jpg"
+   ],
+   "desc": "Monster Eye Games 的魔法题材。Michael 拥有财富、魅力和舒适的生活，但笑容背后藏着一个秘密。随着剧情推进，秘",
+   "detail": "Monster Eye Games 的魔法题材。Michael 拥有财富、魅力和舒适的生活，但笑容背后藏着一个秘密。随着剧情推进，秘密一点点揭开。\n\n版本：v0.3.0\n类型：魔法 · 剧情\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "",
+   "mirrors": [],
+   "openUrl": true,
+   "tags": [
+    "会员",
+    "魔法"
+   ],
+   "updated": "2026-11-11",
+   "views": 3495,
+   "likes": 185,
+   "featured": false,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "School Tales",
+   "cat": "成人游戏",
+   "size": "3.38GB",
+   "free": false,
+   "cover": "covers/poster_real16.jpg",
+   "poster": "covers/poster_real16.jpg",
+   "shots": [
+    "covers/poster_real16.jpg"
+   ],
+   "desc": "Kenzi Shinyuiki 的校园经营。你是一名刚毕业的新教师，任务是帮助学生成长、理解自己。已更新到 v11.6，内容非常丰富",
+   "detail": "Kenzi Shinyuiki 的校园经营。你是一名刚毕业的新教师，任务是帮助学生成长、理解自己。已更新到 v11.6，内容非常丰富。\n\n版本：v11.6\n类型：校园 · 经营 · 内容多\n大小：3.38GB\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "",
+   "mirrors": [],
+   "openUrl": true,
+   "tags": [
+    "会员",
+    "校园"
+   ],
+   "updated": "2026-11-11",
+   "views": 3668,
+   "likes": 194,
+   "featured": false,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "Godson Remake",
+   "cat": "成人游戏",
+   "size": "未知",
+   "free": false,
+   "cover": "covers/poster_real17.jpg",
+   "poster": "covers/poster_real17.jpg",
+   "shots": [
+    "covers/poster_real17.jpg"
+   ],
+   "desc": "Cheesecake Studio 的重制版作品。你扮演一个拥有特殊能力的独特个体，故事围绕能力带来的责任与诱惑展开。",
+   "detail": "Cheesecake Studio 的重制版作品。你扮演一个拥有特殊能力的独特个体，故事围绕能力带来的责任与诱惑展开。\n\n版本：v0.3.6\n类型：超能力 · 剧情\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "",
+   "mirrors": [],
+   "openUrl": true,
+   "tags": [
+    "会员",
+    "超能力"
+   ],
+   "updated": "2026-11-11",
+   "views": 3841,
+   "likes": 203,
+   "featured": false,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "Cane and Able",
+   "cat": "成人游戏",
+   "size": "未知",
+   "free": false,
+   "cover": "covers/poster_real18.jpg",
+   "poster": "covers/poster_real18.jpg",
+   "shots": [
+    "covers/poster_real18.jpg"
+   ],
+   "desc": "Aleksandr 14 的剧情作品。Ryan Calloway 有稳定的工作、漂亮的房子，还有他深爱的 Megan。三年后，一切开",
+   "detail": "Aleksandr 14 的剧情作品。Ryan Calloway 有稳定的工作、漂亮的房子，还有他深爱的 Megan。三年后，一切开始变化。\n\n版本：v0.13\n类型：剧情 · 情感\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "",
+   "mirrors": [],
+   "openUrl": true,
+   "tags": [
+    "会员",
+    "剧情"
+   ],
+   "updated": "2026-11-11",
+   "views": 4014,
+   "likes": 212,
+   "featured": false,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "Spooky Milk Life: Reborn",
+   "cat": "成人游戏",
+   "size": "332MB",
+   "free": false,
+   "cover": "covers/poster_real19.jpg",
+   "poster": "covers/poster_real19.jpg",
+   "shots": [
+    "covers/poster_real19.jpg"
+   ],
+   "desc": "MangoMango & Studio Gingko 的成人冒险 + 模拟经营。带恐怖氛围的牧场经营，白天干活、晚上探索，系统非常多",
+   "detail": "MangoMango & Studio Gingko 的成人冒险 + 模拟经营。带恐怖氛围的牧场经营，白天干活、晚上探索，系统非常多。\n\n版本：v0.0.4\n类型：模拟 · 经营 · 恐怖\n大小：332MB\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "",
+   "mirrors": [],
+   "openUrl": true,
+   "tags": [
+    "会员",
+    "模拟"
+   ],
+   "updated": "2026-11-11",
+   "views": 4187,
+   "likes": 221,
+   "featured": false,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "Peachland",
+   "cat": "成人游戏",
+   "size": "未知",
+   "free": false,
+   "cover": "covers/poster_real20.jpg",
+   "poster": "covers/poster_real20.jpg",
+   "shots": [
+    "covers/poster_real20.jpg"
+   ],
+   "desc": "Croxy 的岛屿生存。一连串意外之后，主角在海边醒来，发现自己流落到名为 PeachLand 的岛上。探索 + 建设 + 关系发展",
+   "detail": "Croxy 的岛屿生存。一连串意外之后，主角在海边醒来，发现自己流落到名为 PeachLand 的岛上。探索 + 建设 + 关系发展。\n\n版本：v0.5\n类型：生存 · 探索\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "",
+   "mirrors": [],
+   "openUrl": true,
+   "tags": [
+    "会员",
+    "生存"
+   ],
+   "updated": "2026-11-11",
+   "views": 4360,
+   "likes": 230,
+   "featured": false,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "Perfect Wives Next Door",
+   "cat": "成人游戏",
+   "size": "未知",
+   "free": false,
+   "cover": "covers/poster_real21.jpg",
+   "poster": "covers/poster_real21.jpg",
+   "shots": [
+    "covers/poster_real21.jpg"
+   ],
+   "desc": "Sugar Rush 出品。你是高档公寓「Veil」的维修工，每天的工作是处理住户的各种报修。门一开，故事就开始了。",
+   "detail": "Sugar Rush 出品。你是高档公寓「Veil」的维修工，每天的工作是处理住户的各种报修。门一开，故事就开始了。\n\n版本：v1.0.4.126\n类型：日常 · 多角色\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "",
+   "mirrors": [],
+   "openUrl": true,
+   "tags": [
+    "会员",
+    "日常"
+   ],
+   "updated": "2026-11-11",
+   "views": 4533,
+   "likes": 239,
+   "featured": false,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "Aphrodite’s Gobboree",
+   "cat": "成人游戏",
+   "size": "未知",
+   "free": false,
+   "cover": "covers/poster_real22.jpg",
+   "poster": "covers/poster_real22.jpg",
+   "shots": [
+    "covers/poster_real22.jpg"
+   ],
+   "desc": "Aphrodite 的奇幻作品。你是一名女奴，和妹妹一起被抓到了可怕的 Griznak Gobboree。生存与逃脱题材。",
+   "detail": "Aphrodite 的奇幻作品。你是一名女奴，和妹妹一起被抓到了可怕的 Griznak Gobboree。生存与逃脱题材。\n\n版本：最新\n类型：奇幻 · 生存\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "",
+   "mirrors": [],
+   "openUrl": true,
+   "tags": [
+    "安卓",
+    "会员",
+    "奇幻"
+   ],
+   "updated": "2026-11-11",
+   "views": 4706,
+   "likes": 248,
+   "featured": false,
+   "platform": "mobile",
+   "winlator": true,
+   "hasAndroid": true
+  },
+  {
+   "name": "College Traits",
+   "cat": "成人游戏",
+   "size": "370MB",
+   "free": false,
+   "cover": "covers/poster_real23.jpg",
+   "poster": "covers/poster_real23.jpg",
+   "shots": [
+    "covers/poster_real23.jpg"
+   ],
+   "desc": "RodProjects 的校园模拟。你是刚入学的大一新生，每个女孩都有不同的「特质」，决定了她对每种互动方式的反应。系统设计很特别。",
+   "detail": "RodProjects 的校园模拟。你是刚入学的大一新生，每个女孩都有不同的「特质」，决定了她对每种互动方式的反应。系统设计很特别。\n\n版本：v0.14\n类型：校园 · 模拟 · 特质系统\n大小：370MB\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "",
+   "mirrors": [],
+   "openUrl": true,
+   "tags": [
+    "安卓",
+    "会员",
+    "校园"
+   ],
+   "updated": "2026-11-11",
+   "views": 4879,
+   "likes": 257,
+   "featured": false,
+   "platform": "mobile",
+   "winlator": true,
+   "hasAndroid": true
+  },
+  {
+   "name": "The Futa Experiment",
+   "cat": "成人游戏",
+   "size": "未知",
+   "free": false,
+   "cover": "covers/poster_real24.jpg",
+   "poster": "covers/poster_real24.jpg",
+   "shots": [
+    "covers/poster_real24.jpg"
+   ],
+   "desc": "Torian 的作品。走投无路的你（性别可选）得到一份神秘公司的工作机会。已更新到第三幕，剧情量大。",
+   "detail": "Torian 的作品。走投无路的你（性别可选）得到一份神秘公司的工作机会。已更新到第三幕，剧情量大。\n\n版本：最新\n类型：剧情 · 科幻\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "",
+   "mirrors": [],
+   "openUrl": true,
+   "tags": [
+    "安卓",
+    "会员",
+    "剧情"
+   ],
+   "updated": "2026-11-11",
+   "views": 5052,
+   "likes": 266,
+   "featured": false,
+   "platform": "mobile",
+   "winlator": true,
+   "hasAndroid": true
+  },
+  {
+   "name": "Love & Sex: Second Base",
+   "cat": "成人游戏",
+   "size": "1.92GB",
+   "free": false,
+   "cover": "covers/poster_real25.jpg",
+   "poster": "covers/poster_real25.jpg",
+   "shots": [
+    "covers/poster_real25.jpg"
+   ],
+   "desc": "Andrealphus 的经典约会模拟。一个宅男（大概就是你）和两个火辣女孩合租，要在生活、工作和感情之间找平衡。同类里最知名的作品",
+   "detail": "Andrealphus 的经典约会模拟。一个宅男（大概就是你）和两个火辣女孩合租，要在生活、工作和感情之间找平衡。同类里最知名的作品之一。\n\n版本：v26.10.0d\n类型：约会模拟 · 经典\n大小：1.92GB\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "",
+   "mirrors": [],
+   "openUrl": true,
+   "tags": [
+    "安卓",
+    "会员",
+    "约会模拟"
+   ],
+   "updated": "2026-11-11",
+   "views": 5225,
+   "likes": 275,
+   "featured": false,
+   "platform": "mobile",
+   "winlator": true,
+   "hasAndroid": true
+  },
+  {
+   "name": "Cibelle",
+   "cat": "成人游戏",
+   "size": "490MB",
+   "free": false,
+   "cover": "covers/poster_real26.jpg",
+   "poster": "covers/poster_real26.jpg",
+   "shots": [
+    "covers/poster_real26.jpg"
+   ],
+   "desc": "Octagonala 的成人冒险 RPG。Cibelle 是一名刚到村庄教堂任职的修女，而这里的居民正被某种诅咒困扰。探索 + 战斗",
+   "detail": "Octagonala 的成人冒险 RPG。Cibelle 是一名刚到村庄教堂任职的修女，而这里的居民正被某种诅咒困扰。探索 + 战斗 + 剧情。\n\n版本：v0.24.3\n类型：RPG · 修女 · 诅咒\n大小：490MB\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "",
+   "mirrors": [],
+   "openUrl": true,
+   "tags": [
+    "会员",
+    "RPG"
+   ],
+   "updated": "2026-11-11",
+   "views": 5398,
+   "likes": 284,
+   "featured": false,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "Kinky Harvest",
+   "cat": "成人游戏",
+   "size": "未知",
+   "free": false,
+   "cover": "covers/poster_real27.jpg",
+   "poster": "covers/poster_real27.jpg",
+   "shots": [
+    "covers/poster_real27.jpg"
+   ],
+   "desc": "CuteCuddleGames 的岛屿生存，支持单人或双人合作。风暴后你被冲上一座神秘岛屿，要靠采集和建造活下去。",
+   "detail": "CuteCuddleGames 的岛屿生存，支持单人或双人合作。风暴后你被冲上一座神秘岛屿，要靠采集和建造活下去。\n\n版本：v0.1.8\n类型：生存 · 支持双人\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "",
+   "mirrors": [],
+   "openUrl": true,
+   "tags": [
+    "安卓",
+    "会员",
+    "生存"
+   ],
+   "updated": "2026-11-11",
+   "views": 5571,
+   "likes": 293,
+   "featured": false,
+   "platform": "mobile",
+   "winlator": true,
+   "hasAndroid": true
+  },
+  {
+   "name": "Agent Feminine",
+   "cat": "成人游戏",
+   "size": "未知",
+   "free": false,
+   "cover": "covers/poster_real28.jpg",
+   "poster": "covers/poster_real28.jpg",
+   "shots": [
+    "covers/poster_real28.jpg"
+   ],
+   "desc": "Balledra games 的成人冒险。题材围绕 futa 角色、堕落与成长展开，剧情推进式玩法。",
+   "detail": "Balledra games 的成人冒险。题材围绕 futa 角色、堕落与成长展开，剧情推进式玩法。\n\n版本：最新\n类型：冒险 · 剧情\n大小：未知\n\n下载方式：点「免费下载（镜像）」打开镜像页，页面里有 6 个下载地址，挑最快的用。解压后双击 exe 运行，路径请用全英文。",
+   "url": "",
+   "mirrors": [],
+   "openUrl": true,
+   "tags": [
+    "会员",
+    "冒险"
+   ],
+   "updated": "2026-11-11",
+   "views": 5744,
+   "likes": 302,
+   "featured": false,
+   "platform": "pc",
+   "winlator": true
+  },
+  {
+   "name": "Lust in suburbs",
+   "cat": "安卓版",
+   "size": "APK",
+   "free": false,
+   "platform": "mobile",
+   "androidScraped": true,
+   "cover": "covers/poster_and7.jpg",
+   "poster": "covers/poster_and7.jpg",
+   "shots": [
+    "covers/poster_and7.jpg"
+   ],
+   "desc": "郊区日常题材，围绕邻里关系展开的多线剧情。安卓版体积小、加载快。",
+   "detail": "郊区日常题材，围绕邻里关系展开的多线剧情。安卓版体积小、加载快。\n\n类型：日常 · 多线\n\n安装方式：点「免费下载（镜像）」打开镜像页，选标有 Android/APK 的那一项下载，装到手机即可，不需要模拟器。\n如果镜像页里只有 PC 版，说明该版本暂未提供安卓包，可用 Winlator 尝试。",
+   "url": "https://uploadbay.co/zqqwwwsefz9u",
+   "mirrors": [
+    "https://uploadbay.co/zqqwwwsefz9u",
+    "https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2",
+    "https://fastdrop.cc/file?id=LEyCsfla5VfQ",
+    "https://fastdrop.cc/img/mirror-badge.svg?v=3",
+    "https://lewdupload.net/file?id=LEyCsfla5VfQ",
+    "https://galaxyfiles.org/file?id=LEyCsfla5VfQ"
+   ],
+   "openUrl": true,
+   "tags": [
+    "安卓",
+    "日常"
+   ],
+   "updated": "2026-11-11",
+   "views": 1279,
+   "likes": 79,
+   "featured": false
+  },
+  {
+   "name": "Girl Galley Grand Line",
+   "cat": "安卓版",
+   "size": "APK",
+   "free": false,
+   "platform": "mobile",
+   "androidScraped": true,
+   "cover": "covers/poster_and8.jpg",
+   "poster": "covers/poster_and8.jpg",
+   "shots": [
+    "covers/poster_and8.jpg"
+   ],
+   "desc": "航海冒险风，角色养成 + 剧情推进。画面偏日系，安卓版适配良好。",
+   "detail": "航海冒险风，角色养成 + 剧情推进。画面偏日系，安卓版适配良好。\n\n类型：冒险 · 养成\n\n安装方式：点「免费下载（镜像）」打开镜像页，选标有 Android/APK 的那一项下载，装到手机即可，不需要模拟器。\n如果镜像页里只有 PC 版，说明该版本暂未提供安卓包，可用 Winlator 尝试。",
+   "url": "https://uploadbay.co/ijcwlkb50lef",
+   "mirrors": [
+    "https://uploadbay.co/ijcwlkb50lef",
+    "https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2",
+    "https://fastdrop.cc/file?id=xfD4uniIZ9CM",
+    "https://fastdrop.cc/img/mirror-badge.svg?v=3",
+    "https://lewdupload.net/file?id=xfD4uniIZ9CM",
+    "https://galaxyfiles.org/file?id=xfD4uniIZ9CM"
+   ],
+   "openUrl": true,
+   "tags": [
+    "安卓",
+    "冒险"
+   ],
+   "updated": "2026-11-11",
+   "views": 1376,
+   "likes": 86,
+   "featured": false
+  },
+  {
+   "name": "Paradise Overlap",
+   "cat": "安卓版",
+   "size": "APK",
+   "free": false,
+   "platform": "mobile",
+   "androidScraped": true,
+   "cover": "covers/poster_and9.jpg",
+   "poster": "covers/poster_and9.jpg",
+   "shots": [
+    "covers/poster_and9.jpg"
+   ],
+   "desc": "乐园题材，剧情向多结局。安卓版本已更新到 v0.8.3。",
+   "detail": "乐园题材，剧情向多结局。安卓版本已更新到 v0.8.3。\n\n类型：剧情 · 多结局\n\n安装方式：点「免费下载（镜像）」打开镜像页，选标有 Android/APK 的那一项下载，装到手机即可，不需要模拟器。\n如果镜像页里只有 PC 版，说明该版本暂未提供安卓包，可用 Winlator 尝试。",
+   "url": "https://uploadbay.co/ifwrg5yzdzk4",
+   "mirrors": [
+    "https://uploadbay.co/ifwrg5yzdzk4",
+    "https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2",
+    "https://fastdrop.cc/file?id=WSkP0bEfkvAe",
+    "https://fastdrop.cc/img/mirror-badge.svg?v=3",
+    "https://lewdupload.net/file?id=WSkP0bEfkvAe",
+    "https://galaxyfiles.org/file?id=WSkP0bEfkvAe"
+   ],
+   "openUrl": true,
+   "tags": [
+    "安卓",
+    "剧情"
+   ],
+   "updated": "2026-11-11",
+   "views": 1473,
+   "likes": 93,
+   "featured": false
+  },
+  {
+   "name": "Inn Another World",
+   "cat": "安卓版",
+   "size": "APK",
+   "free": false,
+   "platform": "mobile",
+   "androidScraped": true,
+   "cover": "covers/poster_and10.jpg",
+   "poster": "covers/poster_and10.jpg",
+   "shots": [
+    "covers/poster_and10.jpg"
+   ],
+   "desc": "异世界经营题材，你继承了一间旅店，客人各怀心事。",
+   "detail": "异世界经营题材，你继承了一间旅店，客人各怀心事。\n\n类型：经营 · 异世界\n\n安装方式：点「免费下载（镜像）」打开镜像页，选标有 Android/APK 的那一项下载，装到手机即可，不需要模拟器。\n如果镜像页里只有 PC 版，说明该版本暂未提供安卓包，可用 Winlator 尝试。",
+   "url": "https://uploadbay.co/m2e8u9veoqh7",
+   "mirrors": [
+    "https://uploadbay.co/m2e8u9veoqh7",
+    "https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2",
+    "https://fastdrop.cc/file?id=BHlvszeHxxwg",
+    "https://fastdrop.cc/img/mirror-badge.svg?v=3",
+    "https://lewdupload.net/file?id=BHlvszeHxxwg",
+    "https://galaxyfiles.org/file?id=BHlvszeHxxwg"
+   ],
+   "openUrl": true,
+   "tags": [
+    "安卓",
+    "经营"
+   ],
+   "updated": "2026-11-11",
+   "views": 1570,
+   "likes": 100,
+   "featured": false
+  },
+  {
+   "name": "Anime Hot Resort",
+   "cat": "安卓版",
+   "size": "APK",
+   "free": false,
+   "platform": "mobile",
+   "androidScraped": true,
+   "cover": "covers/poster_and11.jpg",
+   "poster": "covers/poster_and11.jpg",
+   "shots": [
+    "covers/poster_and11.jpg"
+   ],
+   "desc": "度假村经营 + 角色互动，画风明快，安卓公共版可直接玩。",
+   "detail": "度假村经营 + 角色互动，画风明快，安卓公共版可直接玩。\n\n类型：经营 · 轻松\n\n安装方式：点「免费下载（镜像）」打开镜像页，选标有 Android/APK 的那一项下载，装到手机即可，不需要模拟器。\n如果镜像页里只有 PC 版，说明该版本暂未提供安卓包，可用 Winlator 尝试。",
+   "url": "https://uploadbay.co/s3mie2jrr8b6",
+   "mirrors": [
+    "https://uploadbay.co/s3mie2jrr8b6",
+    "https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2",
+    "https://fastdrop.cc/file?id=BNCl15zBtzmp",
+    "https://fastdrop.cc/img/mirror-badge.svg?v=3",
+    "https://lewdupload.net/file?id=BNCl15zBtzmp",
+    "https://galaxyfiles.org/file?id=BNCl15zBtzmp"
+   ],
+   "openUrl": true,
+   "tags": [
+    "安卓",
+    "经营"
+   ],
+   "updated": "2026-11-11",
+   "views": 1667,
+   "likes": 107,
+   "featured": false
+  },
+  {
+   "name": "The Taste of Jealousy",
+   "cat": "安卓版",
+   "size": "APK",
+   "free": false,
+   "platform": "mobile",
+   "androidScraped": true,
+   "cover": "covers/poster_and12.jpg",
+   "poster": "covers/poster_and12.jpg",
+   "shots": [
+    "covers/poster_and12.jpg"
+   ],
+   "desc": "情感剧情向，围绕嫉妒与关系展开的短篇。",
+   "detail": "情感剧情向，围绕嫉妒与关系展开的短篇。\n\n类型：剧情 · 情感\n\n安装方式：点「免费下载（镜像）」打开镜像页，选标有 Android/APK 的那一项下载，装到手机即可，不需要模拟器。\n如果镜像页里只有 PC 版，说明该版本暂未提供安卓包，可用 Winlator 尝试。",
+   "url": "https://uploadbay.co/sa3watxe4e4x",
+   "mirrors": [
+    "https://uploadbay.co/sa3watxe4e4x",
+    "https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2",
+    "https://fastdrop.cc/file?id=vjb166iwqIgD",
+    "https://fastdrop.cc/img/mirror-badge.svg?v=3",
+    "https://lewdupload.net/file?id=vjb166iwqIgD",
+    "https://galaxyfiles.org/file?id=vjb166iwqIgD"
+   ],
+   "openUrl": true,
+   "tags": [
+    "安卓",
+    "剧情"
+   ],
+   "updated": "2026-11-11",
+   "views": 1764,
+   "likes": 114,
+   "featured": false
+  },
+  {
+   "name": "Other Side: Mop & Mayhem",
+   "cat": "安卓版",
+   "size": "APK",
+   "free": false,
+   "platform": "mobile",
+   "hasAndroid": true,
+   "cover": "covers/more7.jpg",
+   "poster": "covers/more7.jpg",
+   "shots": [
+    "covers/more7.jpg"
+   ],
+   "desc": "lustoriag 出品的剧情向作品，围绕一对姐妹与家庭关系展开，选择影响走向。安卓可直装。",
+   "detail": "lustoriag 出品的剧情向作品，围绕一对姐妹与家庭关系展开，选择影响走向。安卓可直装。\n\n类型：剧情 · 家庭\n\n安装：点「免费下载（镜像）」打开镜像页，选标 Android/APK 的下载，装到手机直接玩。",
+   "url": "https://uploadbay.co/7u100q6qrtz4",
+   "mirrors": [
+    "https://uploadbay.co/7u100q6qrtz4",
+    "https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2",
+    "https://fastdrop.cc/file?id=oHH7n8K6aayp",
+    "https://fastdrop.cc/img/mirror-badge.svg?v=3",
+    "https://lewdupload.net/file?id=oHH7n8K6aayp",
+    "https://galaxyfiles.org/file?id=oHH7n8K6aayp"
+   ],
+   "openUrl": true,
+   "tags": [
+    "安卓",
+    "剧情"
+   ],
+   "updated": "2026-11-11",
+   "views": 941,
+   "likes": 60,
+   "featured": false
+  },
+  {
+   "name": "A Simple Life with My Unobtrusive ",
+   "cat": "安卓版",
+   "size": "APK",
+   "free": false,
+   "platform": "mobile",
+   "hasAndroid": true,
+   "cover": "covers/more8.jpg",
+   "poster": "covers/more8.jpg",
+   "shots": [
+    "covers/more8.jpg"
+   ],
+   "desc": "日系日常养成，和沉默的妹妹一起生活，慢慢改变彼此。画风清爽，安卓可直装。",
+   "detail": "日系日常养成，和沉默的妹妹一起生活，慢慢改变彼此。画风清爽，安卓可直装。\n\n类型：日常 · 养成\n\n安装：点「免费下载（镜像）」打开镜像页，选标 Android/APK 的下载，装到手机直接玩。",
+   "url": "https://uploadbay.co/2rr47r942v1v",
+   "mirrors": [
+    "https://uploadbay.co/2rr47r942v1v",
+    "https://uploadbay.co/theme-bay/assets/logo.svg?v=bay2",
+    "https://fastdrop.cc/file?id=PzPZjvqLpGEg",
+    "https://fastdrop.cc/img/mirror-badge.svg?v=3",
+    "https://lewdupload.net/file?id=PzPZjvqLpGEg",
+    "https://galaxyfiles.org/file?id=PzPZjvqLpGEg"
+   ],
+   "openUrl": true,
+   "tags": [
+    "安卓",
+    "日常"
+   ],
+   "updated": "2026-11-11",
+   "views": 1004,
+   "likes": 65,
+   "featured": false
+  }
+ ],
+ "catalog_url": "",
+ "announce": {
+  "title": "开站公告",
+  "body": "游戏库已上线，全部资源免网盘直下。\n新用户注册送 1 天体验会员，签到可续天数。\n遇到问题联系客服。",
+  "version": "2026-11-11"
+ },
+ "invite": {
+  "bonus_days": 3,
+  "codes": [
+   "NIGHT2026",
+   "YEMAO666"
+  ]
+ },
+ "auth_api": "https://api.yemaogame.top",
+ "pay": {
+  "mode": "card",
+  "card_url": "",
+  "qr_image": "",
+  "contact": "QQ 3125869033",
+  "note": "付款后自动显示卡密，回到软件输入即可"
+ }
+}
