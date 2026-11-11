@@ -497,6 +497,9 @@ body{background:linear-gradient(180deg,#0d1020 0%,#0a0c16 38%,#07080d 100%);
 .mobtip b{display:block;font-size:12.5px;color:#a8f0cf;letter-spacing:.8px;margin-bottom:4px}
 .mobtip span{font-size:10.5px;color:#8b93ab}
 .badge2.mob{color:#8fe3c0}
+
+.kamientry{margin:16px 22px 0;padding:14px;border:1px dashed rgba(232,192,122,.45);
+  color:#e8c07a;font-size:12px;letter-spacing:2px;text-align:center;cursor:pointer}
 </style>
 </head>
 <body>
@@ -604,6 +607,7 @@ body{background:linear-gradient(180deg,#0d1020 0%,#0a0c16 38%,#07080d 100%);
     </div>
     <button class="bigbtn" id="payBtn" onclick="startPay()">请先选择套餐</button>
     <div class="payhelp" id="payHelp"></div>
+    <div class="kamientry" onclick="kamiSheet()">已有卡密？点此兑换 ›</div>
     <div class="notes" id="vipNotes">
       · 付款成功后卡密自动到账并激活<br>
       · 会员到期前 7 天首页会提示续费<br>
@@ -1686,6 +1690,24 @@ function pickPay(p){
 }
 
 let PAY_ORDER = "", PAY_TIMER = null, PAY_INFO = null;
+
+/* ---------- 卡密兑换 ---------- */
+function kamiSheet(){
+  openSheet("<h3>兑换卡密</h3><div class='st'>输入卡密即可开通会员</div>" +
+    "<input id='kamiInput' class='inp2' placeholder='例如 YCABCD1234' " +
+    "style='text-transform:uppercase'>" +
+    "<button class='big' onclick='doRedeem()'>立即兑换</button>" +
+    "<div class='note' style='text-align:center'>卡密绑定当前设备，换设备需重新购买</div>");
+  setTimeout(function(){ var el=document.getElementById("kamiInput"); if(el) el.focus(); }, 300);
+}
+function doRedeem(){
+  var el = document.getElementById("kamiInput");
+  var v = (el ? el.value : "").trim().toUpperCase();
+  if(!v){ toast("请输入卡密"); return; }
+  closeSheet();
+  activate(v);
+}
+
 function startPay(){
   if(!SEL){ toast("先选套餐"); return; }
   var uid = "M" + String(Date.now()).slice(-8);
