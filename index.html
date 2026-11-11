@@ -1022,6 +1022,28 @@ let OPEN=null;
 
 
 
+
+/* ============ 上报队列（手机端网络不稳，先存后传） ============ */
+var RQ_KEY = "yc_report_queue";
+function rqLoad(){ try{ return JSON.parse(localStorage.getItem(RQ_KEY)||"[]"); }catch(e){ return []; } }
+function rqSave(a){ try{ localStorage.setItem(RQ_KEY, JSON.stringify(a.slice(-200))); }catch(e){} }
+function rqPush(body){ var a=rqLoad(); a.push(body); rqSave(a); rqFlush(); }
+function rqFlush(){
+  var base = apiBase(); if(!base) return;
+  var a = rqLoad(); if(!a.length) return;
+  var item = a[0];
+  try{
+    var ctl = window.AbortController ? new AbortController() : null;
+    var t = setTimeout(function(){ if(ctl) ctl.abort(); }, 8000);
+    fetch(base + "/ev", {method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify(item), signal: ctl?ctl.signal:undefined})
+      .then(function(r){ clearTimeout(t); if(r.ok){ var q=rqLoad(); q.shift(); rqSave(q); setTimeout(rqFlush, 500); } })
+      .catch(function(){ clearTimeout(t); });
+  }catch(e){}
+}
+setInterval(rqFlush, 30000);
+window.addEventListener("online", rqFlush);
+
 /* ================= 后台联动 ================= */
 function apiBase(){ return "https://api.yemaogame.top"; }
 /* 带超时的请求，避免一直转圈 */
@@ -1044,13 +1066,7 @@ function reportEvent(type, extra){
     vipExpire: ME.vip? ME.vip.expire : "",
     vipType: ME.vip? ME.vip.type : ""
   }, extra||{});
-  try{
-    var ctl = window.AbortController ? new AbortController() : null;
-    var t = setTimeout(function(){ if(ctl) ctl.abort(); }, 6000);
-    fetch(base + "/ev", {method:"POST",headers:{"Content-Type":"application/json"},
-      body: JSON.stringify(body), signal: ctl?ctl.signal:undefined})
-      .then(function(){ clearTimeout(t); }).catch(function(){ clearTimeout(t); });
-  }catch(e){}
+  rqPush(body);
 }
 
 function checkBanAndEnter(next){
